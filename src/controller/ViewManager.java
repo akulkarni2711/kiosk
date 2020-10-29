@@ -30,10 +30,13 @@ public class ViewManager {
 		((CardLayout) views.getLayout()).show(views, view);
 	}
 	
-	public void login(String employeeID, int pin) {
+	public void employeeLogin(String email, int pin) {
 		LoginView lv = ((LoginView) views.getComponenets()[Kiosk.LOGIN_VIEW_INDEX]);
 	}
 	
+	public void guestLogin() {
+		
+	}
 	
 	
 	

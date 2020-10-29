@@ -16,7 +16,6 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.JTable;
 
 import GUI.Kiosk;
 import controller.ViewManager;
@@ -26,56 +25,21 @@ import model.Menu;
 import model.Order;
 
 
-public class MenuView extends JPanel {
+public class EmployeeMenuView extends JPanel {
 	
 	private ViewManager manager;
 	private JLabel itemName;
 	private JLabel itemPrice;
 	private JButton goToItem;
 	private JLabel totalCost;
-	private JLabel JScrollBar;
-	private JLabel picture;
-	private JButton cancelAndLogout;
-	private JTable itemMenu;
 	
 	
-	
-    public MenuView(ViewManager manager) {
+    public EmployeeMenuView(ViewManager manager) {
         super();
         
         this.manager = manager;
 
         this.init();
     }
-    
-    private void init() {
-    	this.setLayout(null);
-    	
-    	initTitle();
-    	initMenuTable();
-    	initGoToItem();
-    	initCancelAndLogout();
-    	
-    }
-    
-    private void initTitle() {
-    	JLabel title = new JLabel("Joe's Restaraunt Kiosk", SwingConstants.CENTER);
-    	title.setBounds(0, 20, 500, 35);
-    	title.setFont(new Font("DialogInput", Font.BOLD, 21));
-    	
-    	this.add(title);
-    }
-    
-    private void initMenuTable() {
-    }
-    
-    private void initGoToItem() {
-    	
-    }
-    
-    private void initCancelAndLogout() {
-    	
-    }
-    
 
 }

@@ -16,6 +16,8 @@ import views.MenuView;
 import views.CartView;
 import views.CheckoutView;
 import views.ItemView;
+import views.EmployeeMenuView;
+import views.EmployeeItemView;
 
 public class Kiosk extends JFrame {
 	
@@ -24,12 +26,16 @@ public class Kiosk extends JFrame {
 	public static final String CART_VIEW = "CART_VIEW";
 	public static final String CHECKOUT_VIEW = "CHECKOUT_VIEW";
 	public static final String ITEM_VIEW = "ITEM_VIEW";
+	public static final String EMPLOYEE_MENU_VIEW = "EMPLOYEE_MENU_VIEW";
+	public static final String EMPLOYEE_ITEM_VIEW = "EMPLOYEE_ITEM_VIEW";
 	
 	public static final int LOGIN_VIEW_INDEX = 0;
 	public static final int MENU_VIEW_INDEX = 1;
 	public static final int CART_VIEW_INDEX = 2;
 	public static final int CHECKOUT_VIEW_INDEX = 3;
 	public static final int ITEM_VIEW_INDEX = 4;
+	public static final int EMPLOYEE_MENU_VIEW_INDEX = 5;
+	public static final int EMPLOYEE_ITEM_VIEW_INDEX = 6;
 	
 	public static final String[] errorMessages = {
 			"",
@@ -67,6 +73,8 @@ public class Kiosk extends JFrame {
 		views.add(new CartView(manager), CART_VIEW);
 		views.add(new CheckoutView(manager), CHECKOUT_VIEW);
 		views.add(new ItemView(manager), ITEM_VIEW);
+		views.add(new EmployeeMenuView(manager), EMPLOYEE_MENU_VIEW);
+		views.add(new EmployeeItemView(manager), EMPLOYEE_ITEM_VIEW);
 		
 		this.add(views);
 		this.setBounds(100,100,500,500);
