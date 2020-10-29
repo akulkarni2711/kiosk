@@ -2,12 +2,13 @@ package model;
 
 public class Employee {
 	
+	private static long employeeCounter = 0;
 	private String firstName;
 	private String lastName;
 	private String emailAddress;
 	private long phoneNumber;
 	private int pin;
-	private Order order;
+	private long employeeID;
 	
 	public Employee(String firstName, String lastName, String emailAddress, long phoneNumber, int pin) {
 		this.firstName = firstName;
@@ -15,8 +16,7 @@ public class Employee {
 		this.emailAddress = emailAddress;
 		this.phoneNumber = phoneNumber;
 		this.pin = pin;
-		
-		this.order = new Order();
+		this.employeeID = employeeCounter++;
 	}
 	
 	
@@ -37,8 +37,8 @@ public class Employee {
 		return phoneNumber;
 	}
 	
-	public Order getAccount() {
-		return order;
+	public long getAccount() {
+		return employeeID;
 	}
 	
 	public int getPin() {

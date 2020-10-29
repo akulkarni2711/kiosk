@@ -25,16 +25,17 @@ import model.Menu;
 import model.Order;
 
 
-public class MenuView extends JPanel {
+public class ItemView extends JPanel {
 	
 	private ViewManager manager;
 	private JLabel itemName;
 	private JLabel itemPrice;
-	private JButton goToItem;
+	private JButton removeItem;
+	private JButton checkout;
 	private JLabel totalCost;
 	
 	
-    public MenuView(ViewManager manager) {
+    public ItemView(ViewManager manager) {
         super();
         
         this.manager = manager;

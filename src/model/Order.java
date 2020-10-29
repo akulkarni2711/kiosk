@@ -58,8 +58,4 @@ public class Order {
 	public long getOrderNumber() {
 		return orderNumber;
 	} 
-	
-	
-	
-
 }
