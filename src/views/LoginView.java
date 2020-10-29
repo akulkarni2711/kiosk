@@ -1,3 +1,6 @@
+//WOW JOSE U FINALLY OPENED THE PROJECT. CONGRATULATIONS!!!!
+
+
 package views;
 
 import java.awt.Color;
@@ -30,7 +33,7 @@ public class LoginView extends JPanel {
 	public LoginView(ViewManager manager) {
 		super();
 		this.manager = manager;
-		this.init();
+		init();
 	}
 	
 	public void toggleErrorMessage(boolean show) {

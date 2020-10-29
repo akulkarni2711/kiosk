@@ -1,3 +1,5 @@
+//WOW JOSE U FINALLY OPENED THE PROJECT. CONGRATULATIONS!!!!
+
 package model;
 import java.util.HashMap;
 
@@ -32,6 +34,10 @@ public class Menu {
 	
 	public boolean addMenuItem(Item item) {
 		return true;
+	}
+	
+	public HashMap<Integer, Item> getHashMap() {
+		return menuItems;
 	}
 
 }

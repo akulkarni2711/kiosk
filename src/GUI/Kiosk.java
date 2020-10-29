@@ -1,3 +1,5 @@
+//WOW JOSE U FINALLY OPENED THE PROJECT. CONGRATULATIONS!!!!
+
 package GUI;
 import java.awt.CardLayout;
 import java.util.ArrayList;
@@ -19,6 +21,7 @@ import views.ItemView;
 import views.EmployeeMenuView;
 import views.EmployeeItemView;
 
+@SuppressWarnings("serial")
 public class Kiosk extends JFrame {
 	
 	public static final String LOGIN_VIEW = "LOGIN_VIEW";

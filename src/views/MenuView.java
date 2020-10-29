@@ -1,3 +1,5 @@
+//WOW JOSE U FINALLY OPENED THE PROJECT. CONGRATULATIONS!!!!
+
 package views;
 
 import java.awt.Color;
@@ -16,7 +18,12 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableModel;
+
+import java.util.Iterator;
 import javax.swing.JTable;
+import java.util.HashMap;
+import java.util.Map.Entry;
 
 import GUI.Kiosk;
 import controller.ViewManager;
@@ -37,15 +44,14 @@ public class MenuView extends JPanel {
 	private JLabel picture;
 	private JButton cancelAndLogout;
 	private JTable itemMenu;
-	
+	private Menu m;
 	
 	
     public MenuView(ViewManager manager) {
         super();
-        
         this.manager = manager;
-
-        this.init();
+        m = Menu.getInstance();
+        init();
     }
     
     private void init() {
@@ -67,9 +73,28 @@ public class MenuView extends JPanel {
     }
     
     private void initMenuTable() {
+    	
+    	JTable menuItems = new JTable(new DefaultTableModel(new Object[]{"", ""}, 1));
+    	HashMap<Integer, Item> entry = m.getHashMap();
+    	int length = entry.size();
+    	Object[][] data = new Object[2][length];
+    	Iterator it = entry.entrySet().iterator();
+    	while (it.hasNext()) {
+    		HashMap.Entry pair = (HashMap.Entry)it.next();
+    		int count = (Integer) pair.getKey();
+    		data[count][1] = entry.get(count);
+    		data[count][2] = new JButton;
+    	}
+    	
+    	
+    	this.add(menuItems);
+    	
     }
     
     private void initGoToItem() {
+    	
+    	
+    	
     	
     }
     

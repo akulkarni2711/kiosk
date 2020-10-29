@@ -1,3 +1,5 @@
+//WOW JOSE U FINALLY OPENED THE PROJECT. CONGRATULATIONS!!!!
+
 package views;
 
 import java.awt.Color;
@@ -39,8 +41,10 @@ public class ItemView extends JPanel {
         super();
         
         this.manager = manager;
-
-        this.init();
+    }
+    
+    public void init(int item) {
+    	
     }
 
 }

@@ -1,3 +1,5 @@
+//WOW JOSE U FINALLY OPENED THE PROJECT. CONGRATULATIONS!!!!
+
 package model;
 import java.util.Date;
 import java.util.HashMap;
