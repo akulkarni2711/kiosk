@@ -1,5 +1,3 @@
-//WOW JOSE U FINALLY OPENED THE PROJECT. CONGRATULATIONS!!!!
-
 package views;
 
 import java.awt.Color;
@@ -41,7 +39,15 @@ public class EmployeeMenuView extends JPanel {
         
         this.manager = manager;
 
-        this.init();
+        init();
+    }
+    
+    public static void init() {
+    	
+    }
+    
+    public static void populate() {
+    	
     }
 
 }

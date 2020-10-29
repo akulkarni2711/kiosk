@@ -1,5 +1,3 @@
-//WOW JOSE U FINALLY OPENED THE PROJECT. CONGRATULATIONS!!!!
-
 package GUI;
 import java.awt.CardLayout;
 import java.util.ArrayList;
@@ -59,9 +57,9 @@ public class Kiosk extends JFrame {
 		
 	}
 	
-	public Employee lookupUser(long employeeID) {
+	public static Employee lookupUser(long employeeID, int pin) {
 		for (int k = 0; k < employees.size(); k++) {
-			if (employees.get(k).getAccount() == employeeID) {
+			if (employees.get(k).getAccount() == employeeID && employees.get(k).getPin() == pin) {
 				return employees.get(k);
 			}
 		}

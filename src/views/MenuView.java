@@ -1,5 +1,3 @@
-//WOW JOSE U FINALLY OPENED THE PROJECT. CONGRATULATIONS!!!!
-
 package views;
 
 import java.awt.Color;
@@ -82,11 +80,20 @@ public class MenuView extends JPanel {
     	while (it.hasNext()) {
     		HashMap.Entry pair = (HashMap.Entry)it.next();
     		int count = (Integer) pair.getKey();
-    		data[count][1] = entry.get(count);
-    		data[count][2] = new JButton;
+    		data[count][0] = entry.get(count).getName() + entry.get(count).getCost();
+    		JButton orderButton = new JButton("Order");
+    		orderButton.setActionCommand(Integer.toString(count));
+    		
+    		orderButton.addActionListener(new ActionListener() {
+    			public void actionPerformed(ActionEvent e) {
+    				String action = orderButton.getActionCommand();
+    				int action_id = Integer.parseInt(action);
+    				ItemView.init(action_id);	
+    			}
+    		});
+    		
+    		data[count][1] = orderButton;
     	}
-    	
-    	
     	this.add(menuItems);
     	
     }

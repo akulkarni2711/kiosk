@@ -1,6 +1,3 @@
-//WOW JOSE U FINALLY OPENED THE PROJECT. CONGRATULATIONS!!!!
-
-
 package views;
 
 import java.awt.Color;
@@ -24,7 +21,7 @@ import controller.ViewManager;
 public class LoginView extends JPanel {
 	
 	private ViewManager manager;
-	private JTextField emailField;
+	private JTextField IDField;
 	private JPasswordField pinField;
 	private JButton loginButton;
 	private JButton guestButton;
@@ -46,7 +43,7 @@ public class LoginView extends JPanel {
 	}
 	
 	public void clear() {
-		emailField.setText("");
+		IDField.setText("");
 		pinField.setText("");
 		
 		toggleErrorMessage(false);
@@ -57,7 +54,7 @@ public class LoginView extends JPanel {
 		
 		initTitle();
 		initErrorMessageLabel();
-		initEmailField();
+		initIDField();
 		initPinField();
 		initLoginButton();
 		initGuestButton();
@@ -80,22 +77,22 @@ public class LoginView extends JPanel {
 		this.add(errorMessageLabel);
 	}
 	
-	private void initEmailField() {
-		JLabel label = new JLabel("Email: ", SwingConstants.RIGHT);
+	private void initIDField() {
+		JLabel label = new JLabel("Employee ID: ", SwingConstants.RIGHT);
 		label.setBounds(100, 160, 95, 35);
-		label.setLabelFor(emailField);;
+		label.setLabelFor(IDField);;
 		label.setFont(new Font("DialogInput", Font.BOLD, 14));
 		
-		emailField = new JTextField(20);
-		emailField.setBounds(205, 160, 200, 35);
+		IDField = new JTextField(20);
+		IDField.setBounds(205, 160, 200, 35);
 		
-		emailField.addKeyListener(new KeyAdapter() {
+		IDField.addKeyListener(new KeyAdapter() {
 		
 		});
 		
 		
 		this.add(label);
-		this.add(emailField);
+		this.add(IDField);
 	}
 	
 	private void initPinField() {
@@ -131,11 +128,12 @@ public class LoginView extends JPanel {
 				Object source = e.getSource();
 				
 				if (source.equals(loginButton)) {
-					String email = emailField.getText();
+					String emp = IDField.getText();
+					Long employeeID = Long.parseLong(emp);
 					char[] digits = pinField.getPassword();
 					int pin = Integer.parseInt(new String(digits));
 					
-					manager.employeeLogin(email, pin);
+					manager.employeeLogin(employeeID, pin);
 				}
 			}
 		});

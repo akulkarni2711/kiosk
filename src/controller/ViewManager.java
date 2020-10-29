@@ -1,5 +1,3 @@
-//WOW JOSE U FINALLY OPENED THE PROJECT. CONGRATULATIONS!!!!
-
 package controller;
 
 
@@ -12,6 +10,13 @@ import model.Employee;
 import model.Item;
 import model.Menu;
 import model.Order;
+import views.LoginView;
+import views.MenuView;
+import views.ItemView;
+import views.EmployeeItemView;
+import views.EmployeeMenuView;
+import views.CheckoutView;
+import views.CartView;
 
 
 public class ViewManager {
@@ -32,8 +37,24 @@ public class ViewManager {
 		((CardLayout) views.getLayout()).show(views, view);
 	}
 	
-	public void employeeLogin(String email, int pin) {
-		LoginView lv = ((LoginView) views.getComponenets()[Kiosk.LOGIN_VIEW_INDEX]);
+	public void employeeLogin(Long employeeID, int pin) {
+		LoginView lv = ((LoginView) views.getComponents()[Kiosk.LOGIN_VIEW_INDEX]);
+		
+		try {
+			activeEmployee = Kiosk.lookupUser(employeeID, pin);
+			
+			if (activeEmployee == null) {
+				lv.toggleErrorMessage(true);
+			}
+			else {
+				((EmployeeMenuView) views.getComponents()[Kiosk.EMPLOYEE_MENU_VIEW_INDEX]).populate(activeEmployee);
+				
+				switchTo(Kiosk.EMPLOYEE_MENU_VIEW);
+				lv.clear();
+			}
+		} catch (NumberFormatException e) {
+			lv.toggleErrorMessage(true);
+		}
 	}
 	
 	public void guestLogin() {
