@@ -9,10 +9,10 @@ import GUI.Kiosk;
 import model.Employee;
 import model.Item;
 import model.Menu;
-import model.Order;
-import views.LoginView;
+import model.Cart;
 import views.MenuView;
 import views.ItemView;
+import views.LoginView;
 import views.EmployeeItemView;
 import views.EmployeeMenuView;
 import views.CheckoutView;
@@ -21,8 +21,8 @@ import views.CartView;
 
 public class ViewManager {
 	
-	private Container views;
-	private Employee activeEmployee;
+	private static Container views;
+	private static Employee activeEmployee;
 	
 	public ViewManager(Container views) {
 		this.views = views;
@@ -33,7 +33,7 @@ public class ViewManager {
 		return activeEmployee;
 	}
 	
-	public void switchTo(String view) {
+	public static void switchTo(String view) {
 		((CardLayout) views.getLayout()).show(views, view);
 	}
 	
@@ -58,9 +58,30 @@ public class ViewManager {
 	}
 	
 	public void guestLogin() {
-		
+		((MenuView) views.getComponents()[Kiosk.MENU_VIEW_INDEX]).populate();
+		switchTo(Kiosk.MENU_VIEW);
 	}
 	
+	public static void logOut() {
+		activeEmployee = null;
+		Cart.itemsOrdered.clear();
+		switchTo(Kiosk.LOGIN_VIEW);
+	}
+	
+	public void goToItem() {
+		((ItemView) views.getComponents()[Kiosk.ITEM_VIEW_INDEX]).populate();
+		switchTo(Kiosk.ITEM_VIEW);
+	}
+	
+	public void goToCart() {
+		((CartView) views.getComponents()[Kiosk.CART_VIEW_INDEX]).populate();
+		switchTo(Kiosk.CART_VIEW);
+	}
+	
+	public void goToCheckout() {
+		((CheckoutView) views.getComponents()[Kiosk.CHECKOUT_VIEW_INDEX]).populate();
+		switchTo(Kiosk.CHECKOUT_VIEW);
+	}
 	
 	
 

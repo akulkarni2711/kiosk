@@ -28,19 +28,16 @@ import controller.ViewManager;
 import model.Employee;
 import model.Item;
 import model.Menu;
-import model.Order;
+import model.Cart;
 
 
 public class MenuView extends JPanel {
 	
 	private ViewManager manager;
-	private JLabel itemName;
-	private JLabel itemPrice;
-	private JButton goToItem;
+	private JButton orderButton;
 	private JLabel totalCost;
 	private JLabel JScrollBar;
-	private JLabel picture;
-	private JButton cancelAndLogout;
+	private JButton logoutButton;
 	private JTable itemMenu;
 	private Menu m;
 	
@@ -57,8 +54,7 @@ public class MenuView extends JPanel {
     	
     	initTitle();
     	initMenuTable();
-    	initGoToItem();
-    	initCancelAndLogout();
+    	initLogoutButton();
     	
     }
     
@@ -81,7 +77,7 @@ public class MenuView extends JPanel {
     		HashMap.Entry pair = (HashMap.Entry)it.next();
     		int count = (Integer) pair.getKey();
     		data[count][0] = entry.get(count).getName() + entry.get(count).getCost();
-    		JButton orderButton = new JButton("Order");
+    		orderButton = new JButton("Order");
     		orderButton.setActionCommand(Integer.toString(count));
     		
     		orderButton.addActionListener(new ActionListener() {
@@ -98,16 +94,14 @@ public class MenuView extends JPanel {
     	
     }
     
-    private void initGoToItem() {
-    	
-    	
-    	
-    	
+    private void initLogoutButton() {
+    	logoutButton = new JButton("Cancel Order and Logout");
+    	logoutButton.addActionListener(new ActionListener() {
+    		public void actionPerformed(ActionEvent e) {
+    			ViewManager.logOut();
+    		}
+    	});
+    	this.add(logoutButton);
     }
-    
-    private void initCancelAndLogout() {
-    	
-    }
-    
 
 }

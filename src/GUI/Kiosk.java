@@ -8,7 +8,7 @@ import javax.swing.SwingUtilities;
 
 import controller.ViewManager;
 import model.Employee;
-import model.Order;
+import model.Cart;
 import model.Menu;
 import model.Item;
 import views.LoginView;
@@ -46,6 +46,7 @@ public class Kiosk extends JFrame {
 	
 	
 	private static ArrayList<Employee> employees;
+	public static ArrayList<Item> items;
 	
 	public Kiosk() {
 		super("Kiosk");
@@ -53,6 +54,11 @@ public class Kiosk extends JFrame {
 		
 		Kiosk.employees.add(new Employee("Joe", "Schmoe", "jschmoe@gmail.com", 1234567890, 1234));
 		Kiosk.employees.add(new Employee("Bob", "Dabuilder", "bdabuilder@gmail.com", 1234566543, 4321));
+		
+		Kiosk.items = new ArrayList<Item>();
+		
+		Kiosk.items.add(new Item("Chicken Dumplings", 9.99, "Fried chicken dumplings with soy sauce.", null));
+		Kiosk.items.add(new Item("Fried Rice", 3.99, "Fried white rice with corn, peas, and mushrooms.", null));
 		
 		
 	}

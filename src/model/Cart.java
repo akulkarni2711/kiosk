@@ -1,19 +1,20 @@
 package model;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Calendar;
+import GUI.Kiosk;
 
-public class Order {
+
+
+public class Cart {
 	
 	private static long orderCounter = 0;
 	
-	private Date date = new Date();
 	private double totalCost;
 	private long orderNumber;
-	HashMap<Integer,Integer> itemsOrdered;
+	public static HashMap<Integer,Integer> itemsOrdered;
 	private Menu m;
 	
-	public Order() {
+	public Cart() {
 		this.orderNumber = orderCounter++;
 		totalCost = 0;
 		itemsOrdered = new HashMap<Integer,Integer>();

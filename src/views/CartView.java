@@ -22,7 +22,7 @@ import controller.ViewManager;
 import model.Employee;
 import model.Item;
 import model.Menu;
-import model.Order;
+import model.Cart;
 
 
 public class CartView extends JPanel {
@@ -40,7 +40,20 @@ public class CartView extends JPanel {
         
         this.manager = manager;
 
-        this.init();
+        init();
+    }
+    
+    public void init() {
+    	initTitle();
+    	
+    }
+    
+    private void initTitle() {
+    	JLabel title = new JLabel("Joe's Restaraunt Kiosk", SwingConstants.CENTER);
+    	title.setBounds(0, 20, 500, 35);
+    	title.setFont(new Font("DialogInput", Font.BOLD, 21));
+    	
+    	this.add(title);
     }
 
 }
