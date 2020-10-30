@@ -11,8 +11,8 @@ import model.Item;
 import model.Menu;
 import model.Cart;
 import views.MenuView;
-import views.ItemView;
 import views.LoginView;
+import views.ItemView;
 import views.EmployeeItemView;
 import views.EmployeeMenuView;
 import views.CheckoutView;
@@ -23,10 +23,14 @@ public class ViewManager {
 	
 	private static Container views;
 	private static Employee activeEmployee;
+	private static Item activeItem;
+	private static Cart activeCart;
 	
 	public ViewManager(Container views) {
 		this.views = views;
 		this.activeEmployee = null;
+		this.activeItem = null;
+		this.activeCart = null;
 	}
 	
 	public Employee getActiveEmployee() {
@@ -58,7 +62,7 @@ public class ViewManager {
 	}
 	
 	public void guestLogin() {
-		((MenuView) views.getComponents()[Kiosk.MENU_VIEW_INDEX]).populate();
+		((MenuView) views.getComponents()[Kiosk.MENU_VIEW_INDEX]).populate("default");
 		switchTo(Kiosk.MENU_VIEW);
 	}
 	
@@ -69,17 +73,17 @@ public class ViewManager {
 	}
 	
 	public void goToItem() {
-		((ItemView) views.getComponents()[Kiosk.ITEM_VIEW_INDEX]).populate();
+		((ItemView) views.getComponents()[Kiosk.ITEM_VIEW_INDEX]).populate(activeItem);
 		switchTo(Kiosk.ITEM_VIEW);
 	}
 	
 	public void goToCart() {
-		((CartView) views.getComponents()[Kiosk.CART_VIEW_INDEX]).populate();
+		((CartView) views.getComponents()[Kiosk.CART_VIEW_INDEX]).populate(activeCart);
 		switchTo(Kiosk.CART_VIEW);
 	}
 	
 	public void goToCheckout() {
-		((CheckoutView) views.getComponents()[Kiosk.CHECKOUT_VIEW_INDEX]).populate();
+		((CheckoutView) views.getComponents()[Kiosk.CHECKOUT_VIEW_INDEX]).populate(activeCart);
 		switchTo(Kiosk.CHECKOUT_VIEW);
 	}
 	

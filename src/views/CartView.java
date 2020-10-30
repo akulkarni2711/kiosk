@@ -8,14 +8,18 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.util.HashMap;
+import java.util.Iterator;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableModel;
 
 import GUI.Kiosk;
 import controller.ViewManager;
@@ -30,9 +34,10 @@ public class CartView extends JPanel {
 	private ViewManager manager;
 	private JLabel itemName;
 	private JLabel itemPrice;
-	private JButton removeItem;
+	private JButton removeButton;
 	private JButton checkout;
 	private JLabel totalCost;
+	private Menu m;
 	
 	
     public CartView(ViewManager manager) {
@@ -45,6 +50,7 @@ public class CartView extends JPanel {
     
     public void init() {
     	initTitle();
+    	initItemTable();
     	
     }
     
@@ -55,5 +61,36 @@ public class CartView extends JPanel {
     	
     	this.add(title);
     }
+    
+    private void initItemTable() {
+    	
+    	JTable items = new JTable(new DefaultTableModel(new Object[]{"", ""}, 1));
+    	HashMap<Integer, Item> entry = m.getHashMap();
+    	int length = entry.size();
+    	Object[][] data = new Object[2][length];
+    	Iterator it = entry.entrySet().iterator();
+    	while (it.hasNext()) {
+    		HashMap.Entry pair = (HashMap.Entry)it.next();
+    		int count = (Integer) pair.getKey();
+    		data[count][0] = entry.get(count).getName() + entry.get(count).getCost();
+    		removeButton = new JButton("Remove");
+    		removeButton.setActionCommand(Integer.toString(count));
+    		
+    		removeButton.addActionListener(new ActionListener() {
+    			public void actionPerformed(ActionEvent e) {
+    				String action = removeButton.getActionCommand();
+    				int action_id = Integer.parseInt(action);
+    				Cart.removeItem(action_id);
+    				init();
+    			}
+    		});
+    		
+    		data[count][1] = removeButton;
+    	}
+    	this.add(menuItems);
+    	
+    }
+    
+    
 
 }

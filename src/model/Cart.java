@@ -35,16 +35,13 @@ public class Cart {
 		return false;
 	}
 	
-	public boolean removeItem(int itemID) {
+	public void removeItem(int itemID) {
 		
 		if (itemsOrdered.containsKey(itemID)) {
 			int q = itemsOrdered.get(itemID);
 			itemsOrdered.remove(itemID);
 			totalCost -= m.getItem(itemID).getCost() * q;
-		
-			return true;
 		}
-		return false;
 	}
 	
 	public void removeAll() {
