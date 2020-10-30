@@ -10,6 +10,8 @@ public class Menu {
 	
 	public Menu() {
 		
+		menuItems = new HashMap<Integer, Item>();
+		
 	}
 	
 	public static Menu getInstance() {
@@ -30,12 +32,16 @@ public class Menu {
 		return menuItems.get(itemID);
 	}
 	
-	public boolean addMenuItem(Item item) {
-		return true;
-	}
-	
 	public HashMap<Integer, Item> getHashMap() {
 		return menuItems;
+	}
+	
+	public void addMenuItem(Item item) {
+		menuItems.put(item.getItemID(), item);
+	}
+	
+	public void removeMenuItem(int itemID) {
+		menuItems.remove(itemID);
 	}
 
 }

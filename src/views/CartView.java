@@ -80,7 +80,6 @@ public class CartView extends JPanel {
     			public void actionPerformed(ActionEvent e) {
     				String action = removeButton.getActionCommand();
     				int action_id = Integer.parseInt(action);
-    				Cart.removeItem(action_id);
     				init();
     			}
     		});

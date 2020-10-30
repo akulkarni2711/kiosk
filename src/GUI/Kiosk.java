@@ -90,6 +90,9 @@ public class Kiosk extends JFrame {
 		this.setResizable(false);
 		this.setVisible(true);
 		
+		Menu menu = new Menu();
+		Cart cart = new Cart();
+		
 		
 	}
 	

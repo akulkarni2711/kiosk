@@ -1,6 +1,7 @@
 package views;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Font;
 import java.awt.Image;
 import javax.imageio.ImageIO;
@@ -43,21 +44,30 @@ public class ItemView extends JPanel {
 	private JButton backToMenu;
 	private JButton cancelAndLogout;
 	private JSpinner quantity;
-	private int itemID;
+	private Item item;
+	private Menu m;
 	
 	
     public ItemView(ViewManager manager) {
         super();
         
+        m = Menu.getInstance();
+        
         this.manager = manager;
     }
     
-    public void init(int itemID) {
-    	this.itemID = itemID;
+    private void init() {
+    	this.removeAll();
+    	this.setLayout(null);
+    	this.item = manager.getActiveItem();
     	initTitle();
-    	initInformation(itemID);
+    	initInformation(item);
     	initQuantity();
     	
+    }
+    
+    public void updateCard() {
+    	init();
     }
     
     private void initTitle() {
@@ -68,12 +78,12 @@ public class ItemView extends JPanel {
     	this.add(title);
     }
     
-    private void initInformation(int itemID) {
-    	itemName = new JLabel(Kiosk.items.get(itemID).getName());
-    	itemPrice = new JLabel(String.valueOf(Kiosk.items.get(itemID).getCost()));
-    	itemDescription = new JLabel(Kiosk.items.get(itemID).getDescription());
+    private void initInformation(Item item) {
+    	itemName = new JLabel(item.getName());
+    	itemPrice = new JLabel(Double.toString(item.getCost()));
+    	itemDescription = new JLabel(item.getDescription());
     	try {
-    		File sourceImage = new File("C:\\Users\\Aaron\\OneDrive\\Pictures\\Camera Roll");
+    		File sourceImage = new File("C:\\Users\\Aaron\\OneDrive\\Pictures\\Camera Roll\\Sam.jpg");
     		Image image = ImageIO.read(sourceImage);
     		picture = new JLabel(new ImageIcon(image));
     	} catch (IOException e) {
@@ -86,9 +96,12 @@ public class ItemView extends JPanel {
     }
     
     private void initQuantity() {
-    	SpinnerNumberModel quantity = new SpinnerNumberModel(0,0,100,1); 
+    	SpinnerNumberModel model = new SpinnerNumberModel(0,0,100,1);
+    	JSpinner quantity = new JSpinner(model);
+    	this.add(quantity);
     }
     
     public int endQuantity = (int) quantity.getValue();
+    
 
 }

@@ -50,12 +50,17 @@ public class MenuView extends JPanel {
     }
     
     private void init() {
+    	this.removeAll();
     	this.setLayout(null);
     	
     	initTitle();
     	initMenuTable();
     	initLogoutButton();
     	
+    }
+    
+    public void updateCard() {
+    	init();
     }
     
     private void initTitle() {
@@ -84,7 +89,7 @@ public class MenuView extends JPanel {
     			public void actionPerformed(ActionEvent e) {
     				String action = orderButton.getActionCommand();
     				int action_id = Integer.parseInt(action);
-    				ItemView.init(action_id);	
+    				manager.goToItem(action_id);	
     			}
     		});
     		
