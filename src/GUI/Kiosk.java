@@ -41,7 +41,8 @@ public class Kiosk extends JFrame {
 	public static final String[] errorMessages = {
 			"",
 			"The given email and password combination does not exist. Please try again.",
-			"The given credit card has already expired."
+			"The given credit card has already expired.",
+			"The given credit card is invalid."
 	};
 	
 	
