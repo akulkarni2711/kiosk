@@ -29,15 +29,22 @@ import model.Menu;
 import model.Cart;
 
 
+//TODO: Add a go to checkout button
+// Add a remove button
+//
+
 public class CartView extends JPanel {
 	
 	private ViewManager manager;
-	private JLabel itemName;
-	private JLabel itemPrice;
+	private JLabel allItems;
 	private JButton removeButton;
 	private JButton checkout;
 	private JLabel totalCost;
-	private Menu m;
+	private Cart c;
+	private String cartItems;
+	private int count1;
+	private int count2;
+	private String cartItemsShown = "<html>";
 	
 	
     public CartView(ViewManager manager) {
@@ -64,29 +71,45 @@ public class CartView extends JPanel {
     
     private void initItemTable() {
     	
-    	JTable items = new JTable(new DefaultTableModel(new Object[]{"", ""}, 1));
-    	HashMap<Integer, Item> entry = m.getHashMap();
-    	int length = entry.size();
-    	Object[][] data = new Object[2][length];
-    	Iterator it = entry.entrySet().iterator();
-    	while (it.hasNext()) {
-    		HashMap.Entry pair = (HashMap.Entry)it.next();
-    		int count = (Integer) pair.getKey();
-    		data[count][0] = entry.get(count).getName() + entry.get(count).getCost();
-    		removeButton = new JButton("Remove");
-    		removeButton.setActionCommand(Integer.toString(count));
-    		
-    		removeButton.addActionListener(new ActionListener() {
-    			public void actionPerformed(ActionEvent e) {
-    				String action = removeButton.getActionCommand();
-    				int action_id = Integer.parseInt(action);
-    				init();
+    	cartItems = Cart.itemsOrdered.toString();
+    	cartItems = cartItems.replace("{", "");
+    	cartItems = cartItems.replace("}", "");
+    	for (int k = 0; k < cartItems.length(); k++) {
+    		if (cartItems.charAt(k) == ('=')) {
+    			cartItems = cartItems.replaceFirst("=", "");
+    			count1 = 0;
+    		}
+    		else if (cartItems.charAt(k) == ',') {
+    			cartItems = cartItems.replaceFirst(", ", "");
+    			count2 = 0;
+    		}
+    		else {
+    			if (count1 == 0) {
+    				if (Character.isDigit(cartItems.charAt(k+1))) {
+        				count1 = Character.getNumericValue(cartItems.charAt(k)) * 10;
+        			}
+        			else {
+        				count1 += Character.getNumericValue(cartItems.charAt(k));
+        				cartItemsShown += "Item: " + Kiosk.items.get(count1).getName() + "<br/>";
+        			}
     			}
-    		});
-    		
-    		data[count][1] = removeButton;
+    			else {
+    				if (Character.isDigit(cartItems.charAt(k+1))) {
+        				count2 = Character.getNumericValue(cartItems.charAt(k)) * 10;
+        			}
+        			else {
+        				count2 += Character.getNumericValue(cartItems.charAt(k));
+        				cartItemsShown += "Quantity: " + Integer.toString(count2) + "<br/><br/><br/>";
+        			}
+    			}
+    		}
     	}
-    	this.add(menuItems);
+    	
+    	cartItemsShown += "</html>";
+    	
+    	allItems = new JLabel(cartItemsShown);
+    	
+    	this.add(allItems);
     	
     }
     

@@ -1,7 +1,8 @@
 package model;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Calendar;
 import GUI.Kiosk;
+import java.util.ArrayList;
 
 
 
@@ -11,13 +12,14 @@ public class Cart {
 	
 	private double totalCost;
 	private long orderNumber;
-	public static HashMap<Integer,Integer> itemsOrdered;
+	public static LinkedHashMap<Integer,Integer> itemsOrdered;
+	public ArrayList<Integer> stuff = new ArrayList<Integer>(100);
 	private Menu m;
 	
 	public Cart() {
 		this.orderNumber = orderCounter++;
 		totalCost = 0;
-		itemsOrdered = new HashMap<Integer,Integer>();
+		itemsOrdered = new LinkedHashMap<Integer,Integer>();
 	}
 	
 	public boolean addItem(int itemID, int quantity) {
@@ -30,6 +32,7 @@ public class Cart {
 				itemsOrdered.put(itemID, quantity);
 			}
 			totalCost += m.getItem(itemID).getCost() * quantity;
+			stuff.add(itemID);
 			return true;
 		}
 		return false;
@@ -41,6 +44,8 @@ public class Cart {
 			int q = itemsOrdered.get(itemID);
 			itemsOrdered.remove(itemID);
 			totalCost -= m.getItem(itemID).getCost() * q;
+			int position = stuff.indexOf(itemID);
+			stuff.remove(position);
 		}
 	}
 	
@@ -56,4 +61,9 @@ public class Cart {
 	public long getOrderNumber() {
 		return orderNumber;
 	} 
+	
+	public LinkedHashMap<Integer, Integer> getHashMap() {
+		return itemsOrdered;
+	}
+	
 }

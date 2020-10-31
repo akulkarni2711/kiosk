@@ -36,14 +36,16 @@ import model.Cart;
 
 public class ItemView extends JPanel {
 	
+	//TODO: Add messages to page when item is successfully added to cart
+	
 	private ViewManager manager;
 	private JLabel itemName;
 	private JLabel itemPrice;
 	private JLabel itemDescription;
 	private JLabel picture;
-	private JButton backToMenu;
-	private JButton cancelAndLogout;
+	private JButton backToMenuButton;
 	private JSpinner quantity;
+	private JButton addToCartButton;
 	private Item item;
 	private Menu m;
 	
@@ -63,6 +65,8 @@ public class ItemView extends JPanel {
     	initTitle();
     	initInformation(item);
     	initQuantity();
+    	initAddToCartButton();
+    	initBackToMenuButton();
     	
     }
     
@@ -101,7 +105,30 @@ public class ItemView extends JPanel {
     	this.add(quantity);
     }
     
-    public int endQuantity = (int) quantity.getValue();
+    private void initAddToCartButton() {
+    	
+        addToCartButton = new JButton("Add Item to Cart");
+        addToCartButton.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        	    int endQuantity = (int) quantity.getValue();
+        	    manager.addItem(item.getItemID(), endQuantity);
+        	}
+        });
+    	
+    }
+    
+    private void initBackToMenuButton() {
+    	
+    	backToMenuButton = new JButton("Cancel Order and Logout");
+    	backToMenuButton.addActionListener(new ActionListener() {
+    		public void actionPerformed(ActionEvent e) {
+    			ViewManager.switchTo("MENU_VIEW");
+    		}
+    	});
+    	this.add(backToMenuButton);
+    	
+    }
+    
     
 
 }

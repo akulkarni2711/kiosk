@@ -18,6 +18,7 @@ import views.CheckoutView;
 import views.ItemView;
 import views.EmployeeMenuView;
 import views.EmployeeItemView;
+import views.AfterCheckoutView;
 
 @SuppressWarnings("serial")
 public class Kiosk extends JFrame {
@@ -29,6 +30,7 @@ public class Kiosk extends JFrame {
 	public static final String ITEM_VIEW = "ITEM_VIEW";
 	public static final String EMPLOYEE_MENU_VIEW = "EMPLOYEE_MENU_VIEW";
 	public static final String EMPLOYEE_ITEM_VIEW = "EMPLOYEE_ITEM_VIEW";
+	public static final String AFTER_CHECKOUT_VIEW = "AFTER_CHECKOUT_VIEW";
 	
 	public static final int LOGIN_VIEW_INDEX = 0;
 	public static final int MENU_VIEW_INDEX = 1;
@@ -37,6 +39,7 @@ public class Kiosk extends JFrame {
 	public static final int ITEM_VIEW_INDEX = 4;
 	public static final int EMPLOYEE_MENU_VIEW_INDEX = 5;
 	public static final int EMPLOYEE_ITEM_VIEW_INDEX = 6;
+	public static final int AFTER_CHECKOUT_VIEW_INDEX = 7;
 	
 	public static final String[] errorMessages = {
 			"",
@@ -48,6 +51,8 @@ public class Kiosk extends JFrame {
 	
 	private static ArrayList<Employee> employees;
 	public static ArrayList<Item> items;
+	public static Menu menu;
+	public static Cart cart;
 	
 	public Kiosk() {
 		super("Kiosk");
@@ -83,6 +88,7 @@ public class Kiosk extends JFrame {
 		views.add(new ItemView(manager), ITEM_VIEW);
 		views.add(new EmployeeMenuView(manager), EMPLOYEE_MENU_VIEW);
 		views.add(new EmployeeItemView(manager), EMPLOYEE_ITEM_VIEW);
+		views.add(new AfterCheckoutView(manager), AFTER_CHECKOUT_VIEW);
 		
 		this.add(views);
 		this.setBounds(100,100,500,500);
@@ -90,9 +96,6 @@ public class Kiosk extends JFrame {
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
 		this.setVisible(true);
-		
-		Menu menu = new Menu();
-		Cart cart = new Cart();
 		
 		
 	}

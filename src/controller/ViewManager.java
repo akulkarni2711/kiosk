@@ -94,6 +94,15 @@ public class ViewManager {
 		return activeItem;
 	}
 	
+	public void addItem(int itemID, int quantity) {
+		if (Kiosk.cart.addItem(itemID, quantity)) {
+			Kiosk.cart.addItem(itemID, quantity);
+		}
+		else {
+			
+		}
+	}
+	
 	
 
 }
