@@ -1,6 +1,7 @@
 package views;
 
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -31,6 +32,8 @@ import model.Cart;
 
 public class EmployeeMenuView extends JPanel {
 	
+	//TODO everything is wrong fix it
+	
 	private ViewManager manager;
 	private JButton orderButton;
 	private JLabel totalCost;
@@ -44,7 +47,6 @@ public class EmployeeMenuView extends JPanel {
         super();
         this.manager = manager;
         m = Menu.getInstance();
-        init();
     }
     
     private void init() {
@@ -102,8 +104,8 @@ public class EmployeeMenuView extends JPanel {
     	this.add(logoutButton);
     }
     
-    public void populate(Employee activeEmployee) {
-    	
+    public void updateCard() {
+    	init();
     }
 
 }

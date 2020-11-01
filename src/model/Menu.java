@@ -40,7 +40,7 @@ public class Menu {
 		menuItems.put(item.getItemID(), item);
 	}
 	
-	public void removeMenuItem(int itemID) {
+	public static void removeMenuItem(int itemID) {
 		menuItems.remove(itemID);
 	}
 

@@ -33,8 +33,10 @@ import model.Cart;
 
 public class CheckoutView extends JPanel {
 	
+	//TODO: Error Messages, make sure "back to cart" button works
+	
 	private ViewManager manager;
-	private JButton goBackToCart;
+	private JButton backToCartButton;
 	private JButton checkoutButton;
 	private JLabel totalCost;
 	private JTextField CVVField;
@@ -54,7 +56,7 @@ public class CheckoutView extends JPanel {
     	initTitle();
     	initInformation();
     	initCheckoutButton();
-    	initBackToMenuButton();
+    	initBackToCartButton();
     	
     }
     
@@ -87,7 +89,7 @@ public class CheckoutView extends JPanel {
     				//add error message here
     			}
     			else {
-    				manager.switchTo("AFTER_CHECKOUT_VIEW");	
+    				ViewManager.switchTo("AFTER_CHECKOUT_VIEW");	
     			}
     		}
     	});
@@ -162,6 +164,18 @@ public class CheckoutView extends JPanel {
 		else {
 			return true;
 		}
+		
+	}
+	
+	private void initBackToCartButton() {
+		
+		backToCartButton = new JButton("Go Back to your Cart");
+    	checkoutButton.addActionListener(new ActionListener() {
+    		public void actionPerformed(ActionEvent e) {
+    				ViewManager.switchTo("CART_VIEW");	
+    		}
+    	});
+    	this.add(checkoutButton);
 		
 	}
     

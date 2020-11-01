@@ -24,14 +24,12 @@ public class ViewManager {
 	private static Container views;
 	private static Employee activeEmployee;
 	private static Item activeItem;
-	private static Cart activeCart;
 	private static Menu m;
 	
 	public ViewManager(Container views) {
 		this.views = views;
 		this.activeEmployee = null;
 		this.activeItem = null;
-		this.activeCart = null;
 		m = Menu.getInstance();
 	}
 	
@@ -80,15 +78,20 @@ public class ViewManager {
 		switchTo(Kiosk.ITEM_VIEW);
 	}
 	
+	public void goToItemEmployee(int activeItemID) {
+		activeItem = m.getItem(activeItemID);
+		((EmployeeItemView) views.getComponents()[Kiosk.EMPLOYEE_ITEM_VIEW_INDEX]).updateCard();
+	}
+	
 	public void goToCart() {
-		((CartView) views.getComponents()[Kiosk.CART_VIEW_INDEX]).init(activeCart);
+		((CartView) views.getComponents()[Kiosk.CART_VIEW_INDEX]).init();
 		switchTo(Kiosk.CART_VIEW);
 	}
 	
-	/*public void goToCheckout() {
-		((CheckoutView) views.getComponents()[Kiosk.CHECKOUT_VIEW_INDEX]).init(activeCart);
+	public void goToCheckout() {
+		((CheckoutView) views.getComponents()[Kiosk.CHECKOUT_VIEW_INDEX]).updateCard();
 		switchTo(Kiosk.CHECKOUT_VIEW);
-	} */
+	} 
 	
 	public Item getActiveItem() {
 		return activeItem;
@@ -101,6 +104,11 @@ public class ViewManager {
 		else {
 			
 		}
+	}
+	
+	public static void removeItemFromMenu(int itemID) {
+    	Menu.removeMenuItem(itemID);
+    	ViewManager.switchTo("EMPLOYEE_MENU_VIEW");
 	}
 	
 	

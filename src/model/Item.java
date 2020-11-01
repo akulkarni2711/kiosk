@@ -25,6 +25,7 @@ public class Item {
 	public String getName() {
 		return name;
 	}
+
 	
 	public double getCost() {
 		return cost;
