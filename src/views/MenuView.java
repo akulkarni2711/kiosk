@@ -101,6 +101,7 @@ public class MenuView extends JPanel {
     
     private void initLogoutButton() {
     	logoutButton = new JButton("Cancel Order and Logout");
+    	logoutButton.setBounds(100,100,400,100);
     	logoutButton.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
     			ViewManager.logOut();

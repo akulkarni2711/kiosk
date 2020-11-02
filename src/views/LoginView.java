@@ -79,7 +79,7 @@ public class LoginView extends JPanel {
 	
 	private void initIDField() {
 		JLabel label = new JLabel("Employee ID: ", SwingConstants.RIGHT);
-		label.setBounds(100, 160, 95, 35);
+		label.setBounds(85, 160, 120, 35);
 		label.setLabelFor(IDField);;
 		label.setFont(new Font("DialogInput", Font.BOLD, 14));
 		
