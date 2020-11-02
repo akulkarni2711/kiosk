@@ -12,6 +12,7 @@ import java.text.DecimalFormat;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JSeparator;
@@ -83,7 +84,7 @@ public class CheckoutView extends JPanel {
     	checkoutButton.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
     			if (checkCreditCardNumber() == false) {
-    				//add error message here
+    				JOptionPane.showMessageDialog(, "Sorry", "Hello", JOptionPane.ERROR_MESSAGE);
     			}
     			else if (checkDate() == false) {
     				//add error message here
