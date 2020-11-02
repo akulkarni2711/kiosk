@@ -28,18 +28,18 @@ import model.Cart;
 public class AfterCheckoutView extends JPanel {
 	
 	private ViewManager manager;
-	private JLabel itemName;
-	private JLabel itemPrice;
-	private JButton goToItem;
-	private JLabel totalCost;
+	private JLabel message;
+	private JButton backToLoginButton;
 	
 	
     public AfterCheckoutView(ViewManager manager) {
         super();
-        
         this.manager = manager;
-
-        //this.init();
+    }
+    
+    public void init() {
+    	initMessage();
+    	initBackToLoginButton();
     }
 
 }

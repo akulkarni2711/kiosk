@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -36,7 +37,7 @@ public class MenuView extends JPanel {
 	private ViewManager manager;
 	private JButton orderButton;
 	private JLabel totalCost;
-	private JLabel JScrollBar;
+	private JScrollBar scrollBar;
 	private JButton logoutButton;
 	private JTable itemMenu;
 	private Menu m;
@@ -56,6 +57,7 @@ public class MenuView extends JPanel {
     	initTitle();
     	initMenuTable();
     	initLogoutButton();
+    	initScrollBar();
     	
     }
     
@@ -64,7 +66,7 @@ public class MenuView extends JPanel {
     }
     
     private void initTitle() {
-    	JLabel title = new JLabel("Joe's Restaraunt Kiosk", SwingConstants.CENTER);
+    	JLabel title = new JLabel("Menu", SwingConstants.CENTER);
     	title.setBounds(0, 20, 500, 35);
     	title.setFont(new Font("DialogInput", Font.BOLD, 21));
     	
@@ -74,6 +76,7 @@ public class MenuView extends JPanel {
     private void initMenuTable() {
     	
     	JTable menuItems = new JTable(new DefaultTableModel(new Object[]{"", ""}, 1));
+    	menuItems.setBounds(0,100,200,200);
     	HashMap<Integer, Item> entry = m.getHashMap();
     	int length = entry.size();
     	Object[][] data = new Object[2][length];
@@ -101,13 +104,18 @@ public class MenuView extends JPanel {
     
     private void initLogoutButton() {
     	logoutButton = new JButton("Cancel Order and Logout");
-    	logoutButton.setBounds(100,100,400,100);
+    	logoutButton.setBounds(100,300,200,100);
     	logoutButton.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
     			ViewManager.logOut();
     		}
     	});
     	this.add(logoutButton);
+    }
+    
+    private void initScrollBar() {
+    	scrollBar = new JScrollBar();
+    	this.add(scrollBar);
     }
 
 }
