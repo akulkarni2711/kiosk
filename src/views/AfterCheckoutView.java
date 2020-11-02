@@ -39,7 +39,7 @@ public class AfterCheckoutView extends JPanel {
         
         this.manager = manager;
 
-        this.init();
+        //this.init();
     }
 
 }

@@ -133,7 +133,7 @@ public class LoginView extends JPanel {
 					char[] digits = pinField.getPassword();
 					int pin = Integer.parseInt(new String(digits));
 					
-					manager.employeeLogin(employeeID, pin);
+//					manager.employeeLogin(employeeID, pin);
 				}
 			}
 		});

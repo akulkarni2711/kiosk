@@ -71,48 +71,53 @@ public class CartView extends JPanel {
     
     private void initItemTable() {
     	
-    	cartItems = Cart.itemsOrdered.toString();
-    	cartItems = cartItems.replace("{", "");
-    	cartItems = cartItems.replace("}", "");
-    	for (int k = 0; k < cartItems.length(); k++) {
-    		if (cartItems.charAt(k) == ('=')) {
-    			cartItems = cartItems.replaceFirst("=", "");
-    			count1 = 0;
-    		}
-    		else if (cartItems.charAt(k) == ',') {
-    			cartItems = cartItems.replaceFirst(", ", "");
-    			count2 = 0;
-    		}
-    		else {
-    			if (count1 == 0) {
-    				if (Character.isDigit(cartItems.charAt(k+1))) {
-        				count1 = Character.getNumericValue(cartItems.charAt(k)) * 10;
+    	if (Cart.itemsOrdered.isEmpty() == true || Cart.itemsOrdered == null) {
+    		//add error message here
+    	}
+    	else {
+    		cartItems = Cart.itemsOrdered.toString();
+        	cartItems = cartItems.replace("{", "");
+        	cartItems = cartItems.replace("}", "");
+        	for (int k = 0; k < cartItems.length(); k++) {
+        		if (cartItems.charAt(k) == ('=')) {
+        			cartItems = cartItems.replaceFirst("=", "");
+        			count1 = 0;
+        		}
+        		else if (cartItems.charAt(k) == ',') {
+        			cartItems = cartItems.replaceFirst(", ", "");
+        			count2 = 0;
+        		}
+        		else {
+        			if (count1 == 0) {
+        				if (Character.isDigit(cartItems.charAt(k+1))) {
+            				count1 = Character.getNumericValue(cartItems.charAt(k)) * 10;
+            			}
+            			else {
+            				count1 += Character.getNumericValue(cartItems.charAt(k));
+            				cartItemsShown += "Item: " + Kiosk.items.get(count1).getName() + "<br/>";
+            			}
         			}
         			else {
-        				count1 += Character.getNumericValue(cartItems.charAt(k));
-        				cartItemsShown += "Item: " + Kiosk.items.get(count1).getName() + "<br/>";
+        				if (Character.isDigit(cartItems.charAt(k+1))) {
+            				count2 = Character.getNumericValue(cartItems.charAt(k)) * 10;
+            			}
+            			else {
+            				count2 += Character.getNumericValue(cartItems.charAt(k));
+            				cartItemsShown += "Quantity: " + Integer.toString(count2) + "<br/><br/><br/>";
+            			}
         			}
-    			}
-    			else {
-    				if (Character.isDigit(cartItems.charAt(k+1))) {
-        				count2 = Character.getNumericValue(cartItems.charAt(k)) * 10;
-        			}
-        			else {
-        				count2 += Character.getNumericValue(cartItems.charAt(k));
-        				cartItemsShown += "Quantity: " + Integer.toString(count2) + "<br/><br/><br/>";
-        			}
-    			}
-    		}
+        		}
+        	}
+        	
+        	cartItemsShown += "</html>";
+        	
+        	allItems = new JLabel(cartItemsShown);
+        	
+        	this.add(allItems);
+        	
+        }
+    	}
+    		
     	}
     	
-    	cartItemsShown += "</html>";
     	
-    	allItems = new JLabel(cartItemsShown);
-    	
-    	this.add(allItems);
-    	
-    }
-    
-    
-
-}

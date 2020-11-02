@@ -1,8 +1,14 @@
 package GUI;
 import java.awt.CardLayout;
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
@@ -19,6 +25,10 @@ import views.ItemView;
 import views.EmployeeMenuView;
 import views.EmployeeItemView;
 import views.AfterCheckoutView;
+
+//1. Employee uses a file picker to choose an image off computer
+//2. Save the file into a director inside of project
+//3. Reference the image using a relative path
 
 @SuppressWarnings("serial")
 public class Kiosk extends JFrame {
@@ -39,7 +49,7 @@ public class Kiosk extends JFrame {
 	public static final int ITEM_VIEW_INDEX = 4;
 	public static final int EMPLOYEE_MENU_VIEW_INDEX = 5;
 	public static final int EMPLOYEE_ITEM_VIEW_INDEX = 6;
-	public static final int AFTER_CHECKOUT_VIEW_INDEX = 7;
+	public static final int AFTER_CHECKOUT_VIEW_INDEX = 7; 
 	
 	public static final String[] errorMessages = {
 			"",
@@ -63,11 +73,14 @@ public class Kiosk extends JFrame {
 		
 		Kiosk.items = new ArrayList<Item>();
 		
-		Kiosk.items.add(new Item("Chicken Dumplings", 9.99, "Fried chicken dumplings with soy sauce.", null));
-		Kiosk.items.add(new Item("Fried Rice", 3.99, "Fried white rice with corn, peas, and mushrooms.", null));
+		Kiosk.items.add(new Item("Chicken Dumplings", 9.99, "Fried chicken dumplings with soy sauce.", "\\references\\pixel.png"));
+		Kiosk.items.add(new Item("Fried Rice", 3.99, "Fried white rice with corn, peas, and mushrooms.", "\\references\\sam.jpg"));
+		
+		Kiosk.cart.itemsOrdered.put(1,1);
 		
 		
 	}
+	
 	
 	public static Employee lookupUser(long employeeID, int pin) {
 		for (int k = 0; k < employees.size(); k++) {

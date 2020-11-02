@@ -42,15 +42,19 @@ public class EmployeeItemView extends JPanel {
 	private JLabel itemName;
 	private JLabel itemPrice;
 	private JLabel itemDescription;
-	private JLabel picture;
+	private JLabel itemPicture;
 	private JButton backToMenuButton;
-	private JSpinner quantity;
-	private JButton addToCartButton;
 	private JButton removeItemButton;
-	private JButton changeItemPrice;
+	private JButton changeItemPriceButton;
 	private Item item;
 	private Menu m;
-	private JTextField itemPriceSet;
+	private JButton changeItemNameButton;
+	private JButton changeItemDescriptionButton; 
+	private JTextField newName;
+	private JTextField newPrice;
+	private JTextField newDescription;
+	private JButton changeItemPictureButton;
+	private JTextField newPicture;
 	
     public EmployeeItemView(ViewManager manager) {
         super();
@@ -91,20 +95,57 @@ public class EmployeeItemView extends JPanel {
     	itemName = new JLabel(item.getName());
     	itemPrice = new JLabel(Double.toString(item.getCost()));
     	itemDescription = new JLabel(item.getDescription());
-    	try {
-    		File sourceImage = new File("C:\\Users\\Aaron\\OneDrive\\Pictures\\Camera Roll\\Sam.jpg");
-    		Image image = ImageIO.read(sourceImage);
-    		picture = new JLabel(new ImageIcon(image));
-    	} catch (IOException e) {
-    		e.printStackTrace();
-    	}
+    	itemPicture = new JLabel();
     	this.add(itemName);
     	this.add(itemPrice);
     	this.add(itemDescription);
-    	this.add(picture);
+    	this.add(itemPicture);
     }
     
     private void initChangePriceButton() {
+    	
+    	changeItemPriceButton = new JButton("Change the price of this item");
+    	changeItemPriceButton.addActionListener(new ActionListener() {
+    		public void actionPerformed(ActionEvent e) {
+    			newPrice = new JTextField("Enter a new item price here");
+    			double newPriceValue = Double.parseDouble(newPrice.getText());
+    			
+    			ViewManager.changeItemPrice(newPriceValue, item);
+    		}
+    	});
+    	
+    	this.add(changeItemPriceButton);
+    	
+    }
+    
+    private void initChangeNameButton() {
+    	changeItemNameButton = new JButton("Change the name of this item");
+    	changeItemNameButton.addActionListener(new ActionListener() {
+    		public void actionPerformed(ActionEvent e) {
+    			newName = new JTextField("Enter a new item name here");
+    			String newNameValue = newName.getText();
+    			
+    			ViewManager.changeItemName(newNameValue, item);
+    		}
+    	});
+    	this.add(changeItemNameButton);
+    	
+    }
+    
+    private void initChangeDescriptionButton() {
+    	changeItemDescriptionButton = new JButton("Change the description of this item");
+    	changeItemDescriptionButton.addActionListener(new ActionListener() {
+    		public void actionPerformed(ActionEvent e) {
+    			newDescription = new JTextField("ENter a new description here");
+    			String newDescriptionValue = newDescription.getText();
+    			
+    			ViewManager.changeItemDescription(newDescriptionValue, item);
+    		}
+    	});
+    }
+    
+    
+    private void initChangePictureButton() {
     	
     }
     
@@ -113,20 +154,19 @@ public class EmployeeItemView extends JPanel {
     	removeItemButton = new JButton("Remove item from menu");
     	backToMenuButton.addActionListener(new ActionListener() {
     	  public void actionPerformed(ActionEvent e) {
-    		  int removedItemID = item.getItemID();
-    		  ViewManager.removeItemFromMenu(removedItemID);
+    		  ViewManager.removeItemFromMenu(item);
     	    	}
     	 });
-    	 this.add(backToMenuButton);
+    	 this.add(removeItemButton);
     	
     }
     
     private void initBackToMenuButton() {
     	
-    	backToMenuButton = new JButton("Cancel Order and Logout");
+    	backToMenuButton = new JButton("Back to Menu");
     	backToMenuButton.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
-    			ViewManager.switchTo("MENU_VIEW");
+    			ViewManager.switchTo("EMPLOYEE_MENU_VIEW");
     		}
     	});
     	this.add(backToMenuButton);

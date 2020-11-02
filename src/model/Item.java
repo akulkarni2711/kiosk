@@ -1,8 +1,16 @@
 package model;
 
 import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 public class Item {
+	
+	private static String filePath = new File("").getAbsolutePath();
 	
 	private static int itemCounter = 0;
 	
@@ -10,15 +18,25 @@ public class Item {
 	private String name;
 	private double cost;
 	private String description;
-	private Image picture;
+	private String picturePath;
 	private int itemID;
+	private Image image;
 	
-	public Item(String name, double cost, String description, Image picture) {
+	public Item(String name, double cost, String description, String picturePath) {
 		this.name = name;
 		this.cost = cost;
 		this.description = description;
-		this.picture = picture;
+		this.picturePath = picturePath;
 		this.itemID = itemCounter++;
+		
+		try {
+			File sourceImage = new File(filePath + picturePath);
+			System.out.println(filePath+picturePath);
+			this.image = ImageIO.read(sourceImage);
+		} catch (IOException e) {
+			this.image = null;
+			e.printStackTrace();
+		}
 	}
 	
 	
@@ -36,8 +54,12 @@ public class Item {
 		return description;
 	}
 	
+	public String getPicturePath() {
+		return picturePath;
+	}
+	
 	public Image getPicture() {
-		return picture;
+		return image;
 	}
 	
 	public int getItemID() {
@@ -49,13 +71,17 @@ public class Item {
 		this.cost = cost;
 	}
 	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
 	
 	public void setDescription(String description) {
 		this.description = description;
 	}
 	
-	public void setPicture(Image picture) {
-		this.picture = picture;
+	public void setPicture(Image image) {
+		this.image = image;
 	}
 	
 }

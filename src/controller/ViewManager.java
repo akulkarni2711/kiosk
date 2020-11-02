@@ -3,6 +3,7 @@ package controller;
 
 import java.awt.CardLayout;
 import java.awt.Container;
+import java.awt.Image;
 import java.math.BigDecimal;
 
 import GUI.Kiosk;
@@ -13,8 +14,8 @@ import model.Cart;
 import views.MenuView;
 import views.LoginView;
 import views.ItemView;
-//import views.EmployeeItemView;
-//import views.EmployeeMenuView;
+import views.EmployeeItemView;
+import views.EmployeeMenuView;
 import views.CheckoutView;
 import views.CartView;
 
@@ -51,7 +52,7 @@ public class ViewManager {
 				lv.toggleErrorMessage(true);
 			}
 			else {
-				((EmployeeMenuView) views.getComponents()[Kiosk.EMPLOYEE_MENU_VIEW_INDEX]).init(activeEmployee);
+				//((EmployeeMenuView) views.getComponents()[Kiosk.EMPLOYEE_MENU_VIEW_INDEX]).updateCard(activeEmployee);
 				
 				switchTo(Kiosk.EMPLOYEE_MENU_VIEW);
 				lv.clear();
@@ -63,6 +64,7 @@ public class ViewManager {
 	
 	public void guestLogin() {
 		((MenuView) views.getComponents()[Kiosk.MENU_VIEW_INDEX]).updateCard();
+		Cart.itemsOrdered.remove(1);
 		switchTo(Kiosk.MENU_VIEW);
 	}
 	
@@ -106,11 +108,26 @@ public class ViewManager {
 		}
 	}
 	
-	public static void removeItemFromMenu(int itemID) {
-    	Menu.removeMenuItem(itemID);
+	public static void removeItemFromMenu(Item item) {
+    	int itemID = item.getItemID();
+		Menu.removeMenuItem(itemID);
     	ViewManager.switchTo("EMPLOYEE_MENU_VIEW");
 	}
 	
+	public static void changeItemName(String newItemName, Item item) {
+		item.setName(newItemName);
+	}
 	
+	public static void changeItemPrice(double newItemPrice, Item item) {
+		item.setCost(newItemPrice);
+	}
+	
+	public static void changeItemDescription(String newItemDescription, Item item) {
+		item.setDescription(newItemDescription);
+	}
+	
+	public static void changeItemPicture(Image newItemPicture, Item item) {
+		item.setPicture(newItemPicture);;
+	}
 
 }
