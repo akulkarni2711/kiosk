@@ -21,11 +21,10 @@ import controller.ViewManager;
 public class LoginView extends JPanel {
 	
 	private ViewManager manager;
-	private JTextField IDField;
-	private JPasswordField pinField;
+	public static JTextField IDField;
+	public static JPasswordField pinField;
 	private JButton loginButton;
 	private JButton guestButton;
-	private JLabel errorMessageLabel;
 	
 	public LoginView(ViewManager manager) {
 		super();
@@ -33,27 +32,15 @@ public class LoginView extends JPanel {
 		init();
 	}
 	
-	public void toggleErrorMessage(boolean show) {
-		if (show) {
-			errorMessageLabel.setText("Invalid email and/or PIN.");
-		}
-		else {
-			errorMessageLabel.setText("");
-		}
-	}
-	
 	public void clear() {
 		IDField.setText("");
 		pinField.setText("");
-		
-		toggleErrorMessage(false);
 	}
 	
 	private void init() {
 		this.setLayout(null);;
 		
 		initTitle();
-		initErrorMessageLabel();
 		initIDField();
 		initPinField();
 		initLoginButton();
@@ -66,15 +53,6 @@ public class LoginView extends JPanel {
 		title.setFont(new Font("DialogInput", Font.BOLD, 21));
 		
 		this.add(title);
-	}
-	
-	private void initErrorMessageLabel() {
-		errorMessageLabel = new JLabel("", SwingConstants.CENTER);
-		errorMessageLabel.setBounds(0, 110, 500, 35);
-		errorMessageLabel.setFont(new Font("DialogInput", Font.ITALIC, 12));
-		errorMessageLabel.setForeground(Color.RED);
-		
-		this.add(errorMessageLabel);
 	}
 	
 	private void initIDField() {
@@ -132,8 +110,7 @@ public class LoginView extends JPanel {
 					Long employeeID = Long.parseLong(emp);
 					char[] digits = pinField.getPassword();
 					int pin = Integer.parseInt(new String(digits));
-					
-//					manager.employeeLogin(employeeID, pin);
+					manager.employeeLogin(employeeID, pin);
 				}
 			}
 		});

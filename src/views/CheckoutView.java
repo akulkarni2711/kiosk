@@ -34,7 +34,7 @@ import model.Cart;
 
 public class CheckoutView extends JPanel {
 	
-	//TODO: Error Messages, make sure "back to cart" button works
+	//TODO: Make sure "back to cart" button works
 	
 	private ViewManager manager;
 	private JButton backToCartButton;
@@ -84,10 +84,12 @@ public class CheckoutView extends JPanel {
     	checkoutButton.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
     			if (checkCreditCardNumber() == false) {
-    				JOptionPane.showMessageDialog(, "Sorry", "Hello", JOptionPane.ERROR_MESSAGE);
+    				JOptionPane.showMessageDialog(null, "Please enter a valid credit card number",
+    			               "Joe's Kiosk", JOptionPane.ERROR_MESSAGE);
     			}
     			else if (checkDate() == false) {
-    				//add error message here
+    				JOptionPane.showMessageDialog(null, "Please make sure that the date is valid and in the future",
+    						"Joe's Kiosk", JOptionPane.ERROR_MESSAGE);
     			}
     			else {
     				ViewManager.switchTo("AFTER_CHECKOUT_VIEW");	

@@ -92,6 +92,7 @@ public class Kiosk extends JFrame {
 	private void init() {
 		cart = new Cart();
 		
+		JFrame frame = new JFrame("Kiosk");
 		JPanel views = new JPanel(new CardLayout());
 		ViewManager manager = new ViewManager(views);
 		views.add(new LoginView(manager), LOGIN_VIEW);

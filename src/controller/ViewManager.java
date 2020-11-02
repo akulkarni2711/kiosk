@@ -6,6 +6,8 @@ import java.awt.Container;
 import java.awt.Image;
 import java.math.BigDecimal;
 
+import javax.swing.JOptionPane;
+
 import GUI.Kiosk;
 import model.Employee;
 import model.Item;
@@ -49,26 +51,28 @@ public class ViewManager {
 			activeEmployee = Kiosk.lookupUser(employeeID, pin);
 			
 			if (activeEmployee == null) {
-				lv.toggleErrorMessage(true);
+				JOptionPane.showMessageDialog(null, "Please enter a valid ID and password, or login as a guest",
+						"Joe's Kiosk", JOptionPane.ERROR_MESSAGE);
 			}
 			else {
-				//((EmployeeMenuView) views.getComponents()[Kiosk.EMPLOYEE_MENU_VIEW_INDEX]).updateCard(activeEmployee);
+				((EmployeeMenuView) views.getComponents()[Kiosk.EMPLOYEE_MENU_VIEW_INDEX]).updateCard();
 				
 				switchTo(Kiosk.EMPLOYEE_MENU_VIEW);
-				lv.clear();
 			}
 		} catch (NumberFormatException e) {
-			lv.toggleErrorMessage(true);
+			
 		}
 	}
 	
 	public void guestLogin() {
 		((MenuView) views.getComponents()[Kiosk.MENU_VIEW_INDEX]).updateCard();
-		Cart.itemsOrdered.remove(1);
+		Cart.itemsOrdered.clear();
 		switchTo(Kiosk.MENU_VIEW);
 	}
 	
 	public static void logOut() {
+		LoginView.pinField.setText("");
+		LoginView.IDField.setText("");
 		activeEmployee = null;
 		Cart.itemsOrdered.clear();
 		switchTo(Kiosk.LOGIN_VIEW);

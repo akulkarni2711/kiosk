@@ -56,10 +56,12 @@ public class EmployeeMenuView extends JPanel {
     	initMenuTable();
     	initLogoutButton();
     	
+    	int count = 0;
+    	
     }
     
     private void initTitle() {
-    	JLabel title = new JLabel("Joe's Restaraunt Kiosk", SwingConstants.CENTER);
+    	JLabel title = new JLabel("Menu(Employee)", SwingConstants.CENTER);
     	title.setBounds(0, 20, 500, 35);
     	title.setFont(new Font("DialogInput", Font.BOLD, 21));
     	
@@ -69,6 +71,7 @@ public class EmployeeMenuView extends JPanel {
     private void initMenuTable() {
     	
     	JTable menuItems = new JTable(new DefaultTableModel(new Object[]{"", ""}, 1));
+    	menuItems.setBounds(0, 100, 200, 200);
     	HashMap<Integer, Item> entry = m.getHashMap();
     	int length = entry.size();
     	Object[][] data = new Object[2][length];
@@ -95,7 +98,8 @@ public class EmployeeMenuView extends JPanel {
     }
     
     private void initLogoutButton() {
-    	logoutButton = new JButton("Cancel Order and Logout");
+    	logoutButton = new JButton("Logout");
+    	logoutButton.setBounds(100,300,200,100);
     	logoutButton.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
     			ViewManager.logOut();
