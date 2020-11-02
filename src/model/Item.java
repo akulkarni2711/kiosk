@@ -31,7 +31,6 @@ public class Item {
 		
 		try {
 			File sourceImage = new File(filePath + picturePath);
-			System.out.println(filePath+picturePath);
 			this.image = ImageIO.read(sourceImage);
 		} catch (IOException e) {
 			this.image = null;

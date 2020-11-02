@@ -21,12 +21,12 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
+import model.Cart;
 import GUI.Kiosk;
 import controller.ViewManager;
 import model.Employee;
 import model.Item;
 import model.Menu;
-import model.Cart;
 
 
 //TODO: Add a go to checkout button
@@ -38,7 +38,7 @@ public class CartView extends JPanel {
 	private ViewManager manager;
 	private JLabel allItems;
 	private JButton removeButton;
-	private JButton checkout;
+	private JButton checkoutButton;
 	private JLabel totalCost;
 	private Cart c;
 	private String cartItems;
@@ -57,6 +57,9 @@ public class CartView extends JPanel {
     
     public void init() {
     	initTitle();
+    	initTotalPrice();
+    	initCheckoutButton();
+    	initRemoveItemButton();
     	initItemTable();
     	
     }
@@ -69,9 +72,28 @@ public class CartView extends JPanel {
     	this.add(title);
     }
     
+    private void initTotalPrice() {
+    	JLabel totalCost = new JLabel("Total Price: " + Cart.getTotalCost());
+    	
+    	this.add(totalCost);
+    }
+    
+    private void initCheckoutButton() {
+    	JButton checkoutButton = new JButton("Go to checkout");
+    	checkoutButton.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        	    ViewManager.switchTo("CHECKOUT_VIEW");
+        	}
+        });
+    }
+    
+    private void initRemoveItemButton() {
+    	
+    }
+    
     private void initItemTable() {
     	
-    	if (Cart.itemsOrdered.isEmpty() == true || Cart.itemsOrdered == null) {
+    	if (c.itemsOrdered.isEmpty() == true || c.itemsOrdered == null) {
     		//add error message here
     	}
     	else {
@@ -116,7 +138,7 @@ public class CartView extends JPanel {
         	this.add(allItems);
         	
         }
-    	}
+    }
     		
     	}
     	

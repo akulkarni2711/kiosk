@@ -76,8 +76,6 @@ public class Kiosk extends JFrame {
 		Kiosk.items.add(new Item("Chicken Dumplings", 9.99, "Fried chicken dumplings with soy sauce.", "\\references\\pixel.png"));
 		Kiosk.items.add(new Item("Fried Rice", 3.99, "Fried white rice with corn, peas, and mushrooms.", "\\references\\sam.jpg"));
 		
-		Kiosk.cart.itemsOrdered.put(1,1);
-		
 		
 	}
 	
@@ -92,6 +90,8 @@ public class Kiosk extends JFrame {
 	}
 	
 	private void init() {
+		cart = new Cart();
+		
 		JPanel views = new JPanel(new CardLayout());
 		ViewManager manager = new ViewManager(views);
 		views.add(new LoginView(manager), LOGIN_VIEW);
@@ -103,9 +103,11 @@ public class Kiosk extends JFrame {
 		views.add(new EmployeeItemView(manager), EMPLOYEE_ITEM_VIEW);
 		views.add(new AfterCheckoutView(manager), AFTER_CHECKOUT_VIEW);
 		
+		
+		
 		this.add(views);
 		this.setBounds(100,100,500,500);
-		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
 		this.setVisible(true);

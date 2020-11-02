@@ -10,7 +10,7 @@ public class Cart {
 	
 	private static long orderCounter = 0;
 	
-	private double totalCost;
+	private static double totalCost;
 	private long orderNumber;
 	public static LinkedHashMap<Integer,Integer> itemsOrdered;
 	public ArrayList<Integer> stuff = new ArrayList<Integer>(100);
@@ -19,7 +19,7 @@ public class Cart {
 	public Cart() {
 		this.orderNumber = orderCounter++;
 		totalCost = 0;
-		itemsOrdered = new LinkedHashMap<Integer,Integer>();
+		itemsOrdered = new LinkedHashMap<Integer,Integer>(1);
 	}
 	
 	public boolean addItem(int itemID, int quantity) {
@@ -54,7 +54,7 @@ public class Cart {
 	}
 	
 	
-	public double getTotalCost() {
+	public static double getTotalCost() {
 		return totalCost;
 	}
 	
@@ -65,5 +65,4 @@ public class Cart {
 	public LinkedHashMap<Integer, Integer> getHashMap() {
 		return itemsOrdered;
 	}
-	
 }

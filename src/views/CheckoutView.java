@@ -103,7 +103,6 @@ public class CheckoutView extends JPanel {
         int temp1  = 0;
         int temp2 = 0;
         int totalSum = 0;
-        System.out.println();
         for (int k = length-2; k >= 0; k -=2) {
             char value = number.charAt(k);
             int intValue = Character.getNumericValue(value) * 2;

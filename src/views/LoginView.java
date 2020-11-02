@@ -143,7 +143,7 @@ public class LoginView extends JPanel {
 	
 	private void initGuestButton() {
 		guestButton = new JButton("Continue as Guest");
-		guestButton.setBounds(205, 300, 200, 35);;
+		guestButton.setBounds(205, 300, 200, 35);
 		
 		guestButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -156,7 +156,7 @@ public class LoginView extends JPanel {
 			}
 		});
 		
-		this.add(loginButton);
+		this.add(guestButton);
 	}
 	
 
