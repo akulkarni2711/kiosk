@@ -11,6 +11,7 @@ public class Menu {
 	public Menu() {
 		
 		menuItems = new HashMap<Integer, Item>();
+		menuItems.put( 1, new Item( "Hot Sour Soup", 2.34, "HotSourSoup", "\\references\\pixel.png") );
 		
 	}
 	

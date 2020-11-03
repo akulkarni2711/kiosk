@@ -70,7 +70,7 @@ public class ViewManager {
 		switchTo(Kiosk.MENU_VIEW);
 	}
 	
-	public static void logOut() {
+	public void logOut() {
 		LoginView.pinField.setText("");
 		LoginView.IDField.setText("");
 		activeEmployee = null;

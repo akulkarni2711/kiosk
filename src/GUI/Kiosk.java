@@ -71,10 +71,10 @@ public class Kiosk extends JFrame {
 		Kiosk.employees.add(new Employee("Joe", "Schmoe", "jschmoe@gmail.com", 1234567890, 1234));
 		Kiosk.employees.add(new Employee("Bob", "Dabuilder", "bdabuilder@gmail.com", 1234566543, 4321));
 		
-		Kiosk.items = new ArrayList<Item>();
+		Kiosk.menu = new Menu();
 		
-		Kiosk.items.add(new Item("Chicken Dumplings", 9.99, "Fried chicken dumplings with soy sauce.", "\\references\\pixel.png"));
-		Kiosk.items.add(new Item("Fried Rice", 3.99, "Fried white rice with corn, peas, and mushrooms.", "\\references\\sam.jpg"));
+		Kiosk.menu.addMenuItem(new Item("Chicken Dumplings", 9.99, "Fried chicken dumplings with soy sauce.", "\\references\\pixel.png"));
+		Kiosk.menu.addMenuItem(new Item("Fried Rice", 3.99, "Fried white rice with corn, peas, and mushrooms.", "\\references\\sam.jpg"));
 		
 		
 	}

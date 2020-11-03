@@ -54,7 +54,7 @@ public class AfterCheckoutView extends JPanel {
     	logoutButton.setBounds(100,300,200,100);
     	logoutButton.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
-    			ViewManager.logOut();
+    			manager.logOut();
     		}
     	});
     	this.add(logoutButton);
