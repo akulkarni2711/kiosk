@@ -107,10 +107,15 @@ public class LoginView extends JPanel {
 				
 				if (source.equals(loginButton)) {
 					String emp = IDField.getText();
-					Long employeeID = Long.parseLong(emp);
-					char[] digits = pinField.getPassword();
-					int pin = Integer.parseInt(new String(digits));
-					manager.employeeLogin(employeeID, pin);
+					if (emp.isBlank()) {
+						//add error
+					}
+					else {
+						Long employeeID = Long.parseLong(emp);
+						char[] digits = pinField.getPassword();
+						int pin = Integer.parseInt(new String(digits));
+						manager.employeeLogin(employeeID, pin);
+					}
 				}
 			}
 		});

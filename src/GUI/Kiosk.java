@@ -71,10 +71,11 @@ public class Kiosk extends JFrame {
 		Kiosk.employees.add(new Employee("Joe", "Schmoe", "jschmoe@gmail.com", 1234567890, 1234));
 		Kiosk.employees.add(new Employee("Bob", "Dabuilder", "bdabuilder@gmail.com", 1234566543, 4321));
 		
-		Kiosk.menu = new Menu();
+		menu = menu.getInstance();
 		
-		Kiosk.menu.addMenuItem(new Item("Chicken Dumplings", 9.99, "Fried chicken dumplings with soy sauce.", "\\references\\pixel.png"));
-		Kiosk.menu.addMenuItem(new Item("Fried Rice", 3.99, "Fried white rice with corn, peas, and mushrooms.", "\\references\\sam.jpg"));
+		menu.addMenuItem(new Item("Hot Sour Soup", 2.34, "Soup that is both hot and sour", "\\references\\pixel.png"));
+		menu.addMenuItem(new Item("Fried Rice", 3.99, "Fried white rice with corn, peas, and mushrooms.", "\\references\\sam.jpg"));
+		menu.addMenuItem(new Item("Fried Chicken", 4.56, "Popeyes fried chicken", "\\references\\chicken.jpeg"));
 		
 		
 	}
@@ -97,7 +98,7 @@ public class Kiosk extends JFrame {
 		ViewManager manager = new ViewManager(views);
 		views.add(new LoginView(manager), LOGIN_VIEW);
 		views.add(new MenuView(manager), MENU_VIEW);
-		views.add(new CartView(manager), CART_VIEW);
+		views.add(new CartView(manager, cart), CART_VIEW);
 		views.add(new CheckoutView(manager), CHECKOUT_VIEW);
 		views.add(new ItemView(manager), ITEM_VIEW);
 		views.add(new EmployeeMenuView(manager), EMPLOYEE_MENU_VIEW);
@@ -107,7 +108,7 @@ public class Kiosk extends JFrame {
 		
 		
 		this.add(views);
-		this.setBounds(100,100,500,500);
+		this.setBounds(100,100,800,600);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);

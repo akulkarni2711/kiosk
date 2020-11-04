@@ -2,6 +2,7 @@ package views;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,8 +17,10 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
@@ -48,6 +51,9 @@ public class MenuView extends JPanel {
 	private JTable itemMenu;
 	private Menu m;
 	private Object[][] data;
+	private JLabel itemLabel;
+	private JPanel menuItemPanel;
+	private JScrollPane menuPane;
 	
     public MenuView(ViewManager manager) {
         super();
@@ -61,7 +67,7 @@ public class MenuView extends JPanel {
     	this.setLayout(null);
     	
     	initTitle();
-    	initMenuTable();
+    	initMenuList();
     	initLogoutButton();
     	initScrollBar();
     	initCartButton();
@@ -81,51 +87,43 @@ public class MenuView extends JPanel {
     }
     
     private void initMenuTable() {
-    	HashMap<Integer, Item> entry = m.getHashMap();
-    	String[] columns = new String[] { "Item", ""};
-    	int length = entry.size();
+    	HashMap<Integer, Item> h = m.getHashMap();
     	
-    	data = new Object[length + 1][2];
+    	Item i = null;
     	
-    	data[0][0] = "";
-    	data[0][1] = new JButton("Invisible");
-    	
-    	//JTable menuItems = new JTable( data, columns );
-    	JTable menuItems = new JTable( new JTableButtonModel());
-    	menuItems.setBounds(0,100,400,200);
-    	TableCellRenderer buttonRenderer = menuItems.getDefaultRenderer(JButton.class);
-    	menuItems.setDefaultRenderer(JButton.class, new JTableButtonRenderer( buttonRenderer ));
-    	
-    	Iterator it = entry.entrySet().iterator();
+    	Iterator it = h.entrySet().iterator();
+    	int n = 0;
     	while (it.hasNext()) {
     		HashMap.Entry pair = (HashMap.Entry)it.next();
-    		int count = (Integer) pair.getKey();
-    		data[count][0] = entry.get(count).getName() + " - $" + entry.get(count).getCost();
+    		int id = (Integer) pair.getKey(); 
+    		i = (Item) pair.getValue();
+    		itemLabel = new JLabel(i.getName() + "- $" + i.getCost(), SwingConstants.LEFT);
+    		itemLabel.setBounds(50, 80 + 40*n, 200, 35);
+    		
     		orderButton = new JButton("Select");
-    		orderButton.setActionCommand(Integer.toString(count));
-    		orderButton.setBounds(105, 260, 110, 35);
+    		orderButton.setBounds(300, 80 + 40*n, 200, 35);
+    		orderButton.setActionCommand(Integer.toString(id));
     		
     		orderButton.addActionListener(new ActionListener() {
     			public void actionPerformed(ActionEvent e) {
-    				String action = orderButton.getActionCommand();
+    				String action = e.getActionCommand();
     				int action_id = Integer.parseInt(action);
-    				manager.goToItem(action_id);	
+    				manager.goToItem(action_id);
     			}
     		});
-    		TableColumn column = menuItems.getColumnModel().getColumn(1);
     		
-    		data[count][1] = orderButton;
-    		menuItems.add(orderButton);
+    		n++;
+    		
+    		menuItemPanel.add(itemLabel);
+    		menuItemPanel.add(orderButton);
+    		
     	}
-    	this.add(menuItems);
-    	
-    	
-    	
+    	menuItemPanel.setPreferredSize(new Dimension(750, 40*h.size()));
     }
     
     private void initLogoutButton() {
     	logoutButton = new JButton("Cancel Order and Logout");
-    	logoutButton.setBounds(0,350,250,50);
+    	logoutButton.setBounds(100,490,250,50);
     	logoutButton.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
     			manager.logOut();
@@ -141,7 +139,7 @@ public class MenuView extends JPanel {
     
     private void initCartButton() {
     	cartButton = new JButton("Go to your cart");
-    	cartButton.setBounds(250,350,250,50);
+    	cartButton.setBounds(450,490,250,50);
     	cartButton.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
     			manager.goToCart();
@@ -150,43 +148,30 @@ public class MenuView extends JPanel {
     	this.add(cartButton);
     }
     
-    class JTableButtonModel extends AbstractTableModel {
-    	   //private Object[][] rows = {{"Button1", new JButton("Button1")},{"Button2", new JButton("Button2")},{"Button3", new JButton("Button3")}, {"Button4", new JButton("Button4")}};
-    	private Object[][] rows = data;   
-    	private String[] columns = {"Count", "Buttons"};
-    	   public String getColumnName(int column) {
-    	      return columns[column];
-    	   }
-    	   public int getRowCount() {
-    	      return rows.length;
-    	   }
-    	   public int getColumnCount() {
-    	      return columns.length;
-    	   }
-    	   public Object getValueAt(int row, int column) {
-    	      return rows[row][column];
-    	   }
-    	   public boolean isCellEditable(int row, int column) {
-    	      return false;
-    	   }
-    	   public Class getColumnClass(int column) {
-    	      return getValueAt(0, column).getClass();
-    	   }
-    }
-    	   
-    class JTableButtonRenderer implements TableCellRenderer {
-    	   private TableCellRenderer defaultRenderer;
-    	   public JTableButtonRenderer(TableCellRenderer renderer) {
-    	      defaultRenderer = renderer;
-    	   }
-    	   public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-    	      if(value instanceof Component)
-    	         return (Component)value;
-    	         return defaultRenderer.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-    	   }
+    private void initMenuList() {
+    	
+    	
+    	
+    	menuItemPanel = new JPanel();
+    	menuItemPanel.setLayout(null);
+    	menuItemPanel.setBounds(0, 80, 600, 600);
+    	
+    	
+    	menuPane = new JScrollPane(menuItemPanel);
+    	menuPane.setBounds(100, 80, 600, 400);
+    	
+    	menuPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+    	menuPane.getVerticalScrollBar().setPreferredSize(new Dimension(15, Integer.MAX_VALUE));
+    	menuPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+    	
+    	
+    	if(m.getHashMap() != null) {
+    		initMenuTable();
     	}
+    	
+    	this.add(menuPane);
+    	
+    }
+    
 
 }
-//javax.swing.JButton[,0,0,0x0,invalid,alignmentX=0.0,alignmentY=0.5,border=javax.swing.plaf.BorderUIResource$CompoundBorderUIResource@5dca965c,flags=296,maximumSize=,minimumSize=,preferredSize=,defaultIcon=,disabledIcon=,disabledSelectedIcon=,margin=javax.swing.plaf.InsetsUIResource[top=2,left=14,bottom=2,right=14],paintBorder=true,paintFocus=true,pressedIcon=,rolloverEnabled=true,rolloverIcon=,rolloverSelectedIcon=,selectedIcon=,text=Order,defaultCapable=true]
-//javax.swing.JButton[,0,0,0x0,invalid,alignmentX=0.0,alignmentY=0.5,border=javax.swing.plaf.BorderUIResource$CompoundBorderUIResource@515e2be2,flags=296,maximumSize=,minimumSize=,preferredSize=,defaultIcon=,disabledIcon=,disabledSelectedIcon=,margin=javax.swing.plaf.InsetsUIResource[top=2,left=14,bottom=2,right=14],paintBorder=true,paintFocus=true,pressedIcon=,rolloverEnabled=true,rolloverIcon=,rolloverSelectedIcon=,selectedIcon=,text=Order,defaultCapable=true]
-//javax.swing.JButton[,205,260,200x35,alignmentX=0.0,alignmentY=0.5,border=javax.swing.plaf.BorderUIResource$CompoundBorderUIResource@7c8b3aa1,flags=296,maximumSize=,minimumSize=,preferredSize=,defaultIcon=,disabledIcon=,disabledSelectedIcon=,margin=javax.swing.plaf.InsetsUIResource[top=2,left=14,bottom=2,right=14],paintBorder=true,paintFocus=true,pressedIcon=,rolloverEnabled=true,rolloverIcon=,rolloverSelectedIcon=,selectedIcon=,text=Order,defaultCapable=true]

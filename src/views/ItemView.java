@@ -22,9 +22,12 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JSpinner;
 import javax.swing.JSpinner.NumberEditor;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import GUI.Kiosk;
 import controller.ViewManager;
@@ -41,14 +44,17 @@ public class ItemView extends JPanel {
 	private ViewManager manager;
 	private JLabel itemName;
 	private JLabel itemPrice;
-	private JLabel itemDescription;
-	private JLabel picture;
+	private JTextArea itemDescription;
+	private Image picture;
+	private JLabel pictureLabel;
 	private JButton backToMenuButton;
-	private JSpinner quantity;
+	private JSpinner spinQuantity;
 	private JButton addToCartButton;
 	private Item item;
 	private Menu m;
-	
+	private ImageIcon pictureIcon;
+	private JLabel picLabel;
+	private int quantity;
 	
     public ItemView(ViewManager manager) {
         super();
@@ -84,25 +90,39 @@ public class ItemView extends JPanel {
     
     private void initInformation(Item item) {
     	itemName = new JLabel(item.getName());
-    	itemPrice = new JLabel(Double.toString(item.getCost()));
-    	itemDescription = new JLabel(item.getDescription());
-    	try {
-    		File sourceImage = new File("C:\\Users\\Aaron\\OneDrive\\Pictures\\Camera Roll\\Sam.jpg");
-    		Image image = ImageIO.read(sourceImage);
-    		picture = new JLabel(new ImageIcon(image));
-    	} catch (IOException e) {
-    		e.printStackTrace();
-    	}
+    	itemName.setBounds(100,50,150,40);
     	this.add(itemName);
+    	
+    	itemPrice = new JLabel(Double.toString(item.getCost()));
+    	itemPrice.setBounds(200,110,60,30);
     	this.add(itemPrice);
+    	
+    	itemDescription = new JTextArea(item.getDescription());
+    	itemDescription.setWrapStyleWord(true);
+    	itemDescription.setLineWrap(true);
+    	itemDescription.setFocusable(false);
+    	itemDescription.setBounds(100,200,250,100);
+    	itemDescription.setEditable(false);
     	this.add(itemDescription);
-    	this.add(picture);
+    	
+    	
+    	Image picture = item.getPicture();
+    	picLabel = new JLabel(new ImageIcon(picture));
+    	picLabel.setBounds(300,50,300,300);
+    	this.add(picLabel);
     }
     
     private void initQuantity() {
-    	SpinnerNumberModel model = new SpinnerNumberModel(0,0,100,1);
-    	JSpinner quantity = new JSpinner(model);
-    	this.add(quantity);
+    	SpinnerNumberModel model = new SpinnerNumberModel(1,1,100,1);
+    	spinQuantity = new JSpinner(model);
+    	spinQuantity.addChangeListener(new ChangeListener() {
+    		public void stateChanged(ChangeEvent e) {
+    			quantity = ((Integer)spinQuantity.getValue()).intValue();
+    		}
+    	});
+    	spinQuantity.setBounds(25,500, 100, 80);
+    	
+    	this.add(spinQuantity);
     }
     
     private void initAddToCartButton() {
@@ -110,21 +130,25 @@ public class ItemView extends JPanel {
         addToCartButton = new JButton("Add Item to Cart");
         addToCartButton.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        	    int endQuantity = (int) quantity.getValue();
-        	    manager.addItem(item.getItemID(), endQuantity);
+        		quantity = ((Integer)spinQuantity.getValue()).intValue();
+        	    manager.addItem(item.getItemID(), quantity);
+        	    System.out.println("Item added to cart " + quantity + "," + item.getItemID());
         	}
         });
+        addToCartButton.setBounds(600,500,250,50);
+        this.add(addToCartButton);
     	
     }
     
     private void initBackToMenuButton() {
     	
-    	backToMenuButton = new JButton("Cancel Order and Logout");
+    	backToMenuButton = new JButton("Back to menu");
     	backToMenuButton.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
     			ViewManager.switchTo("MENU_VIEW");
     		}
     	});
+    	backToMenuButton.setBounds(150,500,250,50);
     	this.add(backToMenuButton);
     	
     }

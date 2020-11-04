@@ -104,12 +104,7 @@ public class ViewManager {
 	}
 	
 	public void addItem(int itemID, int quantity) {
-		if (Kiosk.cart.addItem(itemID, quantity)) {
-			Kiosk.cart.addItem(itemID, quantity);
-		}
-		else {
-			
-		}
+		Kiosk.cart.addItem(itemID, quantity);
 	}
 	
 	public static void removeItemFromMenu(Item item) {
