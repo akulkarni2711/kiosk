@@ -52,6 +52,7 @@ public class CartView extends JPanel {
 	private Menu m;
 	private JPanel cartPanel;
 	private JScrollPane cartPane;
+	private JButton backToMenuButton;
 
 	public CartView(ViewManager manager, Cart cart) {
 		super();
@@ -69,6 +70,7 @@ public class CartView extends JPanel {
 		initTitle();
 		initTotalPrice();
 		initCheckoutButton();
+		initBackToMenuButton();
 		initItemTable();
 		initCartList();
 
@@ -97,7 +99,18 @@ public class CartView extends JPanel {
 			}
 		});
 		checkoutButton.setBounds(300,300,100,80);
-		this.add(checkoutButton);
+		cartPanel.add(checkoutButton);
+	}
+	
+	private void initBackToMenuButton() {
+		JButton backToMenuButton = new JButton("Back to menu");
+		backToMenuButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				manager.goToMenu();
+			}
+		});
+		backToMenuButton.setBounds(400,400,100,80);
+		cartPanel.add(backToMenuButton);
 	}
 
 	private void initItemTable() {

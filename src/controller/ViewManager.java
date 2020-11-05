@@ -79,6 +79,7 @@ public class ViewManager {
 		LoginView.IDField.setText("");
 		activeEmployee = null;
 		Cart.itemsOrdered.clear();
+		Cart.totalCost = 0;
 		switchTo(Kiosk.LOGIN_VIEW);
 	}
 	
@@ -102,6 +103,11 @@ public class ViewManager {
 		((CheckoutView) views.getComponents()[Kiosk.CHECKOUT_VIEW_INDEX]).updateCard();
 		switchTo(Kiosk.CHECKOUT_VIEW);
 	} 
+	
+	public void goToMenu() {
+		((MenuView) views.getComponents()[Kiosk.MENU_VIEW_INDEX]).updateCard();
+		switchTo(Kiosk.MENU_VIEW);
+	}
 	
 	public Item getActiveItem() {
 		return activeItem;
