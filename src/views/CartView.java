@@ -98,8 +98,8 @@ public class CartView extends JPanel {
 				manager.goToCheckout();
 			}
 		});
-		checkoutButton.setBounds(300,300,100,80);
-		cartPanel.add(checkoutButton);
+		checkoutButton.setBounds(300,400,200,40);
+		this.add(checkoutButton);
 	}
 	
 	private void initBackToMenuButton() {
@@ -109,8 +109,8 @@ public class CartView extends JPanel {
 				manager.goToMenu();
 			}
 		});
-		backToMenuButton.setBounds(400,400,100,80);
-		cartPanel.add(backToMenuButton);
+		backToMenuButton.setBounds(500,400,200,40);
+		this.add(backToMenuButton);
 	}
 
 	private void initItemTable() {
