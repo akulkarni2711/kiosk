@@ -1,0 +1,8 @@
+When removing item from cart, update page
+Display message to user when item is actually added to cart instead of in console
+Fix employee log in issue
+Make profile page
+Display after checkout page
+Add error message where needed
+Black bar on top half of page
+Formatting

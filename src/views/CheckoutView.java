@@ -29,6 +29,7 @@ import controller.ViewManager;
 import model.Employee;
 import model.Item;
 import model.Menu;
+import placeholders.PHTF;
 import model.Cart;
 
 
@@ -40,9 +41,9 @@ public class CheckoutView extends JPanel {
 	private JButton backToCartButton;
 	private JButton checkoutButton;
 	private JLabel totalCost;
-	private JTextField CVVField;
-	private JTextField creditCardField;
-	private JTextField expDateField;
+	private PHTF CVVField;
+	private PHTF creditCardField;
+	private PHTF expDateField;
 	
 	
     public CheckoutView(ViewManager manager) {
@@ -70,17 +71,25 @@ public class CheckoutView extends JPanel {
 	}
 	
 	private void initInformation() {
-		creditCardField = new JPasswordField("Enter your credit card number here:");
-		CVVField = new JTextField("Enter your CVV code here:");
-		expDateField = new JTextField("Enter the credit card expiration date here in the format MM/YY:");
-		
+		creditCardField = new PHTF(16);
+		creditCardField.setPlaceholder("Enter your credit card: ");
+		creditCardField.setBounds(200,200,200,100);
 		this.add(creditCardField);
+		
+		CVVField = new PHTF(3);
+		CVVField.setPlaceholder("Enter your CVV: ");
+		CVVField.setBounds(320,250,150,100);
 		this.add(CVVField);
+		
+		expDateField = new PHTF(5);
+		expDateField.setPlaceholder("Enter the Expiration date in MM/YY format");
+		expDateField.setBounds(450, 250, 150, 100);
 		this.add(expDateField);
 	}
 	
 	private void initCheckoutButton() {
-		checkoutButton = new JButton("Cancel Order and Logout");
+		checkoutButton = new JButton("Finish order and checout");
+		checkoutButton.setBounds(400, 300, 200, 150);
     	checkoutButton.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
     			if (checkCreditCardNumber() == false) {
@@ -92,7 +101,7 @@ public class CheckoutView extends JPanel {
     						"Joe's Kiosk", JOptionPane.ERROR_MESSAGE);
     			}
     			else {
-    				ViewManager.switchTo("AFTER_CHECKOUT_VIEW");	
+    				manager.switchTo("AFTER_CHECKOUT_VIEW");	
     			}
     		}
     	});
@@ -145,22 +154,24 @@ public class CheckoutView extends JPanel {
 	
 	private boolean checkDate() {
 		String expDate = expDateField.getText();
-		if (expDate.length() > 5 || expDate.length() < 5 || expDate.charAt(2) != '/') {
+		if (expDate.length() != 5 || expDate.charAt(2) != '/') {
 			return false;
 		}
-		int actualYear = Calendar.getInstance().get(Calendar.YEAR);
-		int actualMonth = Calendar.getInstance().get(Calendar.MONTH)+1;
-		int creditCardYear = Integer.parseInt(expDate.substring(0,2));
-		int creditCardMonth = Integer.parseInt(expDate.substring(3));
-		if (actualYear > creditCardYear) {
+		Calendar c = Calendar.getInstance();
+		String y = Integer.toString(c.get(Calendar.YEAR)).substring(0,2);
+		int year = Integer.parseInt(y);
+		int month = c.get(Calendar.MONTH) + 1;
+		int creditCardMonth = Integer.parseInt(expDate.substring(0,2));
+		int creditCardYear = Integer.parseInt(expDate.substring(3));
+		if (year > creditCardYear) {
 			return false;
 		}
-		else if (actualYear == creditCardYear) {
-			if (actualMonth > creditCardMonth) {
-				return true;
+		else if (year == creditCardYear) {
+			if (month >= creditCardMonth) {
+				return false;
 			}
 			else {
-				return false;
+				return true;
 			}
 		}
 		else {
@@ -172,12 +183,13 @@ public class CheckoutView extends JPanel {
 	private void initBackToCartButton() {
 		
 		backToCartButton = new JButton("Go Back to your Cart");
-    	checkoutButton.addActionListener(new ActionListener() {
+		backToCartButton.setBounds(600,500,100,100);
+    	backToCartButton.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
-    				ViewManager.switchTo("CART_VIEW");	
+    				manager.switchTo("CART_VIEW");	
     		}
     	});
-    	this.add(checkoutButton);
+    	this.add(backToCartButton);
 		
 	}
     

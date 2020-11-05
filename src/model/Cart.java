@@ -9,7 +9,7 @@ public class Cart {
 
 	private static long orderCounter = 0;
 
-	private static double totalCost;
+	public static double totalCost;
 	private long orderNumber;
 	public static LinkedHashMap<Integer, Integer> itemsOrdered;
 	public ArrayList<Integer> stuff = new ArrayList<Integer>(100);
@@ -18,7 +18,7 @@ public class Cart {
 	public Cart() {
 		this.orderNumber = orderCounter++;
 		totalCost = 0;
-		itemsOrdered = new LinkedHashMap<Integer, Integer>(1);
+		itemsOrdered = new LinkedHashMap<Integer, Integer>();
 		m = Menu.getInstance();
 	}
 
@@ -45,6 +45,7 @@ public class Cart {
 			totalCost -= m.getItem(itemID).getCost() * q;
 			int position = stuff.indexOf(itemID);
 			stuff.remove(position);
+			
 		}
 	}
 
@@ -58,6 +59,10 @@ public class Cart {
 
 	public long getOrderNumber() {
 		return orderNumber;
+	}
+	
+	public int getQuantity(int itemID) {
+		return itemsOrdered.get(itemID);
 	}
 
 	public LinkedHashMap<Integer, Integer> getHashMap() {

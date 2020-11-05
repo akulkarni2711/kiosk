@@ -145,7 +145,7 @@ public class ItemView extends JPanel {
     	backToMenuButton = new JButton("Back to menu");
     	backToMenuButton.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
-    			ViewManager.switchTo("MENU_VIEW");
+    			manager.switchTo("MENU_VIEW");
     		}
     	});
     	backToMenuButton.setBounds(150,500,250,50);

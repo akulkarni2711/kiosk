@@ -2,6 +2,7 @@ package views;
 
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,9 +17,12 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
@@ -32,7 +36,7 @@ import model.Cart;
 
 public class EmployeeMenuView extends JPanel {
 	
-	//TODO everything is wrong fix it
+	//TODO 
 	
 	private ViewManager manager;
 	private JButton orderButton;
@@ -41,6 +45,10 @@ public class EmployeeMenuView extends JPanel {
 	private JButton logoutButton;
 	private JTable itemMenu;
 	private Menu m;
+	private JLabel itemLabel;
+	private JPanel menuItemPanel;
+	private JScrollPane menuPane;
+	private JScrollBar scrollBar;
 	
 	
     public EmployeeMenuView(ViewManager manager) {
@@ -69,43 +77,77 @@ public class EmployeeMenuView extends JPanel {
     }
     
     private void initMenuTable() {
+    	HashMap<Integer, Item> h = m.getHashMap();
     	
-    	JTable menuItems = new JTable(new DefaultTableModel(new Object[]{"", ""}, 1));
-    	menuItems.setBounds(0, 100, 200, 200);
-    	HashMap<Integer, Item> entry = m.getHashMap();
-    	int length = entry.size();
-    	Object[][] data = new Object[2][length];
-    	Iterator it = entry.entrySet().iterator();
+    	Item i = null;
+    	
+    	Iterator it = h.entrySet().iterator();
+    	int n = 0;
     	while (it.hasNext()) {
     		HashMap.Entry pair = (HashMap.Entry)it.next();
-    		int count = (Integer) pair.getKey();
-    		data[count][0] = entry.get(count).getName() + entry.get(count).getCost();
-    		orderButton = new JButton("Order");
-    		orderButton.setActionCommand(Integer.toString(count));
+    		int id = (Integer) pair.getKey(); 
+    		i = (Item) pair.getValue();
+    		itemLabel = new JLabel(i.getName() + "- $" + i.getCost(), SwingConstants.LEFT);
+    		itemLabel.setBounds(50, 80 + 40*n, 200, 35);
+    		
+    		orderButton = new JButton("Select");
+    		orderButton.setBounds(300, 80 + 40*n, 200, 35);
+    		orderButton.setActionCommand(Integer.toString(id));
     		
     		orderButton.addActionListener(new ActionListener() {
     			public void actionPerformed(ActionEvent e) {
-    				String action = orderButton.getActionCommand();
+    				String action = e.getActionCommand();
     				int action_id = Integer.parseInt(action);
-    				manager.goToItem(action_id);	
+    				manager.goToItemEmployee(action_id);
     			}
     		});
     		
-    		data[count][1] = orderButton;
+    		n++;
+    		
+    		menuItemPanel.add(itemLabel);
+    		menuItemPanel.add(orderButton);
+    		
     	}
-    	this.add(menuItems);
-    	
+    	menuItemPanel.setPreferredSize(new Dimension(750, 40*h.size()));
     }
     
     private void initLogoutButton() {
     	logoutButton = new JButton("Logout");
-    	logoutButton.setBounds(100,300,200,100);
+    	logoutButton.setBounds(100,490,250,50);
     	logoutButton.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
     			manager.logOut();
     		}
     	});
     	this.add(logoutButton);
+    }
+    
+    private void initScrollBar() {
+    	scrollBar = new JScrollBar();
+    	this.add(scrollBar);
+    }
+    
+    private void initMenuList() {
+    	
+    	menuItemPanel = new JPanel();
+    	menuItemPanel.setLayout(null);
+    	menuItemPanel.setBounds(0, 80, 600, 600);
+    	
+    	
+    	menuPane = new JScrollPane(menuItemPanel);
+    	menuPane.setBounds(100, 80, 600, 400);
+    	
+    	menuPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+    	menuPane.getVerticalScrollBar().setPreferredSize(new Dimension(15, Integer.MAX_VALUE));
+    	menuPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+    	
+    	
+    	if(m.getHashMap() != null) {
+    		initMenuTable();
+    	}
+    	
+    	this.add(menuPane);
+    	
     }
     
     public void updateCard() {

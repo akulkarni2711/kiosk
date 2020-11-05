@@ -110,7 +110,7 @@ public class EmployeeItemView extends JPanel {
     			newPrice = new JTextField("Enter a new item price here");
     			double newPriceValue = Double.parseDouble(newPrice.getText());
     			
-    			ViewManager.changeItemPrice(newPriceValue, item);
+    			manager.changeItemPrice(newPriceValue, item);
     		}
     	});
     	
@@ -125,7 +125,7 @@ public class EmployeeItemView extends JPanel {
     			newName = new JTextField("Enter a new item name here");
     			String newNameValue = newName.getText();
     			
-    			ViewManager.changeItemName(newNameValue, item);
+    			manager.changeItemName(newNameValue, item);
     		}
     	});
     	this.add(changeItemNameButton);
@@ -139,7 +139,7 @@ public class EmployeeItemView extends JPanel {
     			newDescription = new JTextField("ENter a new description here");
     			String newDescriptionValue = newDescription.getText();
     			
-    			ViewManager.changeItemDescription(newDescriptionValue, item);
+    			manager.changeItemDescription(newDescriptionValue, item);
     		}
     	});
     }
@@ -154,7 +154,7 @@ public class EmployeeItemView extends JPanel {
     	removeItemButton = new JButton("Remove item from menu");
     	backToMenuButton.addActionListener(new ActionListener() {
     	  public void actionPerformed(ActionEvent e) {
-    		  ViewManager.removeItemFromMenu(item);
+    		  manager.removeItemFromMenu(item);
     	    	}
     	 });
     	 this.add(removeItemButton);
@@ -166,7 +166,7 @@ public class EmployeeItemView extends JPanel {
     	backToMenuButton = new JButton("Back to Menu");
     	backToMenuButton.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
-    			ViewManager.switchTo("EMPLOYEE_MENU_VIEW");
+    			manager.switchTo("EMPLOYEE_MENU_VIEW");
     		}
     	});
     	this.add(backToMenuButton);

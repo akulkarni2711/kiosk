@@ -87,6 +87,7 @@ public class MenuView extends JPanel {
     }
     
     private void initMenuTable() {
+    	
     	HashMap<Integer, Item> h = m.getHashMap();
     	
     	Item i = null;

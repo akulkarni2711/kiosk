@@ -60,9 +60,17 @@ public class Kiosk extends JFrame {
 	
 	
 	private static ArrayList<Employee> employees;
+	private static Kiosk instance = null;
 	public static ArrayList<Item> items;
 	public static Menu menu;
 	public static Cart cart;
+	
+	public static Kiosk getInstance() {
+		if (instance == null) {
+			instance = new Kiosk();
+		}
+		return instance;
+	}
 	
 	public Kiosk() {
 		super("Kiosk");

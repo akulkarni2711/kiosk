@@ -20,6 +20,9 @@ import views.EmployeeItemView;
 import views.EmployeeMenuView;
 import views.CheckoutView;
 import views.CartView;
+import placeholders.PHPF;
+import placeholders.PHTA;
+import placeholders.PHTF;
 
 
 public class ViewManager {
@@ -28,19 +31,21 @@ public class ViewManager {
 	private static Employee activeEmployee;
 	private static Item activeItem;
 	private static Menu m;
+	private static Cart c;
 	
 	public ViewManager(Container views) {
 		this.views = views;
 		this.activeEmployee = null;
 		this.activeItem = null;
 		m = Menu.getInstance();
+		c = new Cart();
 	}
 	
 	public Employee getActiveEmployee() {
 		return activeEmployee;
 	}
 	
-	public static void switchTo(String view) {
+	public void switchTo(String view) {
 		((CardLayout) views.getLayout()).show(views, view);
 	}
 	
@@ -65,7 +70,6 @@ public class ViewManager {
 	}
 	
 	public void guestLogin() {
-		((MenuView) views.getComponents()[Kiosk.MENU_VIEW_INDEX]).updateCard();
 		Cart.itemsOrdered.clear();
 		switchTo(Kiosk.MENU_VIEW);
 	}
@@ -90,7 +94,7 @@ public class ViewManager {
 	}
 	
 	public void goToCart() {
-		((CartView) views.getComponents()[Kiosk.CART_VIEW_INDEX]).init();
+		((CartView) views.getComponents()[Kiosk.CART_VIEW_INDEX]).updateCard();
 		switchTo(Kiosk.CART_VIEW);
 	}
 	
@@ -107,25 +111,33 @@ public class ViewManager {
 		Kiosk.cart.addItem(itemID, quantity);
 	}
 	
-	public static void removeItemFromMenu(Item item) {
+	public void removeItemFromMenu(Item item) {
     	int itemID = item.getItemID();
 		Menu.removeMenuItem(itemID);
-    	ViewManager.switchTo("EMPLOYEE_MENU_VIEW");
+    	switchTo("EMPLOYEE_MENU_VIEW");
 	}
 	
-	public static void changeItemName(String newItemName, Item item) {
+	public void removeItemFromCart(Item item) {
+		int itemID = item.getItemID();
+		c.removeItem(itemID);
+		JOptionPane.showMessageDialog(null, "Item succesfully removed from cart",
+				"Joe's Kiosk", JOptionPane.INFORMATION_MESSAGE);
+		((CartView) views.getComponents()[Kiosk.CART_VIEW_INDEX]).updateCard();
+	}
+	
+	public void changeItemName(String newItemName, Item item) {
 		item.setName(newItemName);
 	}
 	
-	public static void changeItemPrice(double newItemPrice, Item item) {
+	public void changeItemPrice(double newItemPrice, Item item) {
 		item.setCost(newItemPrice);
 	}
 	
-	public static void changeItemDescription(String newItemDescription, Item item) {
+	public void changeItemDescription(String newItemDescription, Item item) {
 		item.setDescription(newItemDescription);
 	}
 	
-	public static void changeItemPicture(Image newItemPicture, Item item) {
+	public void changeItemPicture(Image newItemPicture, Item item) {
 		item.setPicture(newItemPicture);;
 	}
 

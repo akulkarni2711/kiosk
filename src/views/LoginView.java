@@ -16,13 +16,16 @@ import javax.swing.SwingConstants;
 
 import model.Employee;
 import controller.ViewManager;
+import placeholders.PHPF;
+import placeholders.PHTA;
+import placeholders.PHTF;
 
 
 public class LoginView extends JPanel {
 	
 	private ViewManager manager;
-	public static JTextField IDField;
-	public static JPasswordField pinField;
+	public static PHTF IDField;
+	public static PHPF pinField;
 	private JButton loginButton;
 	private JButton guestButton;
 	
@@ -56,12 +59,9 @@ public class LoginView extends JPanel {
 	}
 	
 	private void initIDField() {
-		JLabel label = new JLabel("Employee ID: ", SwingConstants.RIGHT);
-		label.setBounds(85, 160, 120, 35);
-		label.setLabelFor(IDField);;
-		label.setFont(new Font("DialogInput", Font.BOLD, 14));
 		
-		IDField = new JTextField(20);
+		IDField = new PHTF(20);
+		IDField.setPlaceholder("Employee ID: ");
 		IDField.setBounds(205, 160, 200, 35);
 		
 		IDField.addKeyListener(new KeyAdapter() {
@@ -69,17 +69,12 @@ public class LoginView extends JPanel {
 		});
 		
 		
-		this.add(label);
 		this.add(IDField);
 	}
 	
 	private void initPinField() {
-		JLabel label = new JLabel("PIN :", SwingConstants.RIGHT);
-		label.setBounds(100, 200, 95, 35);
-		label.setLabelFor(pinField);
-		label.setFont(new Font("DialogInput", Font.BOLD, 14));
-		
-		pinField = new JPasswordField(20);
+		pinField = new PHPF(4);
+		pinField.setPlaceholder("PIN: ");
 		pinField.setBounds(205, 200, 200, 35);;
 		
 		pinField.addKeyListener(new KeyAdapter() {
@@ -93,7 +88,6 @@ public class LoginView extends JPanel {
 			}
 		});
 		
-		this.add(label);
 		this.add(pinField);
 	}
 	
