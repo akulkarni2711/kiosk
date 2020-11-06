@@ -73,12 +73,12 @@ public class CheckoutView extends JPanel {
 	private void initInformation() {
 		creditCardField = new PHTF(16);
 		creditCardField.setPlaceholder("Enter your credit card: ");
-		creditCardField.setBounds(200,200,200,100);
+		creditCardField.setBounds(50,200,200,100);
 		this.add(creditCardField);
 		
 		CVVField = new PHTF(3);
 		CVVField.setPlaceholder("Enter your CVV: ");
-		CVVField.setBounds(320,250,150,100);
+		CVVField.setBounds(275,250,150,100);
 		this.add(CVVField);
 		
 		expDateField = new PHTF(5);
@@ -110,46 +110,51 @@ public class CheckoutView extends JPanel {
 	
 	private boolean checkCreditCardNumber() {
 		String creditCardNumber = creditCardField.getText();
-		String number = creditCardNumber;
-        int length = number.length();
-        int temp1  = 0;
-        int temp2 = 0;
-        int totalSum = 0;
-        for (int k = length-2; k >= 0; k -=2) {
-            char value = number.charAt(k);
-            int intValue = Character.getNumericValue(value) * 2;
-            if (intValue >= 10) {
-                int tens = (int) intValue/10;
-                int ones = intValue % 10;
-                temp1 = temp1 + tens + ones;
-            }
-            else {
-                temp1 = temp1 + intValue;
-            }
-        }
-        for (int m = length -1; m >= 0; m -=2) {
-            char value = number.charAt(m);
-            int intValue = Character.getNumericValue(value);
-            temp2 = temp2 + intValue;
-        }
-        totalSum = temp1 + temp2;
-        if (totalSum % 10 == 0) {
-            if (((number.substring(0,2).equals("34")) || (number.substring(0,2).equals("37"))) && (length == 15)) {
-                return true;
-            }
-            else if (((number.substring(0,2).equals("51")) || (number.substring(0,2).equals("52")) || (number.substring(0,2).equals("53")) || (number.substring(0,2).equals("54")) || (number.substring(0,2).equals("55"))) && (length == 16)) {
-                return true;
-            }
-            else if ((number.substring(0,1).equals("4")) && ((length == 13) || (length == 16))) {
-                return true;
-            }
-            else {
-                return false;
-            }
-        }
-        else {
-            return false;
-        }
+		if (creditCardNumber == null || creditCardNumber.length() == 0) {
+			return false;
+		} else {
+			String number = creditCardNumber;
+	        int length = number.length();
+	        int temp1  = 0;
+	        int temp2 = 0;
+	        int totalSum = 0;
+	        for (int k = length-2; k >= 0; k -=2) {
+	            char value = number.charAt(k);
+	            int intValue = Character.getNumericValue(value) * 2;
+	            if (intValue >= 10) {
+	                int tens = (int) intValue/10;
+	                int ones = intValue % 10;
+	                temp1 = temp1 + tens + ones;
+	            }
+	            else {
+	                temp1 = temp1 + intValue;
+	            }
+	        }
+	        for (int m = length -1; m >= 0; m -=2) {
+	            char value = number.charAt(m);
+	            int intValue = Character.getNumericValue(value);
+	            temp2 = temp2 + intValue;
+	        }
+	        totalSum = temp1 + temp2;
+	        if (totalSum % 10 == 0) {
+	            if (((number.substring(0,2).equals("34")) || (number.substring(0,2).equals("37"))) && (length == 15)) {
+	                return true;
+	            }
+	            else if (((number.substring(0,2).equals("51")) || (number.substring(0,2).equals("52")) || (number.substring(0,2).equals("53")) || (number.substring(0,2).equals("54")) || (number.substring(0,2).equals("55"))) && (length == 16)) {
+	                return true;
+	            }
+	            else if ((number.substring(0,1).equals("4")) && ((length == 13) || (length == 16))) {
+	                return true;
+	            }
+	            else {
+	                return false;
+	            }
+	        }
+	        else {
+	            return false;
+	        }
+		}
+
 	}
 	
 	private boolean checkDate() {

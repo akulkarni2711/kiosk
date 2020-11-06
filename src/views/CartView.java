@@ -68,11 +68,11 @@ public class CartView extends JPanel {
 		this.setLayout(null);
 
 		initTitle();
-		initTotalPrice();
-		initCheckoutButton();
-		initBackToMenuButton();
+		initTotalPrice();		
 		initItemTable();
 		initCartList();
+		initCheckoutButton();
+		initBackToMenuButton();
 
 	}
 
@@ -98,7 +98,7 @@ public class CartView extends JPanel {
 				manager.goToCheckout();
 			}
 		});
-		checkoutButton.setBounds(300,400,200,40);
+		checkoutButton.setBounds(450,490,250,50);
 		this.add(checkoutButton);
 	}
 	
@@ -109,11 +109,11 @@ public class CartView extends JPanel {
 				manager.goToMenu();
 			}
 		});
-		backToMenuButton.setBounds(500,400,200,40);
+		backToMenuButton.setBounds(100,490,250,50);
 		this.add(backToMenuButton);
 	}
 
-	private void initItemTable() {
+	public void initItemTable() {
 
 		if (c.itemsOrdered.isEmpty() == true || c.itemsOrdered == null) {
 			// add error message here
@@ -140,7 +140,7 @@ public class CartView extends JPanel {
 	    			public void actionPerformed(ActionEvent e) {
 	    				String action = e.getActionCommand();
 	    				int action_id = Integer.parseInt(action);
-	    				c.removeItem(action_id);
+	    				manager.removeItemFromCart(action_id);
 	    			}
 	    		});
 	    		

@@ -20,8 +20,7 @@ import views.EmployeeItemView;
 import views.EmployeeMenuView;
 import views.CheckoutView;
 import views.CartView;
-import placeholders.PHPF;
-import placeholders.PHTA;
+import placeholders.PHTF;
 import placeholders.PHTF;
 
 
@@ -92,6 +91,7 @@ public class ViewManager {
 	public void goToItemEmployee(int activeItemID) {
 		activeItem = m.getItem(activeItemID);
 		((EmployeeItemView) views.getComponents()[Kiosk.EMPLOYEE_ITEM_VIEW_INDEX]).updateCard();
+		switchTo(Kiosk.EMPLOYEE_ITEM_VIEW);
 	}
 	
 	public void goToCart() {
@@ -123,28 +123,63 @@ public class ViewManager {
     	switchTo("EMPLOYEE_MENU_VIEW");
 	}
 	
-	public void removeItemFromCart(Item item) {
-		int itemID = item.getItemID();
+	public void removeItemFromCart(int itemID) {
 		c.removeItem(itemID);
 		JOptionPane.showMessageDialog(null, "Item succesfully removed from cart",
 				"Joe's Kiosk", JOptionPane.INFORMATION_MESSAGE);
-		((CartView) views.getComponents()[Kiosk.CART_VIEW_INDEX]).updateCard();
+  
+    	((CartView) views.getComponents()[Kiosk.CART_VIEW_INDEX]).removeAll();
+        ((CartView) views.getComponents()[Kiosk.CART_VIEW_INDEX]).updateCard();
+        ((CartView) views.getComponents()[Kiosk.CART_VIEW_INDEX]).revalidate();
+        ((CartView) views.getComponents()[Kiosk.CART_VIEW_INDEX]).repaint();
+		
 	}
 	
 	public void changeItemName(String newItemName, Item item) {
 		item.setName(newItemName);
+		JOptionPane.showMessageDialog(null, "Item name succesfully changed",
+				"Joe's Kiosk", JOptionPane.INFORMATION_MESSAGE);
+  
+    	((EmployeeItemView) views.getComponents()[Kiosk.EMPLOYEE_ITEM_VIEW_INDEX]).removeAll();
+        ((EmployeeItemView) views.getComponents()[Kiosk.EMPLOYEE_ITEM_VIEW_INDEX]).updateCard();
+        ((EmployeeItemView) views.getComponents()[Kiosk.EMPLOYEE_ITEM_VIEW_INDEX]).revalidate();
+        ((EmployeeItemView) views.getComponents()[Kiosk.EMPLOYEE_ITEM_VIEW_INDEX]).repaint();
 	}
 	
 	public void changeItemPrice(double newItemPrice, Item item) {
 		item.setCost(newItemPrice);
+		
+		JOptionPane.showMessageDialog(null, "Item price succesfully changed",
+				"Joe's Kiosk", JOptionPane.INFORMATION_MESSAGE);
+  
+    	((EmployeeItemView) views.getComponents()[Kiosk.EMPLOYEE_ITEM_VIEW_INDEX]).removeAll();
+        ((EmployeeItemView) views.getComponents()[Kiosk.EMPLOYEE_ITEM_VIEW_INDEX]).updateCard();
+        ((EmployeeItemView) views.getComponents()[Kiosk.EMPLOYEE_ITEM_VIEW_INDEX]).revalidate();
+        ((EmployeeItemView) views.getComponents()[Kiosk.EMPLOYEE_ITEM_VIEW_INDEX]).repaint();
 	}
 	
 	public void changeItemDescription(String newItemDescription, Item item) {
 		item.setDescription(newItemDescription);
+		
+		JOptionPane.showMessageDialog(null, "Item description succesfully changed",
+				"Joe's Kiosk", JOptionPane.INFORMATION_MESSAGE);
+  
+    	((EmployeeItemView) views.getComponents()[Kiosk.EMPLOYEE_ITEM_VIEW_INDEX]).removeAll();
+        ((EmployeeItemView) views.getComponents()[Kiosk.EMPLOYEE_ITEM_VIEW_INDEX]).updateCard();
+        ((EmployeeItemView) views.getComponents()[Kiosk.EMPLOYEE_ITEM_VIEW_INDEX]).revalidate();
+        ((EmployeeItemView) views.getComponents()[Kiosk.EMPLOYEE_ITEM_VIEW_INDEX]).repaint();
 	}
 	
 	public void changeItemPicture(Image newItemPicture, Item item) {
-		item.setPicture(newItemPicture);;
+		item.setPicture(newItemPicture);
+		
+		JOptionPane.showMessageDialog(null, "Item picture succesfully changed",
+				"Joe's Kiosk", JOptionPane.INFORMATION_MESSAGE);
+  
+    	((EmployeeItemView) views.getComponents()[Kiosk.EMPLOYEE_ITEM_VIEW_INDEX]).removeAll();
+        ((EmployeeItemView) views.getComponents()[Kiosk.EMPLOYEE_ITEM_VIEW_INDEX]).updateCard();
+        ((EmployeeItemView) views.getComponents()[Kiosk.EMPLOYEE_ITEM_VIEW_INDEX]).revalidate();
+        ((EmployeeItemView) views.getComponents()[Kiosk.EMPLOYEE_ITEM_VIEW_INDEX]).repaint();
 	}
 
 }

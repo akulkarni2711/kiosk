@@ -41,20 +41,20 @@ public class ItemView extends JPanel {
 	
 	//TODO: Add messages to page when item is successfully added to cart
 	
-	private ViewManager manager;
-	private JLabel itemName;
-	private JLabel itemPrice;
-	private JTextArea itemDescription;
-	private Image picture;
-	private JLabel pictureLabel;
-	private JButton backToMenuButton;
-	private JSpinner spinQuantity;
-	private JButton addToCartButton;
-	private Item item;
-	private Menu m;
-	private ImageIcon pictureIcon;
-	private JLabel picLabel;
-	private int quantity;
+	protected ViewManager manager;
+	protected JLabel itemName;
+	protected JLabel itemPrice;
+	protected JTextArea itemDescription;
+	protected Image picture;
+	protected JLabel pictureLabel;
+	protected JButton backToMenuButton;
+	protected JSpinner spinQuantity;
+	protected JButton addToCartButton;
+	protected Item item;
+	protected Menu m;
+	protected ImageIcon pictureIcon;
+	protected JLabel picLabel;
+	protected int quantity;
 	
     public ItemView(ViewManager manager) {
         super();
@@ -64,7 +64,7 @@ public class ItemView extends JPanel {
         this.manager = manager;
     }
     
-    private void init() {
+    protected void init() {
     	this.removeAll();
     	this.setLayout(null);
     	this.item = manager.getActiveItem();
@@ -80,7 +80,7 @@ public class ItemView extends JPanel {
     	init();
     }
     
-    private void initTitle() {
+    protected void initTitle() {
     	JLabel title = new JLabel("Joe's Restaraunt Kiosk", SwingConstants.CENTER);
     	title.setBounds(0, 20, 500, 35);
     	title.setFont(new Font("DialogInput", Font.BOLD, 21));
@@ -88,7 +88,7 @@ public class ItemView extends JPanel {
     	this.add(title);
     }
     
-    private void initInformation(Item item) {
+    protected void initInformation(Item item) {
     	itemName = new JLabel(item.getName());
     	itemName.setBounds(100,50,150,40);
     	this.add(itemName);
@@ -140,7 +140,7 @@ public class ItemView extends JPanel {
     	
     }
     
-    private void initBackToMenuButton() {
+    protected void initBackToMenuButton() {
     	
     	backToMenuButton = new JButton("Back to menu");
     	backToMenuButton.addActionListener(new ActionListener() {

@@ -39,7 +39,7 @@ public class AfterCheckoutView extends JPanel {
     
     public void init() {
     	initMessage();
-    	initLogInButton();
+    	initLogOutButton();
     }
 
 
@@ -47,9 +47,11 @@ public class AfterCheckoutView extends JPanel {
     	message = new JLabel ("Thank you for ordering at Joe's Restaurant. Your orer will be ready shortly.");
     	message.setBounds(100,100,100,100);
     	message.setFont(new Font("DialogInput", Font.BOLD, 21));
+    	
+    	this.add(message);
 }
 
-    public void initLogInButton() {
+    public void initLogOutButton() {
     	logoutButton = new JButton("Finish Order and Logout");
     	logoutButton.setBounds(100,300,200,100);
     	logoutButton.addActionListener(new ActionListener() {

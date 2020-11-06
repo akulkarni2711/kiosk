@@ -9,6 +9,7 @@ public class Employee {
 	private long phoneNumber;
 	private int pin;
 	private long employeeID;
+	private static Employee instance;
 	
 	public Employee(String firstName, String lastName, String emailAddress, long phoneNumber, int pin) {
 		this.firstName = firstName;
@@ -18,7 +19,6 @@ public class Employee {
 		this.pin = pin;
 		this.employeeID = employeeCounter++;
 	}
-	
 	
 	
 	public String getFirstName() {

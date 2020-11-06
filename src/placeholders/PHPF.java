@@ -1,51 +1,67 @@
 package placeholders;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
+import java.awt.*;
 
-import javax.swing.JPasswordField;
+import javax.swing.*;
+import javax.swing.text.Document;
 
 import GUI.Kiosk;
 
 @SuppressWarnings("serial")
 public class PHPF extends JPasswordField {
 
-    private String ph;
-    private Kiosk kiosk;
+	private Kiosk kiosk;
+    private String placeholder;
 
-    public PHPF(final int col) {
-        super(col);
+    public PHPF() {
+    }
+
+    public PHPF(
+        final Document pDoc,
+        final String pText,
+        final int pColumns)
+    {
+        super(pDoc, pText, pColumns);
+    }
+
+    public PHPF(final int pColumns) {
+        super(pColumns);
+    }
+
+    public PHPF(final String pText) {
+        super(pText);
+    }
+
+    public PHPF(final String pText, final int pColumns) {
+        super(pText, pColumns);
     }
 
     public String getPlaceholder() {
-        return ph;
+        return placeholder;
     }
+
+  @Override
+  protected void paintComponent(final Graphics pG) {
+  	kiosk = kiosk.getInstance();
+      super.paintComponent(pG);
+
+      if (placeholder == null || placeholder.length() == 0) {
+          return;
+      }
+
+      final Graphics2D g = (Graphics2D) pG;
+      g.setRenderingHint(
+      RenderingHints.KEY_ANTIALIASING,
+      RenderingHints.VALUE_ANTIALIAS_OFF);
+      Font f = new Font("Verdana", Font.PLAIN, 13);
+      g.setFont(f);
+      g.setColor(Color.GRAY);
+      g.drawString(placeholder, getInsets().left, pG.getFontMetrics()
+          .getMaxAscent() + getInsets().top);
+  }
 
     public void setPlaceholder(final String s) {
-        ph = s;
-    }
-    
-    @Override
-    protected void paintComponent(final Graphics pG) {
-    	kiosk = kiosk.getInstance();
-        super.paintComponent(pG);
-
-        if (ph == null || ph.length() == 0 || new String(getPassword()).length() > 0) {
-            return;
-        }
-
-        final Graphics2D g = (Graphics2D) pG;
-        g.setRenderingHint(
-            RenderingHints.KEY_ANTIALIASING,
-            RenderingHints.VALUE_ANTIALIAS_OFF);
-        Font f = new Font("Verdana", Font.PLAIN, 13);
-        g.setFont(f);
-        g.setColor(Color.GRAY);
-        g.drawString(ph, getInsets().left, pG.getFontMetrics()
-            .getMaxAscent() + getInsets().top+6);
+        placeholder = s;
     }
 
 }

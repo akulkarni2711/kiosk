@@ -17,7 +17,9 @@ import java.text.DecimalFormat;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JSpinner;
@@ -33,146 +35,135 @@ import model.Item;
 import model.Menu;
 import model.Cart;
 
+//TODO Limit values for new name/description
 
-public class EmployeeItemView extends JPanel {
-	
-	//TODO:
-	
-	private ViewManager manager;
-	private JLabel itemName;
-	private JLabel itemPrice;
-	private JLabel itemDescription;
-	private JLabel itemPicture;
-	private JButton backToMenuButton;
-	private JButton removeItemButton;
+@SuppressWarnings("serial")
+public class EmployeeItemView extends ItemView {
+
 	private JButton changeItemPriceButton;
-	private Item item;
-	private Menu m;
+	private String newPrice;
 	private JButton changeItemNameButton;
-	private JButton changeItemDescriptionButton; 
-	private JTextField newName;
-	private JTextField newPrice;
-	private JTextField newDescription;
+	private JButton changeItemDescriptionButton;
 	private JButton changeItemPictureButton;
-	private JTextField newPicture;
-	
-    public EmployeeItemView(ViewManager manager) {
-        super();
-        
-        m = Menu.getInstance();
-        
-        this.manager = manager;
-    }
-    
-    private void init() {
-    	this.removeAll();
-    	this.setLayout(null);
-    	this.item = manager.getActiveItem();
-    	initTitle();
-    	initInformation(item);
-    	initChangePriceButton();
-    	initChangeNameButton();
-    	initChangeDescriptionButton();
-    	initChangePictureButton();
-    	initRemoveItemButton();
-    	initBackToMenuButton();
+	private String newName;
+	private String newDescription;
+	private JButton removeItemButton;
+	private JFileChooser chooser;
+	private Image image;
+
+	public EmployeeItemView(ViewManager manager) {
+		super(manager);
+
+		m = Menu.getInstance();
+
+		this.manager = manager;
+	}
+
+	protected void init() {
+		this.removeAll();
+		this.setLayout(null);;
+		this.item = manager.getActiveItem();
+		initTitle();
+		initInformation(item);
+		initBackToMenuButton();
+		initChangePriceButton();
+		initChangeNameButton();
+		initChangeDescriptionButton();
+		// initChangePictureButton();
+	}
+
+	public void updateCard() {
+		init();
+	}
+
+    protected void initBackToMenuButton() {
     	
-    }
-    
-    public void updateCard() {
-    	init();
-    }
-    
-    private void initTitle() {
-    	JLabel title = new JLabel("Joe's Restaraunt Kiosk", SwingConstants.CENTER);
-    	title.setBounds(0, 20, 500, 35);
-    	title.setFont(new Font("DialogInput", Font.BOLD, 21));
-    	
-    	this.add(title);
-    }
-    
-    private void initInformation(Item item) {
-    	itemName = new JLabel(item.getName());
-    	itemPrice = new JLabel(Double.toString(item.getCost()));
-    	itemDescription = new JLabel(item.getDescription());
-    	itemPicture = new JLabel();
-    	this.add(itemName);
-    	this.add(itemPrice);
-    	this.add(itemDescription);
-    	this.add(itemPicture);
-    }
-    
-    private void initChangePriceButton() {
-    	
-    	changeItemPriceButton = new JButton("Change the price of this item");
-    	changeItemPriceButton.addActionListener(new ActionListener() {
-    		public void actionPerformed(ActionEvent e) {
-    			newPrice = new JTextField("Enter a new item price here");
-    			double newPriceValue = Double.parseDouble(newPrice.getText());
-    			
-    			manager.changeItemPrice(newPriceValue, item);
-    		}
-    	});
-    	
-    	this.add(changeItemPriceButton);
-    	
-    }
-    
-    private void initChangeNameButton() {
-    	changeItemNameButton = new JButton("Change the name of this item");
-    	changeItemNameButton.addActionListener(new ActionListener() {
-    		public void actionPerformed(ActionEvent e) {
-    			newName = new JTextField("Enter a new item name here");
-    			String newNameValue = newName.getText();
-    			
-    			manager.changeItemName(newNameValue, item);
-    		}
-    	});
-    	this.add(changeItemNameButton);
-    	
-    }
-    
-    private void initChangeDescriptionButton() {
-    	changeItemDescriptionButton = new JButton("Change the description of this item");
-    	changeItemDescriptionButton.addActionListener(new ActionListener() {
-    		public void actionPerformed(ActionEvent e) {
-    			newDescription = new JTextField("ENter a new description here");
-    			String newDescriptionValue = newDescription.getText();
-    			
-    			manager.changeItemDescription(newDescriptionValue, item);
-    		}
-    	});
-    }
-    
-    
-    private void initChangePictureButton() {
-    	
-    }
-    
-    
-    private void initRemoveItemButton() {
-    	removeItemButton = new JButton("Remove item from menu");
-    	backToMenuButton.addActionListener(new ActionListener() {
-    	  public void actionPerformed(ActionEvent e) {
-    		  manager.removeItemFromMenu(item);
-    	    	}
-    	 });
-    	 this.add(removeItemButton);
-    	
-    }
-    
-    private void initBackToMenuButton() {
-    	
-    	backToMenuButton = new JButton("Back to Menu");
+    	backToMenuButton = new JButton("Back to menu");
     	backToMenuButton.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
     			manager.switchTo("EMPLOYEE_MENU_VIEW");
     		}
     	});
+    	backToMenuButton.setBounds(150,400,250,50);
     	this.add(backToMenuButton);
     	
     }
-    
-    
+	
+	private void initChangePriceButton() {
+
+		changeItemPriceButton = new JButton("Change the price of this item");
+		changeItemPriceButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				newPrice = JOptionPane.showInputDialog("New item price:");
+				try {
+					Double newPriceValue = Double.valueOf(newPrice);
+					manager.changeItemPrice(newPriceValue, item);
+				} catch (NumberFormatException h) {
+					// add error message
+				}
+			}
+		});
+
+		changeItemPriceButton.setBounds(50,500,100,75);
+		this.add(changeItemPriceButton);
+
+	}
+
+	private void initChangeNameButton() {
+		changeItemNameButton = new JButton("Name");
+		changeItemNameButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				newName = JOptionPane.showInputDialog("New item name: ");
+				manager.changeItemName(newName, item);
+			}
+		});
+		changeItemNameButton.setBounds(250,500,100,75);
+		this.add(changeItemNameButton);
+
+	}
+
+	private void initChangeDescriptionButton() {
+		changeItemDescriptionButton = new JButton("Description");
+		changeItemDescriptionButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				newDescription = JOptionPane.showInputDialog("New item description: ");
+				manager.changeItemDescription(newDescription, item);
+			}
+		});
+		changeItemDescriptionButton.setBounds(400,500,100,75);
+		this.add(changeItemDescriptionButton);
+	}
+
+    private void initChangePictureButton() {
+    	changeItemPictureButton = new JButton("Pic");
+    	changeItemPictureButton.addActionListener(new ActionListener() {
+    		public void actionPerformed(ActionEvent e) {
+    			if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+    				try {
+    					File selectedFile = chooser.getSelectedFile();
+    					image = ImageIO.read(selectedFile);
+    					manager.changeItemPicture(image, item);
+    				} catch (IOException h) {
+    					image = null;
+    					h.printStackTrace();
+    				}
+    			}
+    		}
+    	});
+    	changeItemPictureButton.setBounds(600,500,100,75);
+    	this.add(changeItemPictureButton);
+    }
+
+	private void initRemoveItemButton() {
+		removeItemButton = new JButton("Remove");
+		removeItemButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				manager.removeItemFromMenu(item);
+			}
+		});
+		removeItemButton.setBounds(700,500,100,75);
+		this.add(removeItemButton);
+
+	}
 
 }

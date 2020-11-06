@@ -129,7 +129,7 @@ public class Kiosk extends JFrame {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					new Kiosk().init();
+					Kiosk.getInstance().init();
 				}
 				catch (Exception e) {
 					e.printStackTrace();

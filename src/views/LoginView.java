@@ -16,9 +16,8 @@ import javax.swing.SwingConstants;
 
 import model.Employee;
 import controller.ViewManager;
-import placeholders.PHPF;
-import placeholders.PHTA;
 import placeholders.PHTF;
+import placeholders.PHPF;
 
 
 public class LoginView extends JPanel {
@@ -75,14 +74,11 @@ public class LoginView extends JPanel {
 	private void initPinField() {
 		pinField = new PHPF(4);
 		pinField.setPlaceholder("PIN: ");
-		pinField.setBounds(205, 200, 200, 35);;
+		pinField.setBounds(205, 200, 200, 35);
 		
 		pinField.addKeyListener(new KeyAdapter() {
 			public void keyTyped(KeyEvent e) {
-				if (pinField.getPassword().length >=4) {
-					e.consume();
-				}
-				else if (e.getKeyChar() < 48 || e.getKeyChar() > 57) {
+				if (pinField.getPassword().length >=4 || e.getKeyChar() < 48 || e.getKeyChar() > 57) {
 					e.consume();
 				}
 			}

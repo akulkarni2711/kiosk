@@ -42,18 +42,18 @@ import model.Cart;
 
 public class MenuView extends JPanel {
 	
-	private ViewManager manager;
-	private JButton orderButton;
-	private JLabel totalCost;
-	private JScrollBar scrollBar;
-	private JButton logoutButton;
-	private JButton cartButton;
-	private JTable itemMenu;
-	private Menu m;
-	private Object[][] data;
-	private JLabel itemLabel;
-	private JPanel menuItemPanel;
-	private JScrollPane menuPane;
+	protected ViewManager manager;
+	protected JButton orderButton;
+	protected JLabel totalCost;
+	protected JScrollBar scrollBar;
+	protected JButton logoutButton;
+	protected JButton cartButton;
+	protected JTable itemMenu;
+	protected Menu m;
+	protected Object[][] data;
+	protected JLabel itemLabel;
+	protected JPanel menuItemPanel;
+	protected JScrollPane menuPane;
 	
     public MenuView(ViewManager manager) {
         super();
@@ -78,7 +78,7 @@ public class MenuView extends JPanel {
     	init();
     }
     
-    private void initTitle() {
+    protected void initTitle() {
     	JLabel title = new JLabel("Menu", SwingConstants.CENTER);
     	title.setBounds(0, 20, 500, 35);
     	title.setFont(new Font("DialogInput", Font.BOLD, 21));
@@ -86,7 +86,7 @@ public class MenuView extends JPanel {
     	this.add(title);
     }
     
-    private void initMenuTable() {
+    protected void initMenuTable() {
     	
     	HashMap<Integer, Item> h = m.getHashMap();
     	
@@ -122,8 +122,8 @@ public class MenuView extends JPanel {
     	menuItemPanel.setPreferredSize(new Dimension(750, 40*h.size()));
     }
     
-    private void initLogoutButton() {
-    	logoutButton = new JButton("Cancel Order and Logout");
+    protected void initLogoutButton() {
+    	logoutButton = new JButton("Logout");
     	logoutButton.setBounds(100,490,250,50);
     	logoutButton.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
@@ -133,12 +133,12 @@ public class MenuView extends JPanel {
     	this.add(logoutButton);
     }
     
-    private void initScrollBar() {
+    protected void initScrollBar() {
     	scrollBar = new JScrollBar();
     	this.add(scrollBar);
     }
     
-    private void initCartButton() {
+    protected void initCartButton() {
     	cartButton = new JButton("Go to your cart");
     	cartButton.setBounds(450,490,250,50);
     	cartButton.addActionListener(new ActionListener() {
@@ -149,7 +149,7 @@ public class MenuView extends JPanel {
     	this.add(cartButton);
     }
     
-    private void initMenuList() {
+    protected void initMenuList() {
     	
     	
     	
