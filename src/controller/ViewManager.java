@@ -114,6 +114,8 @@ public class ViewManager {
 	}
 	
 	public void addItem(int itemID, int quantity) {
+		JOptionPane.showMessageDialog(null, "Item succesfully added from cart",
+				"Joe's Kiosk", JOptionPane.INFORMATION_MESSAGE);
 		Kiosk.cart.addItem(itemID, quantity);
 	}
 	
@@ -180,6 +182,10 @@ public class ViewManager {
         ((EmployeeItemView) views.getComponents()[Kiosk.EMPLOYEE_ITEM_VIEW_INDEX]).updateCard();
         ((EmployeeItemView) views.getComponents()[Kiosk.EMPLOYEE_ITEM_VIEW_INDEX]).revalidate();
         ((EmployeeItemView) views.getComponents()[Kiosk.EMPLOYEE_ITEM_VIEW_INDEX]).repaint();
+	}
+	
+	public void addNewItem() {
+		m.addMenuItem(new Item(null, 0, null, null));
 	}
 
 }

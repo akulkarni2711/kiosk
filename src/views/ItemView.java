@@ -132,7 +132,6 @@ public class ItemView extends JPanel {
         	public void actionPerformed(ActionEvent e) {
         		quantity = ((Integer)spinQuantity.getValue()).intValue();
         	    manager.addItem(item.getItemID(), quantity);
-        	    System.out.println("Item added to cart " + quantity + "," + item.getItemID());
         	}
         });
         addToCartButton.setBounds(600,500,250,50);

@@ -9,6 +9,7 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -98,7 +99,8 @@ public class LoginView extends JPanel {
 				if (source.equals(loginButton)) {
 					String emp = IDField.getText();
 					if (emp.isBlank()) {
-						//add error
+						JOptionPane.showMessageDialog(null, "Please enter a valid ID and password, or login as a guest",
+								"Joe's Kiosk", JOptionPane.ERROR_MESSAGE);
 					}
 					else {
 						Long employeeID = Long.parseLong(emp);

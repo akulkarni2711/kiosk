@@ -7,6 +7,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 public class Item {
 	
@@ -66,17 +67,27 @@ public class Item {
 	}
 
 	
-	public void setCost(double cost) {
-		this.cost = cost;
+	public void setCost(double newCost) {
+		this.cost = newCost;
 	}
 	
-	public void setName(String name) {
-		this.name = name;
+	public void setName(String newName) {
+		if (newName.length() != 0) {
+			this.name = newName;
+		} else {
+			JOptionPane.showMessageDialog(null, "Please enter a valid name",
+					"Joe's Kiosk", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 	
 	
-	public void setDescription(String description) {
-		this.description = description;
+	public void setDescription(String newDescription) {
+		if (newDescription.length() != 0) {
+			this.description = newDescription;
+		} else {
+			JOptionPane.showMessageDialog(null, "Please enter a valid description",
+					"Joe's Kiosk", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 	
 	public void setPicture(Image image) {

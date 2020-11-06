@@ -1,5 +1,6 @@
 Display message to user when item is actually added to cart instead of in console
-Fix employee log in issue
 Display after checkout page
-Add error message where needed
+if new item price is below 0, dont allow it
+after removing an item, update menu screen
+fix the popup at beginning
 Formatting

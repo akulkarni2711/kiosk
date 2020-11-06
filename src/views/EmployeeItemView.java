@@ -69,7 +69,8 @@ public class EmployeeItemView extends ItemView {
 		initChangePriceButton();
 		initChangeNameButton();
 		initChangeDescriptionButton();
-		// initChangePictureButton();
+		initChangePictureButton();
+		initRemoveItemButton();
 	}
 
 	public void updateCard() {
@@ -91,7 +92,7 @@ public class EmployeeItemView extends ItemView {
 	
 	private void initChangePriceButton() {
 
-		changeItemPriceButton = new JButton("Change the price of this item");
+		changeItemPriceButton = new JButton("Price:");
 		changeItemPriceButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				newPrice = JOptionPane.showInputDialog("New item price:");
@@ -99,7 +100,8 @@ public class EmployeeItemView extends ItemView {
 					Double newPriceValue = Double.valueOf(newPrice);
 					manager.changeItemPrice(newPriceValue, item);
 				} catch (NumberFormatException h) {
-					// add error message
+					JOptionPane.showMessageDialog(null, "Please enter a valid price",
+							"Joe's Kiosk", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
@@ -113,8 +115,10 @@ public class EmployeeItemView extends ItemView {
 		changeItemNameButton = new JButton("Name");
 		changeItemNameButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				newName = JOptionPane.showInputDialog("New item name: ");
-				manager.changeItemName(newName, item);
+				newName = JOptionPane.showInputDialog("New name for this item: ");
+				if (newName != null) {
+					manager.changeItemName(newName, item);
+				}
 			}
 		});
 		changeItemNameButton.setBounds(250,500,100,75);
@@ -126,8 +130,10 @@ public class EmployeeItemView extends ItemView {
 		changeItemDescriptionButton = new JButton("Description");
 		changeItemDescriptionButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				newDescription = JOptionPane.showInputDialog("New item description: ");
-				manager.changeItemDescription(newDescription, item);
+				newDescription = JOptionPane.showInputDialog("New description for this item: ");
+				if (newDescription != null) {
+					manager.changeItemDescription(newDescription, item);
+				} 
 			}
 		});
 		changeItemDescriptionButton.setBounds(400,500,100,75);
@@ -138,6 +144,7 @@ public class EmployeeItemView extends ItemView {
     	changeItemPictureButton = new JButton("Pic");
     	changeItemPictureButton.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
+    			chooser = new JFileChooser();
     			if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
     				try {
     					File selectedFile = chooser.getSelectedFile();
@@ -150,7 +157,7 @@ public class EmployeeItemView extends ItemView {
     			}
     		}
     	});
-    	changeItemPictureButton.setBounds(600,500,100,75);
+    	changeItemPictureButton.setBounds(300,300,100,75);
     	this.add(changeItemPictureButton);
     }
 
