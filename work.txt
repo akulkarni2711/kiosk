@@ -1,6 +1,7 @@
-Display message to user when item is actually added to cart instead of in console
-Display after checkout page
+if item name change is empty, dont display "item name succesfully changed"
+format prices in cart view
 if new item price is below 0, dont allow it
 after removing an item, update menu screen
 fix the popup at beginning
+add whole ass new view for employee
 Formatting

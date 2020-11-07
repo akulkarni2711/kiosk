@@ -88,7 +88,7 @@ public class CheckoutView extends JPanel {
 	}
 	
 	private void initCheckoutButton() {
-		checkoutButton = new JButton("Finish order and checout");
+		checkoutButton = new JButton("Finish order and checkout");
 		checkoutButton.setBounds(400, 300, 200, 150);
     	checkoutButton.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
@@ -101,7 +101,7 @@ public class CheckoutView extends JPanel {
     						"Joe's Kiosk", JOptionPane.ERROR_MESSAGE);
     			}
     			else {
-    				manager.switchTo("AFTER_CHECKOUT_VIEW");	
+    				manager.switchTo(Kiosk.AFTER_CHECKOUT_VIEW);	
     			}
     		}
     	});

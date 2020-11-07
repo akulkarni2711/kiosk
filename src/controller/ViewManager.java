@@ -122,7 +122,12 @@ public class ViewManager {
 	public void removeItemFromMenu(Item item) {
     	int itemID = item.getItemID();
 		Menu.removeMenuItem(itemID);
+		switchTo("LOGIN_VIEW");
     	switchTo("EMPLOYEE_MENU_VIEW");
+    	((MenuView) views.getComponents()[Kiosk.MENU_VIEW_INDEX]).removeAll();
+        ((MenuView) views.getComponents()[Kiosk.MENU_VIEW_INDEX]).updateCard();
+        ((MenuView) views.getComponents()[Kiosk.MENU_VIEW_INDEX]).revalidate();
+        ((MenuView) views.getComponents()[Kiosk.MENU_VIEW_INDEX]).repaint();
 	}
 	
 	public void removeItemFromCart(int itemID) {

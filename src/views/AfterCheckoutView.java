@@ -25,6 +25,7 @@ import model.Menu;
 import model.Cart;
 
 
+@SuppressWarnings("serial")
 public class AfterCheckoutView extends JPanel {
 	
 	private ViewManager manager;
@@ -35,6 +36,7 @@ public class AfterCheckoutView extends JPanel {
     public AfterCheckoutView(ViewManager manager) {
         super();
         this.manager = manager;
+        init();
     }
     
     public void init() {
@@ -44,7 +46,7 @@ public class AfterCheckoutView extends JPanel {
 
 
     public void initMessage() {
-    	message = new JLabel ("Thank you for ordering at Joe's Restaurant. Your orer will be ready shortly.");
+    	message = new JLabel ("Thank you for ordering at Joe's Restaurant. Your order will be ready shortly.");
     	message.setBounds(100,100,100,100);
     	message.setFont(new Font("DialogInput", Font.BOLD, 21));
     	
