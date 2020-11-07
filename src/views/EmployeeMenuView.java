@@ -45,7 +45,7 @@ public class EmployeeMenuView extends MenuView {
     
     protected void initTitle() {
     	JLabel title = new JLabel("Menu(Employee)", SwingConstants.CENTER);
-    	title.setBounds(0, 20, 500, 35);
+    	title.setBounds(160, 40, 500, 35);
     	title.setFont(new Font("DialogInput", Font.BOLD, 21));
     	
     	this.add(title);
@@ -89,6 +89,7 @@ public class EmployeeMenuView extends MenuView {
     
     private void initAddItemButton() {
     	addItemButton = new JButton("Add new item");
+    	addItemButton.setBounds(500,200,40,100);
 		addItemButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				manager.addNewItem();
@@ -130,11 +131,11 @@ public class EmployeeMenuView extends MenuView {
 				
 			}
 		});
-    	
-    	JOptionPane.showMessageDialog(null, "Item succesfully added to cart",
-				"Joe's Kiosk", JOptionPane.INFORMATION_MESSAGE);
-        addItemButton.setBounds(400,0,100,100);
-        this.add(addItemButton);
+//    	
+//		JOptionPane.showMessageDialog(null, "Item successfully added to cart",
+//		"Joe's Kiosk", JOptionPane.INFORMATION_MESSAGE);
+//        addItemButton.setBounds(400,0,100,100);
+//        this.add(addItemButton);
     }
 
 }
