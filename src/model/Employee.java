@@ -2,7 +2,7 @@ package model;
 
 public class Employee {
 	
-	private static long employeeCounter = 0;
+	public static long employeeCounter = 0;
 	private String firstName;
 	private String lastName;
 	private String emailAddress;
@@ -43,6 +43,14 @@ public class Employee {
 	
 	public int getPin() {
 		return pin;
+	}
+	
+	public void setFirstName(String fName) {
+		this.firstName = fName;
+	}
+	
+	public void setLastName(String lName) {
+		this.lastName = lName;
 	}
 	
 	public void setEmailAddress(String email) {

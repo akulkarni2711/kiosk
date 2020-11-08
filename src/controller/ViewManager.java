@@ -189,9 +189,77 @@ public class ViewManager {
         ((EmployeeItemView) views.getComponents()[Kiosk.EMPLOYEE_ITEM_VIEW_INDEX]).repaint();
 	}
 	
+	public void changeEmployeeFirstName(String newFirstName, Employee employee) {
+		employee.setFirstName(newFirstName);
+		
+		JOptionPane.showMessageDialog(null, "Employee first name succesfully changed",
+				"Joe's Kiosk", JOptionPane.INFORMATION_MESSAGE);
+  
+    	((EmployeeView) views.getComponents()[Kiosk.EMPLOYEE_VIEW_INDEX]).removeAll();
+        ((EmployeeView) views.getComponents()[Kiosk.EMPLOYEE_VIEW_INDEX]).updateCard();
+        ((EmployeeView) views.getComponents()[Kiosk.EMPLOYEE_VIEW_INDEX]).revalidate();
+        ((EmployeeView) views.getComponents()[Kiosk.EMPLOYEE_VIEW_INDEX]).repaint();
+	}
+	
+	public void changeEmployeeLastName(String newLastName, Employee employee) {
+		employee.setLastName(newLastName);
+		
+		JOptionPane.showMessageDialog(null, "Employee last name succesfully changed",
+				"Joe's Kiosk", JOptionPane.INFORMATION_MESSAGE);
+  
+    	((EmployeeView) views.getComponents()[Kiosk.EMPLOYEE_VIEW_INDEX]).removeAll();
+        ((EmployeeView) views.getComponents()[Kiosk.EMPLOYEE_VIEW_INDEX]).updateCard();
+        ((EmployeeView) views.getComponents()[Kiosk.EMPLOYEE_VIEW_INDEX]).revalidate();
+        ((EmployeeView) views.getComponents()[Kiosk.EMPLOYEE_VIEW_INDEX]).repaint();
+	}
+	
+	public void changeEmployeeEmail(String newEmail, Employee employee) {
+		employee.setEmailAddress(newEmail);
+		
+		JOptionPane.showMessageDialog(null, "Employee email address succesfully changed",
+				"Joe's Kiosk", JOptionPane.INFORMATION_MESSAGE);
+  
+    	((EmployeeView) views.getComponents()[Kiosk.EMPLOYEE_VIEW_INDEX]).removeAll();
+        ((EmployeeView) views.getComponents()[Kiosk.EMPLOYEE_VIEW_INDEX]).updateCard();
+        ((EmployeeView) views.getComponents()[Kiosk.EMPLOYEE_VIEW_INDEX]).revalidate();
+        ((EmployeeView) views.getComponents()[Kiosk.EMPLOYEE_VIEW_INDEX]).repaint();
+	}
+	
+	public void changeEmployeePhone(Long newPhone, Employee employee) {
+		employee.setPhoneNumber(newPhone);
+		
+		JOptionPane.showMessageDialog(null, "Employee phone number succesfully changed",
+				"Joe's Kiosk", JOptionPane.INFORMATION_MESSAGE);
+  
+    	((EmployeeView) views.getComponents()[Kiosk.EMPLOYEE_VIEW_INDEX]).removeAll();
+        ((EmployeeView) views.getComponents()[Kiosk.EMPLOYEE_VIEW_INDEX]).updateCard();
+        ((EmployeeView) views.getComponents()[Kiosk.EMPLOYEE_VIEW_INDEX]).revalidate();
+        ((EmployeeView) views.getComponents()[Kiosk.EMPLOYEE_VIEW_INDEX]).repaint();
+	}
+	
+	public void changeEmployeePin(int newPin, Employee employee) {
+		employee.setPin(newPin);
+		
+		JOptionPane.showMessageDialog(null, "The new pin is: " + newPin ,
+				"Joe's Kiosk", JOptionPane.INFORMATION_MESSAGE);
+  
+    	((EmployeeView) views.getComponents()[Kiosk.EMPLOYEE_VIEW_INDEX]).removeAll();
+        ((EmployeeView) views.getComponents()[Kiosk.EMPLOYEE_VIEW_INDEX]).updateCard();
+        ((EmployeeView) views.getComponents()[Kiosk.EMPLOYEE_VIEW_INDEX]).revalidate();
+        ((EmployeeView) views.getComponents()[Kiosk.EMPLOYEE_VIEW_INDEX]).repaint();
+	}
+	
 	public void addNewItem(String name, double price, String description, String picturePath) {
 		
 		m.addMenuItem(new Item(name, price, description, picturePath, ""));
+	}
+	
+	public void addNewEmployee(String fName, String lName, String email, Long phone, int pin) {
+		Kiosk.employees.add(new Employee(fName, lName, email, phone, pin));
+	}
+	
+	public void removeEmployee(Employee employee) {
+		Kiosk.employees.remove(employee);
 	}
 
 }
