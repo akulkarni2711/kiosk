@@ -25,6 +25,7 @@ import views.ItemView;
 import views.EmployeeMenuView;
 import views.EmployeeItemView;
 import views.AfterCheckoutView;
+import views.EmployeeView;
 
 //1. Employee uses a file picker to choose an image off computer
 //2. Save the file into a director inside of project
@@ -41,6 +42,7 @@ public class Kiosk extends JFrame {
 	public static final String EMPLOYEE_MENU_VIEW = "EMPLOYEE_MENU_VIEW";
 	public static final String EMPLOYEE_ITEM_VIEW = "EMPLOYEE_ITEM_VIEW";
 	public static final String AFTER_CHECKOUT_VIEW = "AFTER_CHECKOUT_VIEW";
+	public static final String EMPLOYEE_VIEW = "EMPLOYEE_VIEW";
 	
 	public static final int LOGIN_VIEW_INDEX = 0;
 	public static final int MENU_VIEW_INDEX = 1;
@@ -50,6 +52,9 @@ public class Kiosk extends JFrame {
 	public static final int EMPLOYEE_MENU_VIEW_INDEX = 5;
 	public static final int EMPLOYEE_ITEM_VIEW_INDEX = 6;
 	public static final int AFTER_CHECKOUT_VIEW_INDEX = 7; 
+	public static final int EMPLOYEE_VIEW_INDEX = 8;
+	
+	private static String filePath = new File("").getAbsolutePath();
 	
 	public static final String[] errorMessages = {
 			"",
@@ -72,7 +77,7 @@ public class Kiosk extends JFrame {
 		return instance;
 	}
 	
-	public Kiosk() {
+	private Kiosk() {
 		super("Kiosk");
 		Kiosk.employees = new ArrayList<Employee>();
 		
@@ -81,9 +86,9 @@ public class Kiosk extends JFrame {
 		
 		menu = menu.getInstance();
 		
-		menu.addMenuItem(new Item("Hot Sour Soup", 2.34, "Soup that is both hot and sour", "\\references\\pixel.png"));
-		menu.addMenuItem(new Item("Fried Rice", 3.99, "Fried white rice with corn, peas, and mushrooms.", "\\references\\sam.jpg"));
-		menu.addMenuItem(new Item("Fried Chicken", 4.56, "Popeyes fried chicken", "\\references\\chicken.jpeg"));
+		menu.addMenuItem(new Item("Hot Sour Soup", 2.34, "Soup that is both hot and sour", "\\references\\pixel.png", filePath));
+		menu.addMenuItem(new Item("Fried Rice", 3.99, "Fried white rice with corn, peas, and mushrooms.", "\\references\\sam.jpg",filePath));
+		menu.addMenuItem(new Item("Fried Chicken", 4.56, "Popeyes fried chicken", "\\references\\chicken.jpeg",filePath));
 		
 		
 	}
@@ -112,6 +117,7 @@ public class Kiosk extends JFrame {
 		views.add(new EmployeeMenuView(manager), EMPLOYEE_MENU_VIEW);
 		views.add(new EmployeeItemView(manager), EMPLOYEE_ITEM_VIEW);
 		views.add(new AfterCheckoutView(manager), AFTER_CHECKOUT_VIEW);
+		views.add(new EmployeeView(manager), EMPLOYEE_VIEW);
 		
 		
 		

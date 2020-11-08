@@ -20,6 +20,7 @@ import views.EmployeeItemView;
 import views.EmployeeMenuView;
 import views.CheckoutView;
 import views.CartView;
+import views.EmployeeView;
 import placeholders.PHTF;
 import placeholders.PHTF;
 
@@ -59,9 +60,9 @@ public class ViewManager {
 						"Joe's Kiosk", JOptionPane.ERROR_MESSAGE);
 			}
 			else {
-				((EmployeeMenuView) views.getComponents()[Kiosk.EMPLOYEE_MENU_VIEW_INDEX]).updateCard();
+				((EmployeeView) views.getComponents()[Kiosk.EMPLOYEE_VIEW_INDEX]).updateCard();
 				
-				switchTo(Kiosk.EMPLOYEE_MENU_VIEW);
+				switchTo(Kiosk.EMPLOYEE_VIEW);
 			}
 		} catch (NumberFormatException e) {
 			
@@ -122,12 +123,11 @@ public class ViewManager {
 	public void removeItemFromMenu(Item item) {
     	int itemID = item.getItemID();
 		Menu.removeMenuItem(itemID);
-		switchTo("LOGIN_VIEW");
     	switchTo("EMPLOYEE_MENU_VIEW");
-    	((MenuView) views.getComponents()[Kiosk.MENU_VIEW_INDEX]).removeAll();
-        ((MenuView) views.getComponents()[Kiosk.MENU_VIEW_INDEX]).updateCard();
-        ((MenuView) views.getComponents()[Kiosk.MENU_VIEW_INDEX]).revalidate();
-        ((MenuView) views.getComponents()[Kiosk.MENU_VIEW_INDEX]).repaint();
+    	((EmployeeMenuView) views.getComponents()[Kiosk.EMPLOYEE_MENU_VIEW_INDEX]).removeAll();
+        ((EmployeeMenuView) views.getComponents()[Kiosk.EMPLOYEE_MENU_VIEW_INDEX]).updateCard();
+        ((EmployeeMenuView) views.getComponents()[Kiosk.EMPLOYEE_MENU_VIEW_INDEX]).revalidate();
+        ((EmployeeMenuView) views.getComponents()[Kiosk.EMPLOYEE_MENU_VIEW_INDEX]).repaint();
 	}
 	
 	public void removeItemFromCart(int itemID) {
@@ -189,8 +189,9 @@ public class ViewManager {
         ((EmployeeItemView) views.getComponents()[Kiosk.EMPLOYEE_ITEM_VIEW_INDEX]).repaint();
 	}
 	
-	public void addNewItem() {
-		m.addMenuItem(new Item(null, 0, null, null));
+	public void addNewItem(String name, double price, String description, String picturePath) {
+		
+		m.addMenuItem(new Item(name, price, description, picturePath, ""));
 	}
 
 }

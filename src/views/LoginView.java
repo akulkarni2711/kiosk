@@ -41,7 +41,7 @@ public class LoginView extends JPanel {
 	}
 	
 	private void init() {
-		this.setLayout(null);;
+		this.setLayout(null);
 		
 		initTitle();
 		initIDField();

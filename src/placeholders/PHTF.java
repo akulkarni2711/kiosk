@@ -43,7 +43,7 @@ public class PHTF extends JTextField {
 
   @Override
   protected void paintComponent(final Graphics pG) {
-  	kiosk = kiosk.getInstance();
+  	kiosk = Kiosk.getInstance();
       super.paintComponent(pG);
 
       if (placeholder == null || placeholder.length() == 0 || getText().length() != 0) {

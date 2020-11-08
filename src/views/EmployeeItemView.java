@@ -98,7 +98,12 @@ public class EmployeeItemView extends ItemView {
 				newPrice = JOptionPane.showInputDialog("New item price:");
 				try {
 					Double newPriceValue = Double.valueOf(newPrice);
-					manager.changeItemPrice(newPriceValue, item);
+					if (newPriceValue < 0 || newPriceValue == null) {
+						JOptionPane.showMessageDialog(null, "Please enter a valid price",
+								"Joe's Kiosk", JOptionPane.ERROR_MESSAGE);
+					} else {
+						manager.changeItemPrice(newPriceValue, item);
+					}
 				} catch (NumberFormatException h) {
 					JOptionPane.showMessageDialog(null, "Please enter a valid price",
 							"Joe's Kiosk", JOptionPane.ERROR_MESSAGE);
@@ -116,8 +121,11 @@ public class EmployeeItemView extends ItemView {
 		changeItemNameButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				newName = JOptionPane.showInputDialog("New name for this item: ");
-				if (newName != null) {
+				if (newName != null && newName.length() != 0) {
 					manager.changeItemName(newName, item);
+				} else {
+					JOptionPane.showMessageDialog(null,  "Please enter a valid name",
+							 "Joe's Kiosk", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
@@ -131,9 +139,12 @@ public class EmployeeItemView extends ItemView {
 		changeItemDescriptionButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				newDescription = JOptionPane.showInputDialog("New description for this item: ");
-				if (newDescription != null) {
-					manager.changeItemDescription(newDescription, item);
-				} 
+				if (newDescription != null && newDescription.length() != 0) {
+					manager.changeItemName(newName, item);
+				} else {
+					JOptionPane.showMessageDialog(null,  "Please enter a valid description",
+							 "Joe's Kiosk", JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
 		changeItemDescriptionButton.setBounds(400,500,100,75);

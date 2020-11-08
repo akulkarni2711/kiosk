@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 
 public class Item {
 	
-	private static String filePath = new File("").getAbsolutePath();
+
 	
 	private static int itemCounter = 0;
 	
@@ -23,7 +23,7 @@ public class Item {
 	private int itemID;
 	private Image image;
 	
-	public Item(String name, double cost, String description, String picturePath) {
+	public Item(String name, double cost, String description, String picturePath, String filePath) {
 		this.name = name;
 		this.cost = cost;
 		this.description = description;
