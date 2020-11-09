@@ -59,7 +59,7 @@ public class CheckoutView extends JPanel {
     	initInformation();
     	initCheckoutButton();
     	initBackToCartButton();
-    	
+    	initTotalPrice();
     }
     
 	private void initTitle() {
@@ -73,23 +73,23 @@ public class CheckoutView extends JPanel {
 	private void initInformation() {
 		creditCardField = new PHTF(16);
 		creditCardField.setPlaceholder("Enter your credit card: ");
-		creditCardField.setBounds(50,200,200,100);
+		creditCardField.setBounds(50,150,325,50);
 		this.add(creditCardField);
 		
 		CVVField = new PHTF(3);
 		CVVField.setPlaceholder("Enter your CVV: ");
-		CVVField.setBounds(275,250,150,100);
+		CVVField.setBounds(50,250,325,50);
 		this.add(CVVField);
 		
 		expDateField = new PHTF(5);
-		expDateField.setPlaceholder("Enter the Expiration date in MM/YY format");
-		expDateField.setBounds(450, 250, 150, 100);
+		expDateField.setPlaceholder("Enter the Expiration date in MM/YY format: ");
+		expDateField.setBounds(50,350,325,50);
 		this.add(expDateField);
 	}
 	
 	private void initCheckoutButton() {
 		checkoutButton = new JButton("Finish order and checkout");
-		checkoutButton.setBounds(400, 300, 200, 150);
+		checkoutButton.setBounds(500, 150, 200, 50);
     	checkoutButton.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
     			if (checkCreditCardNumber() == false) {
@@ -187,8 +187,8 @@ public class CheckoutView extends JPanel {
 	
 	private void initBackToCartButton() {
 		
-		backToCartButton = new JButton("Go Back to your Cart");
-		backToCartButton.setBounds(600,500,100,100);
+		backToCartButton = new JButton("Go back to your cart");
+		backToCartButton.setBounds(500,250,200,50);
     	backToCartButton.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
     				manager.switchTo("CART_VIEW");	
@@ -197,7 +197,13 @@ public class CheckoutView extends JPanel {
     	this.add(backToCartButton);
 		
 	}
-    
+	
+	private void initTotalPrice() {
+		JLabel totalCost = new JLabel("Total Price: " + Cart.getTotalCost());
+		totalCost.setBounds(250,75, 200, 100);
+		
+		this.add(totalCost);
+	}
 	
 	
     public void updateCard() {

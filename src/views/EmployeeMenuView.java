@@ -1,5 +1,4 @@
 package views;
-
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
@@ -16,6 +15,8 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
+
+import GUI.Kiosk;
 import controller.ViewManager;
 import model.Item;
 import model.Menu;
@@ -30,6 +31,7 @@ public class EmployeeMenuView extends MenuView {
 	private String newName;
 	private String newPrice;
 	private String newDescription;
+	private JButton backButton;
 
 	public EmployeeMenuView(ViewManager manager) {
 		super(manager);
@@ -39,6 +41,7 @@ public class EmployeeMenuView extends MenuView {
 		this.item = manager.getActiveItem();
 		cartButton.setEnabled(false);
 		cartButton.setVisible(false);
+		initBackButton();
 	}
 
 	protected void initTitle() {
@@ -87,7 +90,7 @@ public class EmployeeMenuView extends MenuView {
 
 	private void initAddItemButton() {
 		addItemButton = new JButton("Add new item");
-		addItemButton.setBounds(400, 30, 250, 100);
+		addItemButton.setBounds(550, 490, 150, 50);
 		this.add(addItemButton);
 		addItemButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -128,12 +131,30 @@ public class EmployeeMenuView extends MenuView {
 				}
 
 				manager.addNewItem(newName, newPriceValue, newDescription, selectedFile.getAbsolutePath());
-
-				JOptionPane.showMessageDialog(null, "Item successfully added to cart", "Joe's Kiosk",
+				JOptionPane.showMessageDialog(null, "Item successfully added to menu", "Joe's Kiosk",
 						JOptionPane.INFORMATION_MESSAGE);
 
 			}
 		});
+		this.add(addItemButton);
 	}
+	
+	protected void initLogoutButton() {
+		super.initLogoutButton();
+		logoutButton.setBounds(100,490,100,50);
+		this.add(logoutButton);
+	}
+	
+	 private void initBackButton() {
+		 backButton = new JButton("Back");
+	     backButton.addActionListener(new ActionListener() {
+	        public void actionPerformed(ActionEvent e) {
+	        	manager.switchTo(Kiosk.EMPLOYEE_VIEW);
+	        	}
+	        });
+	    backButton.setBounds(350,490,100,50);
+	    this.add(backButton);
+	    	
+	    }
 
 }

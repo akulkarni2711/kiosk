@@ -85,7 +85,7 @@ public class EmployeeItemView extends ItemView {
     			manager.switchTo("EMPLOYEE_MENU_VIEW");
     		}
     	});
-    	backToMenuButton.setBounds(150,400,250,50);
+    	backToMenuButton.setBounds(50,485,150,50);
     	this.add(backToMenuButton);
     	
     }
@@ -111,13 +111,13 @@ public class EmployeeItemView extends ItemView {
 			}
 		});
 
-		changeItemPriceButton.setBounds(50,500,100,75);
+		changeItemPriceButton.setBounds(225,485,75,50);
 		this.add(changeItemPriceButton);
 
 	}
 
 	private void initChangeNameButton() {
-		changeItemNameButton = new JButton("Name");
+		changeItemNameButton = new JButton("Name: ");
 		changeItemNameButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				newName = JOptionPane.showInputDialog("New name for this item: ");
@@ -129,13 +129,13 @@ public class EmployeeItemView extends ItemView {
 				}
 			}
 		});
-		changeItemNameButton.setBounds(250,500,100,75);
+		changeItemNameButton.setBounds(325,485,75,50);
 		this.add(changeItemNameButton);
 
 	}
 
 	private void initChangeDescriptionButton() {
-		changeItemDescriptionButton = new JButton("Description");
+		changeItemDescriptionButton = new JButton("Description: ");
 		changeItemDescriptionButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				newDescription = JOptionPane.showInputDialog("New description for this item: ");
@@ -147,12 +147,12 @@ public class EmployeeItemView extends ItemView {
 				}
 			}
 		});
-		changeItemDescriptionButton.setBounds(400,500,100,75);
+		changeItemDescriptionButton.setBounds(425,485,150,50);
 		this.add(changeItemDescriptionButton);
 	}
 
     private void initChangePictureButton() {
-    	changeItemPictureButton = new JButton("Pic");
+    	changeItemPictureButton = new JButton("Pic: ");
     	changeItemPictureButton.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
     			chooser = new JFileChooser();
@@ -168,18 +168,18 @@ public class EmployeeItemView extends ItemView {
     			}
     		}
     	});
-    	changeItemPictureButton.setBounds(300,300,100,75);
+    	changeItemPictureButton.setBounds(585,485,75,50);
     	this.add(changeItemPictureButton);
     }
 
 	private void initRemoveItemButton() {
-		removeItemButton = new JButton("Remove");
+		removeItemButton = new JButton("Remove: ");
 		removeItemButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				manager.removeItemFromMenu(item);
 			}
 		});
-		removeItemButton.setBounds(700,500,100,75);
+		removeItemButton.setBounds(670,485,100,50);
 		this.add(removeItemButton);
 
 	}

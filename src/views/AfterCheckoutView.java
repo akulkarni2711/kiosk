@@ -48,7 +48,7 @@ public class AfterCheckoutView extends JPanel {
     public void initMessage() {
     	message = new JLabel ("Thank you for ordering at Joe's Restaurant. Your order will be ready shortly.");
     	message.setBounds(100,100,100,100);
-    	message.setFont(new Font("DialogInput", Font.BOLD, 21));
+    	message.setFont(new Font("DialogInput", Font.BOLD, 14));
     	
     	this.add(message);
 }

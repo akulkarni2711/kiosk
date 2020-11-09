@@ -71,13 +71,12 @@ public class MenuView extends JPanel {
     	initLogoutButton();
     	initScrollBar();
     	initCartButton();
-    	
     }
     
     public void updateCard() {
     	init();
     }
-    
+  
     protected void initTitle() {
     	JLabel title = new JLabel("Menu", SwingConstants.CENTER);
     	title.setBounds(0, 20, 500, 35);

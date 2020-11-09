@@ -1,9 +1,13 @@
 package controller;
 
 
+import java.awt.AlphaComposite;
 import java.awt.CardLayout;
 import java.awt.Container;
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.RenderingHints;
+import java.awt.image.BufferedImage;
 import java.math.BigDecimal;
 
 import javax.swing.JOptionPane;
@@ -23,7 +27,6 @@ import views.CartView;
 import views.EmployeeView;
 import placeholders.PHTF;
 import placeholders.PHTF;
-
 
 public class ViewManager {
 	
@@ -252,6 +255,15 @@ public class ViewManager {
 	public void addNewItem(String name, double price, String description, String picturePath) {
 		
 		m.addMenuItem(new Item(name, price, description, picturePath, ""));
+		((MenuView) views.getComponents()[Kiosk.MENU_VIEW_INDEX]).removeAll();
+        ((MenuView) views.getComponents()[Kiosk.MENU_VIEW_INDEX]).updateCard();
+        ((MenuView) views.getComponents()[Kiosk.MENU_VIEW_INDEX]).revalidate();
+        ((MenuView) views.getComponents()[Kiosk.MENU_VIEW_INDEX]).repaint();
+        
+        ((EmployeeMenuView) views.getComponents()[Kiosk.EMPLOYEE_MENU_VIEW_INDEX]).removeAll();
+        ((EmployeeMenuView) views.getComponents()[Kiosk.EMPLOYEE_MENU_VIEW_INDEX]).updateCard();
+        ((EmployeeMenuView) views.getComponents()[Kiosk.EMPLOYEE_MENU_VIEW_INDEX]).revalidate();
+        ((EmployeeMenuView) views.getComponents()[Kiosk.EMPLOYEE_MENU_VIEW_INDEX]).repaint();
 	}
 	
 	public void addNewEmployee(String fName, String lName, String email, Long phone, int pin) {
@@ -261,5 +273,18 @@ public class ViewManager {
 	public void removeEmployee(Employee employee) {
 		Kiosk.employees.remove(employee);
 	}
-
+	
+	public BufferedImage resizeImage(final Image image) {
+        final BufferedImage bufferedImage = new BufferedImage(250, 200, BufferedImage.TYPE_INT_RGB);
+        final Graphics2D graphics2D = bufferedImage.createGraphics();
+        graphics2D.setComposite(AlphaComposite.Src);
+        
+        //below three lines are for RenderingHints for better image quality at cost of higher processing time
+        graphics2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION,RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        graphics2D.setRenderingHint(RenderingHints.KEY_RENDERING,RenderingHints.VALUE_RENDER_QUALITY);
+        graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
+        graphics2D.drawImage(image, 0, 0, 250, 200, null);
+        graphics2D.dispose();
+        return bufferedImage;
+    }
 }
