@@ -39,11 +39,10 @@ import model.Menu;
 import placeholders.PHTF;
 import model.Cart;
 
-
 public class EmployeeView extends JPanel {
-	
-	//TODO: 
-	
+
+	// TODO:
+
 	private ViewManager manager;
 	private Employee employee;
 	private JLabel employeeName;
@@ -66,255 +65,254 @@ public class EmployeeView extends JPanel {
 	private Long newPhoneValue;
 	private int newPinValue;
 	private JButton removeEmployeeButton;
-	
+
 	public EmployeeView(ViewManager manager) {
 		super();
 		this.manager = manager;
 		init();
 	}
-	
-	
-	   private void init() {
-	    	this.removeAll();
-	    	this.setLayout(null);
-	    	this.employee = manager.getActiveEmployee();
-	    	initTitle();
-	    	if (employee != null ) {
-	    		initInformation(employee);
-	    	}
-	    	initAddEmployeeButton();
-	    	initGoToMenuButton();
-	    	initChangeFirstNameButton();
-	    	initChangeLastNameButton();
-	    	initChangeEmailButton();
-	    	initChangePhoneButton();
-	    	initChangePinButton();
-	    	initRemoveEmployeeButton();
-	    }
-	    
-	    public void updateCard() {
-	    	init();
-	    }
-	    
-	    private void initTitle() {
-	    	JLabel title = new JLabel("Joe's Restaraunt Kiosk", SwingConstants.CENTER);
-	    	title.setBounds(125, 20, 500, 35);
-	    	title.setFont(new Font("DialogInput", Font.BOLD, 21));
-	    	
-	    	this.add(title);
-	    }
-	    
-	    private void initAddEmployeeButton() {
-			addEmployeeButton = new JButton("Add new Employee");
-			addEmployeeButton.setBounds(575, 300, 175, 50);
-			this.add(addEmployeeButton);
-			addEmployeeButton.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					// first name
-					do {
-						newFirstName = JOptionPane.showInputDialog("First name for this employee: ");
-					} while (newFirstName == null);
-					
-					//last name
-					do {
-						newLastName = JOptionPane.showInputDialog("Last name for this employee: ");
-					} while (newLastName == null);
 
-					// email
-					do {
-						newEmail = JOptionPane.showInputDialog("Email for this employee: ");
-					} while (newEmail == null);
-					
-					// phone
-					newPhone = null;
-					do {
-						newPhone = JOptionPane.showInputDialog("New phone number for this employee:");
-						try {
-							newPhoneValue = Long.valueOf(newPhone);
-						} catch (NumberFormatException h) {
-							JOptionPane.showMessageDialog(null, "Please enter a valid phone number", "Joe's Kiosk",
-									JOptionPane.ERROR_MESSAGE);
-						}
-
-					} while (newPhoneValue == null || newPhoneValue < 0 || newPhone.length() != 10);
-
-					// pin
-					do {
-						newPin = JOptionPane.showInputDialog("Please enter a 4-digit numeric-only pin: ");
-						try {
-							newPinValue = Integer.valueOf(newPin);
-						} catch (NumberFormatException b) {
-							JOptionPane.showMessageDialog(null,  "Please enter a valid numeric-only pin",
-									"Joe's Kiosk", JOptionPane.ERROR_MESSAGE);
-						}
-					} while (newPin != null && newPin.length() != 4);
-
-					manager.addNewEmployee(newFirstName, newLastName, newEmail, newPhoneValue, newPinValue);
-					
-					manager.logOut();
-					manager.employeeLogin(Employee.employeeCounter-1, newPinValue);
-					JOptionPane.showMessageDialog(null, "Employee succesfully added. ID: " + employee.getAccount() + ", Pin: " + newPinValue , "Joe's Kiosk",
-							JOptionPane.INFORMATION_MESSAGE);
-
-				}
-			});
+	private void init() {
+		this.removeAll();
+		this.setLayout(null);
+		this.employee = manager.getActiveEmployee();
+		initTitle();
+		if (employee != null) {
+			initInformation(employee);
 		}
-	    
-	    private void initInformation(Employee employee) {
-	    	employeeName = new JLabel("Name: " + employee.getFirstName() + " " + employee.getLastName());
-	    	employeeName.setBounds(300,75,200,40);
-	    	this.add(employeeName);
-	    	
-	    	employeePhone = new JLabel("Phone Number: " + Long.toString(employee.getPhoneNumber()));
-	    	employeePhone.setBounds(300,100,200,40);
-	    	this.add(employeePhone);
-	    	
-	    	employeeEmail = new JLabel("Email: " + employee.getEmailAddress());
-	    	employeeEmail.setBounds(300,125,200,40);
-	    	this.add(employeeEmail);
-	    	
-	    	employeeID = new JLabel("ID: " + Long.toString(employee.getAccount()));
-	    	employeeID.setBounds(300,150,200,40);
-	    	this.add(employeeID);
-	    	
-	    	
-	    	employeePin = new JLabel("Pin: " + Integer.toString(employee.getPin()));
-	    	employeePin.setBounds(300,175,200,40);
-	    	this.add(employeePin);
-	    }
-	    
-	    private void initGoToMenuButton() {
-	    	
-	        goToMenuButton = new JButton("Go to employee menu");
-	        goToMenuButton.addActionListener(new ActionListener() {
-	        	public void actionPerformed(ActionEvent e) {
-	        		manager.switchTo(Kiosk.EMPLOYEE_MENU_VIEW);
-	        	}
-	        });
-	        goToMenuButton.setBounds(375,300,175,50);
-	        this.add(goToMenuButton);
-	    	
-	    }
-	    
-		private void initChangeFirstNameButton() {
+		initAddEmployeeButton();
+		initGoToMenuButton();
+		initChangeFirstNameButton();
+		initChangeLastNameButton();
+		initChangeEmailButton();
+		initChangePhoneButton();
+		initChangePinButton();
+		initRemoveEmployeeButton();
+	}
 
-			changeFirstNameButton = new JButton("Change First Name");
-			changeFirstNameButton.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					newFirstName = JOptionPane.showInputDialog("New first name:");
-					if (newFirstName != null && newFirstName.length() != 0) {
-						manager.changeEmployeeFirstName(newFirstName, employee);
-					} else {
-						JOptionPane.showMessageDialog(null,  "Please enter a first name",
-						 "Joe's Kiosk", JOptionPane.ERROR_MESSAGE);
-					}
-				}
-			});
+	public void updateCard() {
+		init();
+	}
 
-			changeFirstNameButton.setBounds(25,300,150,50);
-			this.add(changeFirstNameButton);
+	private void initTitle() {
+		JLabel title = new JLabel("Joe's Restaraunt Kiosk", SwingConstants.CENTER);
+		title.setBounds(125, 20, 500, 35);
+		title.setFont(new Font("DialogInput", Font.BOLD, 21));
 
-		}
+		this.add(title);
+	}
 
-		private void initChangeLastNameButton() {
+	private void initAddEmployeeButton() {
+		addEmployeeButton = new JButton("Add new Employee");
+		addEmployeeButton.setBounds(575, 300, 175, 50);
+		this.add(addEmployeeButton);
+		addEmployeeButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// first name
+				do {
+					newFirstName = JOptionPane.showInputDialog("First name for this employee: ");
+				} while (newFirstName == null);
 
-			changeLastNameButton = new JButton("Change Last Name");
-			changeLastNameButton.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					newLastName = JOptionPane.showInputDialog("New last name:");
-					if (newLastName != null && newLastName.length() != 0) {
-						manager.changeEmployeeLastName(newLastName, employee);
-					} else {
-						JOptionPane.showMessageDialog(null,  "Please enter a last name",
-						 "Joe's Kiosk", JOptionPane.ERROR_MESSAGE);
-					}
-				}
-			});
+				// last name
+				do {
+					newLastName = JOptionPane.showInputDialog("Last name for this employee: ");
+				} while (newLastName == null);
 
-			changeLastNameButton.setBounds(25,400,150,50);
-			this.add(changeLastNameButton);
+				// email
+				do {
+					newEmail = JOptionPane.showInputDialog("Email for this employee: ");
+				} while (newEmail == null);
 
-		}
-		
-		private void initChangeEmailButton() {
-			changeEmailButton = new JButton("Change Email");
-			changeEmailButton.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					newEmail = JOptionPane.showInputDialog("New email for this employee: ");
-					if (newEmail != null && newEmail.length() != 0) {
-						manager.changeEmployeeEmail(newEmail, employee);
-					} else {
-						JOptionPane.showMessageDialog(null,  "Please enter a valid email address",
-								 "Joe's Kiosk", JOptionPane.ERROR_MESSAGE);
-					}
-				}
-			});
-			changeEmailButton.setBounds(200,300,150,50);
-			this.add(changeEmailButton);
-		}
-		
-		private void initChangePhoneButton() {
-			changePhoneButton = new JButton("Change Phone Number");
-			changePhoneButton.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					newPhone = JOptionPane.showInputDialog("New phone for this employee: ");
+				// phone
+				newPhone = null;
+				do {
+					newPhone = JOptionPane.showInputDialog("New phone number for this employee:");
 					try {
 						newPhoneValue = Long.valueOf(newPhone);
 					} catch (NumberFormatException h) {
 						JOptionPane.showMessageDialog(null, "Please enter a valid phone number", "Joe's Kiosk",
 								JOptionPane.ERROR_MESSAGE);
 					}
-					if (newPhoneValue != null && newPhoneValue > 0 && newPhone.length() == 10) {
-						manager.changeEmployeePhone(newPhoneValue, employee);
-						JOptionPane.showMessageDialog(null,  "Phone number succesfully changed",
-								"Joe's Kiosk", JOptionPane.INFORMATION_MESSAGE);
-					} else {
-						JOptionPane.showMessageDialog(null, "Please enter a valid phone number", "Joe's Kiosk",
-								JOptionPane.ERROR_MESSAGE);
-					}
-				}
-			});
-			changePhoneButton.setBounds(375,400,175,50);
-			this.add(changePhoneButton);
-		}
-		
-		private void initChangePinButton() {
-			changePinButton = new JButton("Change Pin");
-			changePinButton.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					newPin = JOptionPane.showInputDialog("New pin for this employee: (Pin must be 4 digits) ");
-					newPinValue = 0;
+
+				} while (newPhoneValue == null || newPhoneValue < 0 || newPhone.length() != 10);
+
+				// pin
+				do {
+					newPin = JOptionPane.showInputDialog("Please enter a 4-digit numeric-only pin: ");
 					try {
 						newPinValue = Integer.valueOf(newPin);
-					} catch (NumberFormatException h) {
-						//JOptionPane.showMessageDialog(null, "Please enter a valid pin", "Joe's Kiosk",
-							//	JOptionPane.ERROR_MESSAGE);
-					}
-					if (newPin != null && newPinValue > 0 && newPin.length() == 4) {
-						manager.changeEmployeePin(newPinValue, employee);
-						JOptionPane.showMessageDialog(null,  "Pin succesfully changed",
-								"Joe's Kiosk", JOptionPane.INFORMATION_MESSAGE);
-					} else {
-						JOptionPane.showMessageDialog(null, "Please enter a valid pin", "Joe's Kiosk",
+					} catch (NumberFormatException b) {
+						JOptionPane.showMessageDialog(null, "Please enter a valid numeric-only pin", "Joe's Kiosk",
 								JOptionPane.ERROR_MESSAGE);
 					}
+				} while (newPin != null && newPin.length() != 4);
+
+				manager.addNewEmployee(newFirstName, newLastName, newEmail, newPhoneValue, newPinValue);
+
+				manager.logOut();
+				manager.employeeLogin(Employee.employeeCounter - 1, newPinValue);
+				JOptionPane.showMessageDialog(null,
+						"Employee succesfully added. ID: " + employee.getAccount() + ", Pin: " + newPinValue,
+						"Joe's Kiosk", JOptionPane.INFORMATION_MESSAGE);
+
+			}
+		});
+	}
+
+	private void initInformation(Employee employee) {
+		employeeName = new JLabel("Name: " + employee.getFirstName() + " " + employee.getLastName());
+		employeeName.setBounds(300, 75, 200, 40);
+		this.add(employeeName);
+
+		employeePhone = new JLabel("Phone Number: " + Long.toString(employee.getPhoneNumber()));
+		employeePhone.setBounds(300, 100, 200, 40);
+		this.add(employeePhone);
+
+		employeeEmail = new JLabel("Email: " + employee.getEmailAddress());
+		employeeEmail.setBounds(300, 125, 200, 40);
+		this.add(employeeEmail);
+
+		employeeID = new JLabel("ID: " + Long.toString(employee.getAccount()));
+		employeeID.setBounds(300, 150, 200, 40);
+		this.add(employeeID);
+
+		employeePin = new JLabel("Pin: " + Integer.toString(employee.getPin()));
+		employeePin.setBounds(300, 175, 200, 40);
+		this.add(employeePin);
+	}
+
+	private void initGoToMenuButton() {
+
+		goToMenuButton = new JButton("Go to employee menu");
+		goToMenuButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				manager.switchTo(Kiosk.EMPLOYEE_MENU_VIEW);
+			}
+		});
+		goToMenuButton.setBounds(375, 300, 175, 50);
+		this.add(goToMenuButton);
+
+	}
+
+	private void initChangeFirstNameButton() {
+
+		changeFirstNameButton = new JButton("Change First Name");
+		changeFirstNameButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				newFirstName = JOptionPane.showInputDialog("New first name:");
+				if (newFirstName != null && newFirstName.length() != 0) {
+					manager.changeEmployeeFirstName(newFirstName, employee);
+				} else {
+					JOptionPane.showMessageDialog(null, "Please enter a first name", "Joe's Kiosk",
+							JOptionPane.ERROR_MESSAGE);
 				}
-			});
-			changePinButton.setBounds(200,400,150,50);
-			this.add(changePinButton);
-		}
+			}
+		});
 
+		changeFirstNameButton.setBounds(25, 300, 150, 50);
+		this.add(changeFirstNameButton);
 
-		private void initRemoveEmployeeButton() {
-			removeEmployeeButton = new JButton("Remove this employee");
-			removeEmployeeButton.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					manager.removeEmployee(employee);
+	}
+
+	private void initChangeLastNameButton() {
+
+		changeLastNameButton = new JButton("Change Last Name");
+		changeLastNameButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				newLastName = JOptionPane.showInputDialog("New last name:");
+				if (newLastName != null && newLastName.length() != 0) {
+					manager.changeEmployeeLastName(newLastName, employee);
+				} else {
+					JOptionPane.showMessageDialog(null, "Please enter a last name", "Joe's Kiosk",
+							JOptionPane.ERROR_MESSAGE);
 				}
-			});
-			removeEmployeeButton.setBounds(575,400,175,50);
-			this.add(removeEmployeeButton);
+			}
+		});
 
-		}
-	    
+		changeLastNameButton.setBounds(25, 400, 150, 50);
+		this.add(changeLastNameButton);
+
+	}
+
+	private void initChangeEmailButton() {
+		changeEmailButton = new JButton("Change Email");
+		changeEmailButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				newEmail = JOptionPane.showInputDialog("New email for this employee: ");
+				if (newEmail != null && newEmail.length() != 0) {
+					manager.changeEmployeeEmail(newEmail, employee);
+				} else {
+					JOptionPane.showMessageDialog(null, "Please enter a valid email address", "Joe's Kiosk",
+							JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		changeEmailButton.setBounds(200, 300, 150, 50);
+		this.add(changeEmailButton);
+	}
+
+	private void initChangePhoneButton() {
+		changePhoneButton = new JButton("Change Phone Number");
+		changePhoneButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				newPhone = JOptionPane.showInputDialog("New phone for this employee: ");
+				try {
+					newPhoneValue = Long.valueOf(newPhone);
+				} catch (NumberFormatException h) {
+					JOptionPane.showMessageDialog(null, "Please enter a valid phone number", "Joe's Kiosk",
+							JOptionPane.ERROR_MESSAGE);
+				}
+				if (newPhoneValue != null && newPhoneValue > 0 && newPhone.length() == 10) {
+					manager.changeEmployeePhone(newPhoneValue, employee);
+					JOptionPane.showMessageDialog(null, "Phone number succesfully changed", "Joe's Kiosk",
+							JOptionPane.INFORMATION_MESSAGE);
+				} else {
+					JOptionPane.showMessageDialog(null, "Please enter a valid phone number", "Joe's Kiosk",
+							JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		changePhoneButton.setBounds(375, 400, 175, 50);
+		this.add(changePhoneButton);
+	}
+
+	private void initChangePinButton() {
+		changePinButton = new JButton("Change Pin");
+		changePinButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				newPin = JOptionPane.showInputDialog("New pin for this employee: (Pin must be 4 digits) ");
+				newPinValue = 0;
+				try {
+					newPinValue = Integer.valueOf(newPin);
+				} catch (NumberFormatException h) {
+					// JOptionPane.showMessageDialog(null, "Please enter a valid pin", "Joe's
+					// Kiosk",
+					// JOptionPane.ERROR_MESSAGE);
+				}
+				if (newPin != null && newPinValue > 0 && newPin.length() == 4) {
+					manager.changeEmployeePin(newPinValue, employee);
+					JOptionPane.showMessageDialog(null, "Pin succesfully changed", "Joe's Kiosk",
+							JOptionPane.INFORMATION_MESSAGE);
+				} else {
+					JOptionPane.showMessageDialog(null, "Please enter a valid pin", "Joe's Kiosk",
+							JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		changePinButton.setBounds(200, 400, 150, 50);
+		this.add(changePinButton);
+	}
+
+	private void initRemoveEmployeeButton() {
+		removeEmployeeButton = new JButton("Remove this employee");
+		removeEmployeeButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				manager.removeEmployee(employee);
+			}
+		});
+		removeEmployeeButton.setBounds(575, 400, 175, 50);
+		this.add(removeEmployeeButton);
+
+	}
+
 }

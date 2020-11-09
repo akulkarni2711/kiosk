@@ -55,7 +55,7 @@ public class Cart {
 	public long getOrderNumber() {
 		return orderNumber;
 	}
-	
+
 	public int getQuantity(int itemID) {
 		return itemsOrdered.get(itemID);
 	}

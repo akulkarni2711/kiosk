@@ -68,7 +68,7 @@ public class CartView extends JPanel {
 		this.setLayout(null);
 
 		initTitle();
-		initTotalPrice();		
+		initTotalPrice();
 		initItemTable();
 		initCartList();
 		initCheckoutButton();
@@ -86,7 +86,7 @@ public class CartView extends JPanel {
 
 	private void initTotalPrice() {
 		JLabel totalCost = new JLabel("Total Price: " + Cart.getTotalCost());
-		totalCost.setBounds(250,75, 200, 100);
+		totalCost.setBounds(250, 75, 200, 100);
 
 		this.add(totalCost);
 	}
@@ -98,10 +98,10 @@ public class CartView extends JPanel {
 				manager.goToCheckout();
 			}
 		});
-		checkoutButton.setBounds(450,490,250,50);
+		checkoutButton.setBounds(450, 490, 250, 50);
 		this.add(checkoutButton);
 	}
-	
+
 	private void initBackToMenuButton() {
 		JButton backToMenuButton = new JButton("Back to menu");
 		backToMenuButton.addActionListener(new ActionListener() {
@@ -109,7 +109,7 @@ public class CartView extends JPanel {
 				manager.goToMenu();
 			}
 		});
-		backToMenuButton.setBounds(100,490,250,50);
+		backToMenuButton.setBounds(100, 490, 250, 50);
 		this.add(backToMenuButton);
 	}
 
@@ -120,68 +120,66 @@ public class CartView extends JPanel {
 		} else {
 			LinkedHashMap<Integer, Integer> h = c.getHashMap();
 			HashMap<Integer, Item> w = m.getHashMap();
-	    	
-	    	Item i = null;
-	    	
-	    	Iterator it = h.entrySet().iterator();
-	    	int n = 0;
-	    	while (it.hasNext()) {
-	    		HashMap.Entry pair = (HashMap.Entry)it.next();
-	    		int id = (Integer) pair.getKey();
-	    		i = w.get(id);
-	    		allItems = new JLabel(i.getName() + ",   Quantity: " + c.getQuantity(id) + "- $ " + i.getCost() * c.getQuantity(id), SwingConstants.LEFT);
-	    		allItems.setBounds(50, 80 + 40*n, 200, 35);
-	    		
-	    		removeButton = new JButton("Remove item");
-	    		removeButton.setBounds(300, 80 + 40*n, 200, 35);
-	    		removeButton.setActionCommand(Integer.toString(id));
-	    		
-	    		removeButton.addActionListener(new ActionListener() {
-	    			public void actionPerformed(ActionEvent e) {
-	    				String action = e.getActionCommand();
-	    				int action_id = Integer.parseInt(action);
-	    				manager.removeItemFromCart(action_id);
-	    			}
-	    		});
-	    		
-	    		n++;
-	    		
-	    		cartPanel.add(allItems);
-	    		cartPanel.add(removeButton);
-	    		
-	    	}
-	    	cartPanel.setPreferredSize(new Dimension(750, 40*h.size()));
+
+			Item i = null;
+
+			Iterator it = h.entrySet().iterator();
+			int n = 0;
+			while (it.hasNext()) {
+				HashMap.Entry pair = (HashMap.Entry) it.next();
+				int id = (Integer) pair.getKey();
+				i = w.get(id);
+				allItems = new JLabel(
+						i.getName() + ",   Quantity: " + c.getQuantity(id) + "- $ " + i.getCost() * c.getQuantity(id),
+						SwingConstants.LEFT);
+				allItems.setBounds(50, 80 + 40 * n, 200, 35);
+
+				removeButton = new JButton("Remove item");
+				removeButton.setBounds(300, 80 + 40 * n, 200, 35);
+				removeButton.setActionCommand(Integer.toString(id));
+
+				removeButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						String action = e.getActionCommand();
+						int action_id = Integer.parseInt(action);
+						manager.removeItemFromCart(action_id);
+					}
+				});
+
+				n++;
+
+				cartPanel.add(allItems);
+				cartPanel.add(removeButton);
+
+			}
+			cartPanel.setPreferredSize(new Dimension(750, 40 * h.size()));
 		}
-		
+
 	}
-	
-    private void initCartList() {
-    	
-    	
-    	
-    	cartPanel = new JPanel();
-    	cartPanel.setLayout(null);
-    	cartPanel.setBounds(0, 80, 600, 600);
-    	
-    	
-    	cartPane = new JScrollPane(cartPanel);
-    	cartPane.setBounds(100, 80, 600, 400);
-    	
-    	cartPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-    	cartPane.getVerticalScrollBar().setPreferredSize(new Dimension(15, Integer.MAX_VALUE));
-    	cartPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-    	
-    	
-    	if(m.getHashMap() != null) {
-    		initItemTable();
-    	}
-    	
-    	this.add(cartPane);
-    	
-    }
-    
-    public void updateCard() {
-    	init();
-    }
+
+	private void initCartList() {
+
+		cartPanel = new JPanel();
+		cartPanel.setLayout(null);
+		cartPanel.setBounds(0, 80, 600, 600);
+
+		cartPane = new JScrollPane(cartPanel);
+		cartPane.setBounds(100, 80, 600, 400);
+
+		cartPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		cartPane.getVerticalScrollBar().setPreferredSize(new Dimension(15, Integer.MAX_VALUE));
+		cartPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+		if (m.getHashMap() != null) {
+			initItemTable();
+		}
+
+		this.add(cartPane);
+
+	}
+
+	public void updateCard() {
+		init();
+	}
 
 }
