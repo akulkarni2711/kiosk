@@ -96,6 +96,10 @@ public class CheckoutView extends JPanel {
     				JOptionPane.showMessageDialog(null, "Please enter a valid credit card number",
     			               "Joe's Kiosk", JOptionPane.ERROR_MESSAGE);
     			}
+    			else if (checkCVV() == false) {
+    				JOptionPane.showMessageDialog(null, "Please make sure that the CVV code is valid",
+    						"Joe's Kiosk", JOptionPane.ERROR_MESSAGE);
+    			}
     			else if (checkDate() == false) {
     				JOptionPane.showMessageDialog(null, "Please make sure that the date is valid and in the future",
     						"Joe's Kiosk", JOptionPane.ERROR_MESSAGE);
@@ -155,6 +159,19 @@ public class CheckoutView extends JPanel {
 	        }
 		}
 
+	}
+	
+	private boolean checkCVV() {
+		String CVV = CVVField.getText();
+		if (CVV == null || CVV.length() != 3) {
+			return false;
+		}
+		for (int k = 0; k < 3; k++) {
+			if (!Character.isDigit(CVV.charAt(k))) {
+				return false;
+			}
+		}
+		return true;
 	}
 	
 	private boolean checkDate() {

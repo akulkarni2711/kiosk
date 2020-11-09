@@ -133,5 +133,9 @@ public class LoginView extends JPanel {
 		this.add(guestButton);
 	}
 	
+	public void updateCard() {
+		init();
+	}
+	
 
 }

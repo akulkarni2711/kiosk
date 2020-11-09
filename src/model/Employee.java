@@ -2,7 +2,7 @@ package model;
 
 public class Employee {
 	
-	public static long employeeCounter = 0;
+	public static long employeeCounter = 1;
 	private String firstName;
 	private String lastName;
 	private String emailAddress;

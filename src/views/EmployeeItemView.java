@@ -140,7 +140,7 @@ public class EmployeeItemView extends ItemView {
 			public void actionPerformed(ActionEvent e) {
 				newDescription = JOptionPane.showInputDialog("New description for this item: ");
 				if (newDescription != null && newDescription.length() != 0) {
-					manager.changeItemName(newName, item);
+					manager.changeItemDescription(newDescription, item);
 				} else {
 					JOptionPane.showMessageDialog(null,  "Please enter a valid description",
 							 "Joe's Kiosk", JOptionPane.ERROR_MESSAGE);

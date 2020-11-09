@@ -72,7 +72,7 @@ public class Item {
 	}
 	
 	public void setName(String newName) {
-		if (newName.length() != 0) {
+		if (newName != null && newName.length() != 0) {
 			this.name = newName;
 		} else {
 			JOptionPane.showMessageDialog(null, "Please enter a valid name",
@@ -82,7 +82,7 @@ public class Item {
 	
 	
 	public void setDescription(String newDescription) {
-		if (newDescription.length() != 0) {
+		if (newDescription != null && newDescription.length() != 0) {
 			this.description = newDescription;
 		} else {
 			JOptionPane.showMessageDialog(null, "Please enter a valid description",

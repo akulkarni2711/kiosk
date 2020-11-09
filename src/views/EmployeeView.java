@@ -136,13 +136,13 @@ public class EmployeeView extends JPanel {
 									JOptionPane.ERROR_MESSAGE);
 						}
 
-					} while (newPhoneValue == null && newPhoneValue < 0 && newPhone.length() == 10);
+					} while (newPhoneValue == null || newPhoneValue < 0 || newPhone.length() != 10);
 
 					// pin
 					do {
 						newPin = JOptionPane.showInputDialog("Please enter a 4-digit numeric-only pin: ");
 						try {
-							newPinValue = Integer.valueOf(newPinValue);
+							newPinValue = Integer.valueOf(newPin);
 						} catch (NumberFormatException b) {
 							JOptionPane.showMessageDialog(null,  "Please enter a valid numeric-only pin",
 									"Joe's Kiosk", JOptionPane.ERROR_MESSAGE);
@@ -152,8 +152,8 @@ public class EmployeeView extends JPanel {
 					manager.addNewEmployee(newFirstName, newLastName, newEmail, newPhoneValue, newPinValue);
 					
 					manager.logOut();
-					manager.employeeLogin(Employee.employeeCounter, newPinValue);
-					JOptionPane.showMessageDialog(null, "Employee succesfully added. ID: " + employee.getAccount() + ", Pin: " + employee.getPin() , "Joe's Kiosk",
+					manager.employeeLogin(Employee.employeeCounter-1, newPinValue);
+					JOptionPane.showMessageDialog(null, "Employee succesfully added. ID: " + employee.getAccount() + ", Pin: " + newPinValue , "Joe's Kiosk",
 							JOptionPane.INFORMATION_MESSAGE);
 
 				}
@@ -283,11 +283,12 @@ public class EmployeeView extends JPanel {
 			changePinButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					newPin = JOptionPane.showInputDialog("New pin for this employee: (Pin must be 4 digits) ");
+					newPinValue = 0;
 					try {
 						newPinValue = Integer.valueOf(newPin);
 					} catch (NumberFormatException h) {
-						JOptionPane.showMessageDialog(null, "Please enter a valid pin", "Joe's Kiosk",
-								JOptionPane.ERROR_MESSAGE);
+						//JOptionPane.showMessageDialog(null, "Please enter a valid pin", "Joe's Kiosk",
+							//	JOptionPane.ERROR_MESSAGE);
 					}
 					if (newPin != null && newPinValue > 0 && newPin.length() == 4) {
 						manager.changeEmployeePin(newPinValue, employee);

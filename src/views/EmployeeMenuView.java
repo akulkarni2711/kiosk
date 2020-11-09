@@ -1,4 +1,5 @@
 package views;
+
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
@@ -14,6 +15,11 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 
 import GUI.Kiosk;
@@ -22,29 +28,52 @@ import model.Item;
 import model.Menu;
 
 @SuppressWarnings("serial")
-public class EmployeeMenuView extends MenuView {
+public class EmployeeMenuView extends JPanel {
 
+	private ViewManager manager;
+	private JButton orderButton;
+	private JLabel totalCost;
+	private JScrollBar scrollBar;
+	private JButton logoutButton;
+	private JButton cartButton;
+	private JTable itemMenu;
+	private Menu m;
+	private Object[][] data;
+	private JLabel itemLabel;
+	private JPanel menuItemPanel;
+	private JScrollPane menuPane;
 	private JButton addItemButton;
-	private JFileChooser chooser;
-	private Image image;
-	private Item item;
+	private JButton backButton;
 	private String newName;
 	private String newPrice;
 	private String newDescription;
-	private JButton backButton;
+	private JFileChooser chooser;
+	private Image image;
 
 	public EmployeeMenuView(ViewManager manager) {
-		super(manager);
-		initAddItemButton();
+		super();
 		this.manager = manager;
 		m = Menu.getInstance();
-		this.item = manager.getActiveItem();
-		cartButton.setEnabled(false);
-		cartButton.setVisible(false);
-		initBackButton();
+		init();
 	}
 
-	protected void initTitle() {
+	private void init() {
+		this.removeAll();
+		this.setLayout(null);
+
+		initTitle();
+		initBackButton();
+		initMenuList();
+		initLogoutButton();
+		initAddItemButton();
+		initScrollBar();
+	}
+
+	public void updateCard() {
+		init();
+	}
+
+	private void initTitle() {
 		JLabel title = new JLabel("Menu(Employee)", SwingConstants.CENTER);
 		title.setBounds(160, 40, 500, 35);
 		title.setFont(new Font("DialogInput", Font.BOLD, 21));
@@ -53,7 +82,7 @@ public class EmployeeMenuView extends MenuView {
 	}
 
 	@SuppressWarnings("rawtypes")
-	protected void initMenuTable() {
+	private void initMenuTable() {
 		HashMap<Integer, Item> h = m.getHashMap();
 
 		Item i = null;
@@ -110,7 +139,7 @@ public class EmployeeMenuView extends MenuView {
 								JOptionPane.ERROR_MESSAGE);
 					}
 
-				} while (newPriceValue == null && newPriceValue < 0);
+				} while (newPriceValue == null || newPriceValue < 0);
 
 				// description
 				do {
@@ -138,23 +167,54 @@ public class EmployeeMenuView extends MenuView {
 		});
 		this.add(addItemButton);
 	}
-	
-	protected void initLogoutButton() {
-		super.initLogoutButton();
-		logoutButton.setBounds(100,490,100,50);
+
+	private void initLogoutButton() {
+		logoutButton = new JButton("Logout");
+		logoutButton.setBounds(100, 490, 175, 50);
+		logoutButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				manager.logOut();
+			}
+		});
 		this.add(logoutButton);
 	}
-	
-	 private void initBackButton() {
-		 backButton = new JButton("Back");
-	     backButton.addActionListener(new ActionListener() {
-	        public void actionPerformed(ActionEvent e) {
-	        	manager.switchTo(Kiosk.EMPLOYEE_VIEW);
-	        	}
-	        });
-	    backButton.setBounds(350,490,100,50);
-	    this.add(backButton);
-	    	
-	    }
+
+	private void initBackButton() {
+		backButton = new JButton("Back");
+		backButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				manager.switchTo(Kiosk.EMPLOYEE_VIEW);
+			}
+		});
+		backButton.setBounds(400, 490, 100, 50);
+		this.add(backButton);
+
+	}
+
+	private void initScrollBar() {
+		scrollBar = new JScrollBar();
+		this.add(scrollBar);
+	}
+
+	private void initMenuList() {
+
+		menuItemPanel = new JPanel();
+		menuItemPanel.setLayout(null);
+		menuItemPanel.setBounds(0, 80, 600, 600);
+
+		menuPane = new JScrollPane(menuItemPanel);
+		menuPane.setBounds(100, 80, 600, 400);
+
+		menuPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		menuPane.getVerticalScrollBar().setPreferredSize(new Dimension(15, Integer.MAX_VALUE));
+		menuPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+		if (m.getHashMap() != null) {
+			initMenuTable();
+		}
+
+		this.add(menuPane);
+
+	}
 
 }

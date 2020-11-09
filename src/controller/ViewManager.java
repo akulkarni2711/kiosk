@@ -99,8 +99,14 @@ public class ViewManager {
 	}
 	
 	public void goToCart() {
-		((CartView) views.getComponents()[Kiosk.CART_VIEW_INDEX]).updateCard();
-		switchTo(Kiosk.CART_VIEW);
+		if (Cart.totalCost <= 0) {
+			JOptionPane.showMessageDialog(null, "You can go to an empty cart",
+					"Joe's Kiosk", JOptionPane.ERROR_MESSAGE);
+		} else {
+			((CartView) views.getComponents()[Kiosk.CART_VIEW_INDEX]).updateCard();
+			switchTo(Kiosk.CART_VIEW);
+		}
+
 	}
 	
 	public void goToCheckout() {
@@ -255,15 +261,18 @@ public class ViewManager {
 	public void addNewItem(String name, double price, String description, String picturePath) {
 		
 		m.addMenuItem(new Item(name, price, description, picturePath, ""));
-		((MenuView) views.getComponents()[Kiosk.MENU_VIEW_INDEX]).removeAll();
+		
+    	((MenuView) views.getComponents()[Kiosk.MENU_VIEW_INDEX]).removeAll();
         ((MenuView) views.getComponents()[Kiosk.MENU_VIEW_INDEX]).updateCard();
         ((MenuView) views.getComponents()[Kiosk.MENU_VIEW_INDEX]).revalidate();
         ((MenuView) views.getComponents()[Kiosk.MENU_VIEW_INDEX]).repaint();
-        
+		
         ((EmployeeMenuView) views.getComponents()[Kiosk.EMPLOYEE_MENU_VIEW_INDEX]).removeAll();
         ((EmployeeMenuView) views.getComponents()[Kiosk.EMPLOYEE_MENU_VIEW_INDEX]).updateCard();
         ((EmployeeMenuView) views.getComponents()[Kiosk.EMPLOYEE_MENU_VIEW_INDEX]).revalidate();
         ((EmployeeMenuView) views.getComponents()[Kiosk.EMPLOYEE_MENU_VIEW_INDEX]).repaint();
+        
+        switchTo(Kiosk.EMPLOYEE_MENU_VIEW);
 	}
 	
 	public void addNewEmployee(String fName, String lName, String email, Long phone, int pin) {
@@ -271,7 +280,14 @@ public class ViewManager {
 	}
 	
 	public void removeEmployee(Employee employee) {
-		Kiosk.employees.remove(employee);
+		if (Kiosk.employees.size() <= 1) {
+			JOptionPane.showMessageDialog(null, "You can not remove the last employee",
+					"Joe's Kiosk", JOptionPane.ERROR_MESSAGE);
+		} else {
+			Kiosk.employees.remove(employee);
+			((LoginView) views.getComponents()[Kiosk.LOGIN_VIEW_INDEX]).updateCard();
+			switchTo(Kiosk.LOGIN_VIEW);
+		}
 	}
 	
 	public BufferedImage resizeImage(final Image image) {
