@@ -1,1 +1,0 @@
-when you add an invalid price, code doesnt work
